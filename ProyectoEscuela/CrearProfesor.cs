@@ -27,24 +27,32 @@ namespace ProyectoEscuela
 
         public void guardar()
         {
-            try {
+            try
+            {
                 profesor p = new profesor();
                 if (!VerificacionDeDatosLogicos()) return;
-                if (verificarExistencia()==false)
+                if (verificarExistencia() == false)
                 {
-                    p.Nombre=txt_nombre.Text;
-                    p.Apellido=txt_apellido.Text;
+                    string cargo = "";
+                    p.Nombre = txt_nombre.Text;
+                    p.Apellido = txt_apellido.Text;
                     p.Dni = txt_dni.Text;
-                    p.FechaNacimiento=txt_fechaNacimiento.Value;
-                    p.Domicilio=txt_domicilio.Text;
-                    p.Telefono=txt_telefono.Text;   
-                    p.Email=txt_email.Text;
-                    p.division=txt_division.Text;
-                    p.Curso=txt_curso.Text;
-                    p.contraseña=txt_contraseña.Text;
+                    p.FechaNacimiento = txt_fechaNacimiento.Value;
+                    p.Domicilio = txt_domicilio.Text;
+                    p.Telefono = txt_telefono.Text;
+                    p.Email = txt_email.Text;
+                    p.contraseña = txt_contraseña.Text;
+                    if (caja.Checked == true)
+                    {
+                        cargo = "preceptor";
+                    }
+                    else
+                    {
+                        cargo = "profesor";
+                    }
                     DialogResult res = MessageBox.Show("¿Confirma guardar?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                    if (res == DialogResult.No) { return; } 
-                    int idEmp = NegocioProfesor.insertar(p);
+                    if (res == DialogResult.No) { return; }
+                    int idEmp = NegocioProfesor.insertar(p, cargo);
                     MessageBox.Show("Se generó el profesor con el dni:" + p.Dni);
                     limpiarControles();
                 }
@@ -52,9 +60,9 @@ namespace ProyectoEscuela
                 {
                     MessageBox.Show("No se puede generar el docente porque ya existe registrado el deni " + txt_dni.Text);
                 }
-            
-            } 
-            
+
+            }
+
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -99,16 +107,7 @@ namespace ProyectoEscuela
                 MessageBox.Show("El nombre está mal ingresado o no se ingresó");
                 return false;
             }
-            else if (txt_curso.Text == "")
-            {
-                MessageBox.Show("El curso está mal ingresado o no se ingresó");
-                return false;
-            }
-            else if (txt_division.Text == "")
-            {
-                MessageBox.Show("La division está mal ingresado o no se ingresó");
-                return false;
-            } else 
+            else
                 if (txt_telefono.Text=="")
             {
                 MessageBox.Show("El teléfono está mal ingresado o no se ingresó");
@@ -132,10 +131,70 @@ namespace ProyectoEscuela
             txt_domicilio.Text = string.Empty;
             txt_telefono.Text = string.Empty;
             txt_email.Text = string.Empty;
-            txt_division.Text= string.Empty;
-            txt_curso.Text = string.Empty;
+            
             txt_dni.Text = string.Empty;
 
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string dni = txt_dni.Text;
+            profesor pro = new profesor();
+            pro = NegocioProfesor.getProfesor(dni);
+            if (pro.Dni != null)
+            {
+                txt_nombre.Text = pro.Nombre;
+                txt_apellido.Text = pro.Apellido;
+                txt_dni.Text = pro.Dni;
+                txt_domicilio.Text = pro.Domicilio;
+                txt_telefono.Text = pro.Telefono;
+                if (pro.FechaNacimiento != DateTime.MinValue)
+                {
+                    txt_fechaNacimiento.Text = pro.FechaNacimiento.ToString();
+                }
+                else
+                {
+
+
+                }
+
+                txt_email.Text = pro.Email;
+            }
+            else
+            {
+                MessageBox.Show("No existe tal profesor. ");
+            }
+
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            profesor p = new profesor();
+            p.Nombre = txt_nombre.Text;
+            p.Apellido = txt_apellido.Text;
+            p.Dni = txt_dni.Text;
+            p.FechaNacimiento = txt_fechaNacimiento.Value;
+            p.Domicilio = txt_domicilio.Text;
+            p.Telefono = txt_telefono.Text;
+            p.Email = txt_email.Text;
+            p.contraseña = txt_contraseña.Text;
+            DialogResult res = MessageBox.Show("¿Confirma modificar?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (res == DialogResult.No) { return; }
+            int idEmp = NegocioProfesor.modificar(p);
+            MessageBox.Show("Se generó el modifico con el dni:" + p.Dni);
+            limpiarControles();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            DialogResult res = MessageBox.Show("¿Confirma eliminar?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (res == DialogResult.Yes)
+            {
+                NegocioProfesor.eliminar(txt_dni.Text);
+            }
+            MessageBox.Show("Profesor eliminado correctamente. ");
+            limpiarControles();
         }
     }
 

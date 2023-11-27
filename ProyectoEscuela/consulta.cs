@@ -112,15 +112,16 @@ namespace ProyectoEscuela
             {
                 envioDeInforme(dni.ToString());
             }
+
         }
 
-        private void envioDeInforme(string dni) 
+        private void envioDeInforme(string dni)
         {
             Comunicado c = new Comunicado();
-            c.ruta = @"C:\Users\nacho\Documentos\informes\"+dni+".pdf";
+            c.ruta = @"C:\Users\nacho\Documentos\informes\" + dni + ".pdf";
             c.error = "";
             StringBuilder mensajeBuilder = new StringBuilder();
-            mensajeBuilder.Append("Se adjunta informe oficial correspondiente del alumno con dni de: "+dni);
+            mensajeBuilder.Append("Se adjunta informe oficial correspondiente del alumno con dni de: " + dni);
             c.de = "nachotizii988@gmail.com";
             c.para = Negocio.NegocioAlumnos.getgmail(dni);
             c.asunto = "Informe oficial";

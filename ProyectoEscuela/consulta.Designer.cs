@@ -58,7 +58,7 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.groupBox1.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.groupBox1.Controls.Add(this.button1);
             this.groupBox1.Controls.Add(this.txtDni);
             this.groupBox1.Controls.Add(this.label3);
@@ -67,9 +67,9 @@
             this.groupBox1.Controls.Add(this.txtCurso);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(23, 24);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.groupBox1.Size = new System.Drawing.Size(510, 54);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
@@ -77,7 +77,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(427, 20);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(56, 19);
             this.button1.TabIndex = 6;
@@ -88,7 +88,7 @@
             // txtDni
             // 
             this.txtDni.Location = new System.Drawing.Point(320, 23);
-            this.txtDni.Margin = new System.Windows.Forms.Padding(2);
+            this.txtDni.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtDni.Name = "txtDni";
             this.txtDni.Size = new System.Drawing.Size(76, 20);
             this.txtDni.TabIndex = 5;
@@ -106,7 +106,7 @@
             // txtDivision
             // 
             this.txtDivision.Location = new System.Drawing.Point(193, 20);
-            this.txtDivision.Margin = new System.Windows.Forms.Padding(2);
+            this.txtDivision.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtDivision.Name = "txtDivision";
             this.txtDivision.Size = new System.Drawing.Size(76, 20);
             this.txtDivision.TabIndex = 3;
@@ -124,7 +124,7 @@
             // txtCurso
             // 
             this.txtCurso.Location = new System.Drawing.Point(44, 20);
-            this.txtCurso.Margin = new System.Windows.Forms.Padding(2);
+            this.txtCurso.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.txtCurso.Name = "txtCurso";
             this.txtCurso.Size = new System.Drawing.Size(76, 20);
             this.txtCurso.TabIndex = 1;
@@ -155,12 +155,12 @@
             this.division,
             this.cantidadFaltas});
             this.dataGridView1.DataSource = this.bindingSource1;
-            this.dataGridView1.Location = new System.Drawing.Point(23, 110);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2);
+            this.dataGridView1.Location = new System.Drawing.Point(8, 113);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
             this.dataGridView1.RowTemplate.Height = 24;
-            this.dataGridView1.Size = new System.Drawing.Size(926, 226);
+            this.dataGridView1.Size = new System.Drawing.Size(875, 226);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -176,55 +176,73 @@
             // 
             this.Nombre.DataPropertyName = "Nombre";
             this.Nombre.HeaderText = "Nombre";
+            this.Nombre.MinimumWidth = 8;
             this.Nombre.Name = "Nombre";
+            this.Nombre.Width = 150;
             // 
             // Apellido
             // 
             this.Apellido.DataPropertyName = "Apellido";
             this.Apellido.HeaderText = "Apellido";
+            this.Apellido.MinimumWidth = 8;
             this.Apellido.Name = "Apellido";
+            this.Apellido.Width = 150;
             // 
             // Dni
             // 
             this.Dni.DataPropertyName = "Dni";
             this.Dni.HeaderText = "Dni";
+            this.Dni.MinimumWidth = 8;
             this.Dni.Name = "Dni";
+            this.Dni.Width = 150;
             // 
             // FechaNacimiento
             // 
             this.FechaNacimiento.DataPropertyName = "FechaNacimiento";
             this.FechaNacimiento.HeaderText = "FechaNacimiento";
+            this.FechaNacimiento.MinimumWidth = 8;
             this.FechaNacimiento.Name = "FechaNacimiento";
+            this.FechaNacimiento.Width = 150;
             // 
             // Domicilio
             // 
             this.Domicilio.DataPropertyName = "Domicilio";
             this.Domicilio.HeaderText = "Domicilio";
+            this.Domicilio.MinimumWidth = 8;
             this.Domicilio.Name = "Domicilio";
+            this.Domicilio.Width = 150;
             // 
             // Email
             // 
             this.Email.DataPropertyName = "Email";
             this.Email.HeaderText = "Email";
+            this.Email.MinimumWidth = 8;
             this.Email.Name = "Email";
+            this.Email.Width = 150;
             // 
             // Curso
             // 
             this.Curso.DataPropertyName = "Curso";
             this.Curso.HeaderText = "Curso";
+            this.Curso.MinimumWidth = 8;
             this.Curso.Name = "Curso";
+            this.Curso.Width = 150;
             // 
             // division
             // 
             this.division.DataPropertyName = "division";
             this.division.HeaderText = "division";
+            this.division.MinimumWidth = 8;
             this.division.Name = "division";
+            this.division.Width = 150;
             // 
             // cantidadFaltas
             // 
             this.cantidadFaltas.DataPropertyName = "cantidadFaltas";
             this.cantidadFaltas.HeaderText = "cantidadFaltas";
+            this.cantidadFaltas.MinimumWidth = 8;
             this.cantidadFaltas.Name = "cantidadFaltas";
+            this.cantidadFaltas.Width = 150;
             // 
             // bindingSource1
             // 
@@ -251,12 +269,13 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(960, 384);
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.ClientSize = new System.Drawing.Size(913, 384);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.groupBox1);
-            this.Margin = new System.Windows.Forms.Padding(2);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "consulta";
             this.Text = "consulta";
             this.groupBox1.ResumeLayout(false);

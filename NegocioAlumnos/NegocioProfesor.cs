@@ -12,9 +12,9 @@ namespace NegocioAlumnos
 {
     public class NegocioProfesor
     {
-        public static int insertar(profesor p)
+        public static int insertar(profesor p, string cargo)
         {
-            return datosProfesores.insertar(p);
+            return datosProfesores.insertar(p, cargo);
         }
 
         public static int buscarDirectivo(string dni, string pass) {
@@ -57,6 +57,22 @@ namespace NegocioAlumnos
         public static string ConfigurarCursoProfesor(int idProfesor, string año, string division, string materia, string error)
         {
             return datosProfesores.ConfigurarCursoProfesor(idProfesor, año, division, materia, error);
+        }
+
+        public static int modificar(profesor p)
+        {
+
+            return datosProfesores.modificar(p);
+        }
+
+        public static void eliminar(string text)
+        {
+            datosProfesores.eliminar(text);
+        }
+
+        public static profesor getProfesor(string dni)
+        {
+            return datosProfesores.getProfesor(dni);
         }
     }
 }

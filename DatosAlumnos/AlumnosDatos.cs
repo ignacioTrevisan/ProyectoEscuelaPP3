@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using EntidadPermiso;
 using System.Data;
+using static System.Net.Mime.MediaTypeNames;
+using System.Net;
 
 namespace DatosAlumnos
 {
@@ -345,6 +347,69 @@ namespace DatosAlumnos
                 }
             }
             return gmail;
+        }
+
+        public static void eliminar(string dni)
+        {
+            int idAlumnoCreado = 1;
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(conString))
+            {
+                connection.Open();
+                SqlCommand cmd = new SqlCommand("eliminarAlumno", connection);
+
+                cmd.Parameters.AddWithValue("@dni", dni);
+                try
+                {
+                    connection.Open();
+                    idAlumnoCreado = Convert.ToInt32(cmd.ExecuteScalar());
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+        }
+
+        public static List<Faltas> verTodasFaltas()
+        {
+            List<Faltas> list = new List<Faltas>();
+
+
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["ConexionDB"].ConnectionString;
+            using (SqlConnection Connection = new SqlConnection(conString))
+            {
+                SqlCommand command = new SqlCommand("VerTodasLasAsitencias", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+
+                try
+                {
+                    Connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+
+                    while (reader.Read())
+                    {
+                        Faltas busqueda = new Faltas();
+                      
+                        busqueda.fecha = Convert.ToString(reader["fecha"]);
+                        busqueda.estado = Convert.ToString(reader["estado"]);
+                        busqueda.nombre = Convert.ToString(reader["nombre"]);
+                        busqueda.apellido = Convert.ToString(reader["apellido"]);
+                        list.Add(busqueda);
+
+                    }
+
+                    reader.Close();
+
+
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+            }
+            return list;
         }
     }
 }

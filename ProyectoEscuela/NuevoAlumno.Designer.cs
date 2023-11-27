@@ -49,6 +49,7 @@
             this.txt_fechaNacimiento = new System.Windows.Forms.DateTimePicker();
             this.button1 = new System.Windows.Forms.Button();
             this.btn_buscarAlumno = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // txt_nombre
@@ -190,7 +191,7 @@
             // 
             // btn_confirmarRegistroAlumno
             // 
-            this.btn_confirmarRegistroAlumno.Location = new System.Drawing.Point(473, 331);
+            this.btn_confirmarRegistroAlumno.Location = new System.Drawing.Point(282, 282);
             this.btn_confirmarRegistroAlumno.Name = "btn_confirmarRegistroAlumno";
             this.btn_confirmarRegistroAlumno.Size = new System.Drawing.Size(113, 23);
             this.btn_confirmarRegistroAlumno.TabIndex = 18;
@@ -207,7 +208,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(619, 331);
+            this.button1.Location = new System.Drawing.Point(401, 280);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(136, 23);
             this.button1.TabIndex = 21;
@@ -217,7 +218,7 @@
             // 
             // btn_buscarAlumno
             // 
-            this.btn_buscarAlumno.Location = new System.Drawing.Point(251, 26);
+            this.btn_buscarAlumno.Location = new System.Drawing.Point(252, 25);
             this.btn_buscarAlumno.Name = "btn_buscarAlumno";
             this.btn_buscarAlumno.Size = new System.Drawing.Size(75, 23);
             this.btn_buscarAlumno.TabIndex = 22;
@@ -225,11 +226,24 @@
             this.btn_buscarAlumno.UseVisualStyleBackColor = true;
             this.btn_buscarAlumno.Click += new System.EventHandler(this.btn_buscarAlumno_Click);
             // 
+            // button2
+            // 
+            this.button2.BackColor = System.Drawing.Color.LightGray;
+            this.button2.Location = new System.Drawing.Point(401, 245);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(136, 23);
+            this.button2.TabIndex = 23;
+            this.button2.Text = "Eliminar alumno";
+            this.button2.UseVisualStyleBackColor = false;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // NuevoAlumno
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.ClientSize = new System.Drawing.Size(628, 328);
+            this.Controls.Add(this.button2);
             this.Controls.Add(this.btn_buscarAlumno);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.txt_fechaNacimiento);
@@ -252,7 +266,8 @@
             this.Controls.Add(this.txt_apellido);
             this.Controls.Add(this.txt_nombre);
             this.Name = "NuevoAlumno";
-            this.Text = "NuevoAlumno";
+            this.Text = "NuevoAlumno                                                               Asociac" +
+    "ion Integral Vuriloche";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -281,5 +296,6 @@
         private System.Windows.Forms.DateTimePicker txt_fechaNacimiento;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btn_buscarAlumno;
+        private System.Windows.Forms.Button button2;
     }
 }

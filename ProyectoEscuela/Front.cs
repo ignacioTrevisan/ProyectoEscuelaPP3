@@ -38,7 +38,7 @@ namespace ProyectoEscuela
 
         private void btn_nuevoAlumno_Click(object sender, EventArgs e)
         {
-            if ( cargo == "Director")
+            if ( cargo == "Director" || cargo == "preceptor")
             {
                 NuevoAlumno formulario = new NuevoAlumno();
                 formulario.ShowDialog();
@@ -51,22 +51,14 @@ namespace ProyectoEscuela
 
         private void btn_asistencias_Click(object sender, EventArgs e)
         {
-            if (cargo == "profesor" || cargo == "preceptor")
-            {
                 TomarAsistencia formulario = new TomarAsistencia();
                 formulario.ShowDialog();
-            }
-            else 
-            {
-                MessageBox.Show("No posee permisos para acceder a este area ");
-            }
-            
         }
 
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (cargo == "Director")
+            if (cargo == "Director" || cargo == "preceptor")
             {
                 consulta f = new consulta();
                 f.ShowDialog();
@@ -84,8 +76,11 @@ namespace ProyectoEscuela
 
         private void button3_Click(object sender, EventArgs e)
         {
-            RegistrarNota formulario = new RegistrarNota();
-            formulario.ShowDialog();
+            if (cargo == "profesor" || cargo == "preceptor")
+            {
+                RegistrarNota formulario = new RegistrarNota();
+                formulario.ShowDialog();
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -136,21 +131,8 @@ namespace ProyectoEscuela
 
         private void button5_Click(object sender, EventArgs e)
         {
-            comunicado formulario = new comunicado();
-            formulario.ShowDialog();
-        }
-
-        private void button6_Click(object sender, EventArgs e)
-        {
-            if (GlobalVariables.cargo == "Director")
-            {
-                Form1 cursoProfesor = new Form1();
-                cursoProfesor.ShowDialog();
-            }
-            else 
-            {
-                MessageBox.Show("No puedes acceder a este area");
-            }
+            comunicado c = new comunicado();
+            c.ShowDialog();
         }
     }
 }

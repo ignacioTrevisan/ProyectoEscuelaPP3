@@ -120,6 +120,16 @@ namespace Negocio
         {
             return AlumnosDatos.getgmail(text);
         }
+
+        public static void eliminar(string dni)
+        {
+            AlumnosDatos.eliminar(dni);
+        }
+
+        public static List<Faltas> BuscarTodasFaltas()
+        {
+            return AlumnosDatos.verTodasFaltas();
+        }
     }
    
 }

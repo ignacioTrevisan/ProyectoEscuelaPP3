@@ -227,5 +227,11 @@ namespace ProyectoEscuela
             }
             
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string dni = txt_dni.Text;
+            Negocio.NegocioAlumnos.eliminar(dni);
+        }
     }
 }

@@ -23,35 +23,27 @@ namespace ProyectoEscuela
         int i = 0;
         public int al = 0;
         public List<Nota> lista = new List<Nota>();
-        public List <Alumno> alumnos = new List<Alumno> ();
+        public List<Alumno> alumnos = new List<Alumno>();
         public TomarAsistencia()
         {
             InitializeComponent();
-            
+
             lista = GetCursos(GlobalVariables.id);
-           
-           
+
+
             i = 0;
             int o = 1;
             if (GlobalVariables.cargo != "preceptor")
             {
-                while (i < lista.Count)
-                {
+                // Utiliza LINQ para encontrar los elementos duplicados
+                var duplicados = lista.GroupBy(item => new { item.Curso, item.Division })
+                                     .Where(grp => grp.Count() > 1)
+                                     .SelectMany(grp => grp.Skip(1));
 
-                    o = 0;
-                    while (o < lista.Count)
-                    {
-
-                        int tam = lista.Count;
-                        if (lista[i].Curso == lista[o].Curso && lista[i].Division == lista[o].Division)
-                        {
-                            lista.RemoveAt(o);
-                        }
-                        o++;
-                    }
-                    i++;
-                }
+                // Elimina los elementos duplicados de la lista
+                lista.RemoveAll(item => duplicados.Contains(item));
             }
+
             i = 0;
             while (i < lista.Count)
             {
@@ -60,25 +52,25 @@ namespace ProyectoEscuela
             }
         }
 
-       
+
         public static List<Nota> GetCursos(int id)
         {
             List<Nota> lista = new List<Nota>();
             if (GlobalVariables.cargo == "preceptor")
             {
                 lista = NegocioProfesor.GetPermisosPreceptor();
-                
+
             }
             else
             {
                 lista = NegocioProfesor.GetPermisos(id);
-               
+
             }
             int tam = lista.Count;
             int i = 0;
             return lista;
         }
-       
+
 
         private void btn_buscarAlumno_Click(object sender, EventArgs e)
         {
@@ -88,7 +80,7 @@ namespace ProyectoEscuela
             string division = lista[a].Division;
             buscar(dni, curso, division);
         }
-        public void buscar(string dni, string curso, string division) 
+        public void buscar(string dni, string curso, string division)
         {
             List<Alumno> a = new List<Alumno>();
             double dnis = Convert.ToInt64(textBox1.Text);
@@ -99,23 +91,23 @@ namespace ProyectoEscuela
                 label1.Text = a[0].Dni;
                 al = 0;
                 bool comprobar = false;
-                while (comprobar == false) 
+                while (comprobar == false)
                 {
                     if (alumnos[al].Dni != a[0].Dni)
                     {
                         al++;
                     }
-                    else 
+                    else
                     {
                         comprobar = true;
                     }
                 }
             }
-            else 
+            else
             {
                 MessageBox.Show("No se encuentra este alumno, ten en cuenta de seleccionar bien el curso ");
             }
-          
+
         }
         private Boolean verificarRegistro()
         {
@@ -147,7 +139,7 @@ namespace ProyectoEscuela
             string fecha = Convert.ToString(fechacompleta);
             string dni = label1.Text;
             registrarestado(estado, fecha, dni);
-            
+
         }
 
         private void registrarestado(string estado, string fecha, string dni)
@@ -165,7 +157,7 @@ namespace ProyectoEscuela
             DateTime fechacompleta = dateTimePicker1.Value.Date;
             string fecha = Convert.ToString(fechacompleta);
             registrarestado(estado, fecha, dni);
-            
+
         }
 
         public void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -175,7 +167,7 @@ namespace ProyectoEscuela
             string curso = lista[a].Curso;
             string division = lista[a].Division;
             alumnos = Negocio.NegocioAlumnos.Get(0, curso, division);
-            lbl_alumno.Text = alumnos[0].Nombre +" "+ alumnos[0].Apellido;
+            lbl_alumno.Text = alumnos[0].Nombre + " " + alumnos[0].Apellido;
             label1.Text = alumnos[0].Dni;
         }
 
@@ -187,7 +179,7 @@ namespace ProyectoEscuela
                 al++;
                 lbl_alumno.Text = alumnos[al].Nombre + " " + alumnos[al].Apellido;
                 label1.Text = alumnos[al].Dni;
-               
+
             }
         }
     }
