@@ -30,6 +30,14 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Hora = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fechaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.estadoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.recursoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dniProfesorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.comentarioDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
@@ -44,19 +52,11 @@
             this.textBox4 = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Hora = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fechaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.estadoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.recursoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dniProfesorDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.comentarioDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel1 = new System.Windows.Forms.Panel();
             this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -78,6 +78,53 @@
             this.dataGridView1.Size = new System.Drawing.Size(751, 261);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            // 
+            // Id
+            // 
+            this.Id.DataPropertyName = "id";
+            this.Id.HeaderText = "Id";
+            this.Id.Name = "Id";
+            // 
+            // Hora
+            // 
+            this.Hora.DataPropertyName = "Hora";
+            this.Hora.HeaderText = "Hora";
+            this.Hora.Name = "Hora";
+            // 
+            // fechaDataGridViewTextBoxColumn
+            // 
+            this.fechaDataGridViewTextBoxColumn.DataPropertyName = "fecha";
+            this.fechaDataGridViewTextBoxColumn.HeaderText = "fecha";
+            this.fechaDataGridViewTextBoxColumn.Name = "fechaDataGridViewTextBoxColumn";
+            // 
+            // estadoDataGridViewTextBoxColumn
+            // 
+            this.estadoDataGridViewTextBoxColumn.DataPropertyName = "estado";
+            this.estadoDataGridViewTextBoxColumn.HeaderText = "estado";
+            this.estadoDataGridViewTextBoxColumn.Name = "estadoDataGridViewTextBoxColumn";
+            // 
+            // recursoDataGridViewTextBoxColumn
+            // 
+            this.recursoDataGridViewTextBoxColumn.DataPropertyName = "recurso";
+            this.recursoDataGridViewTextBoxColumn.HeaderText = "recurso";
+            this.recursoDataGridViewTextBoxColumn.Name = "recursoDataGridViewTextBoxColumn";
+            // 
+            // dniProfesorDataGridViewTextBoxColumn
+            // 
+            this.dniProfesorDataGridViewTextBoxColumn.DataPropertyName = "dniProfesor";
+            this.dniProfesorDataGridViewTextBoxColumn.HeaderText = "dniProfesor";
+            this.dniProfesorDataGridViewTextBoxColumn.Name = "dniProfesorDataGridViewTextBoxColumn";
+            // 
+            // comentarioDataGridViewTextBoxColumn
+            // 
+            this.comentarioDataGridViewTextBoxColumn.DataPropertyName = "comentario";
+            this.comentarioDataGridViewTextBoxColumn.HeaderText = "comentario";
+            this.comentarioDataGridViewTextBoxColumn.Name = "comentarioDataGridViewTextBoxColumn";
+            // 
+            // bindingSource1
+            // 
+            this.bindingSource1.DataSource = typeof(EntidadRecursosSalas.ReservasRecursosSalas);
+            this.bindingSource1.CurrentChanged += new System.EventHandler(this.bindingSource1_CurrentChanged);
             // 
             // dateTimePicker1
             // 
@@ -197,53 +244,6 @@
             this.numericUpDown1.Size = new System.Drawing.Size(120, 20);
             this.numericUpDown1.TabIndex = 20;
             // 
-            // bindingSource1
-            // 
-            this.bindingSource1.DataSource = typeof(EntidadRecursosSalas.ReservasRecursosSalas);
-            this.bindingSource1.CurrentChanged += new System.EventHandler(this.bindingSource1_CurrentChanged);
-            // 
-            // Id
-            // 
-            this.Id.DataPropertyName = "id";
-            this.Id.HeaderText = "Id";
-            this.Id.Name = "Id";
-            // 
-            // Hora
-            // 
-            this.Hora.DataPropertyName = "Hora";
-            this.Hora.HeaderText = "Hora";
-            this.Hora.Name = "Hora";
-            // 
-            // fechaDataGridViewTextBoxColumn
-            // 
-            this.fechaDataGridViewTextBoxColumn.DataPropertyName = "fecha";
-            this.fechaDataGridViewTextBoxColumn.HeaderText = "fecha";
-            this.fechaDataGridViewTextBoxColumn.Name = "fechaDataGridViewTextBoxColumn";
-            // 
-            // estadoDataGridViewTextBoxColumn
-            // 
-            this.estadoDataGridViewTextBoxColumn.DataPropertyName = "estado";
-            this.estadoDataGridViewTextBoxColumn.HeaderText = "estado";
-            this.estadoDataGridViewTextBoxColumn.Name = "estadoDataGridViewTextBoxColumn";
-            // 
-            // recursoDataGridViewTextBoxColumn
-            // 
-            this.recursoDataGridViewTextBoxColumn.DataPropertyName = "recurso";
-            this.recursoDataGridViewTextBoxColumn.HeaderText = "recurso";
-            this.recursoDataGridViewTextBoxColumn.Name = "recursoDataGridViewTextBoxColumn";
-            // 
-            // dniProfesorDataGridViewTextBoxColumn
-            // 
-            this.dniProfesorDataGridViewTextBoxColumn.DataPropertyName = "dniProfesor";
-            this.dniProfesorDataGridViewTextBoxColumn.HeaderText = "dniProfesor";
-            this.dniProfesorDataGridViewTextBoxColumn.Name = "dniProfesorDataGridViewTextBoxColumn";
-            // 
-            // comentarioDataGridViewTextBoxColumn
-            // 
-            this.comentarioDataGridViewTextBoxColumn.DataPropertyName = "comentario";
-            this.comentarioDataGridViewTextBoxColumn.HeaderText = "comentario";
-            this.comentarioDataGridViewTextBoxColumn.Name = "comentarioDataGridViewTextBoxColumn";
-            // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
@@ -266,7 +266,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(807, 122);
+            this.button3.Location = new System.Drawing.Point(807, 173);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(217, 49);
             this.button3.TabIndex = 22;
@@ -289,8 +289,8 @@
             this.Text = "RecursosSalas";
             this.Load += new System.EventHandler(this.RecursosSalas_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.ResumeLayout(false);

@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DatosAlumnos;
 using EntidadNota;
+using System.Security.Cryptography.X509Certificates;
 
 namespace NegocioAlumnos
 {
@@ -26,6 +27,21 @@ namespace NegocioAlumnos
             return datosProfesores.GetPermisos(id);
         }
 
+        public static List<Nota> GetPermisosPreceptor()
+        {
+            List<Nota> lista = new List<Nota>();
+            return datosProfesores.GetPermisosPreceptor();
+        }
 
+        public static List<profesor> GetProfesores()
+        {
+            
+            return datosProfesores.getProfesores();
+        }
+
+        public static void eliminarRelacionProfMat(int idProfesor, string materia, string curso, string division)
+        {
+            datosProfesores.eliminarRelacionProfMat();
+        }
     }
 }

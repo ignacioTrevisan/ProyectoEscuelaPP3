@@ -33,21 +33,24 @@ namespace ProyectoEscuela
            
             i = 0;
             int o = 1;
-            while (i < lista.Count) 
+            if (GlobalVariables.cargo != "preceptor")
             {
-               
-                o = 0;
-                while (o < lista.Count) 
+                while (i < lista.Count)
                 {
-                    
-                    int tam = lista.Count;
-                    if (lista[i].Curso == lista[o].Curso && lista[i].Division == lista[o].Division)
+
+                    o = 0;
+                    while (o < lista.Count)
                     {
-                        lista.RemoveAt(o);
+
+                        int tam = lista.Count;
+                        if (lista[i].Curso == lista[o].Curso && lista[i].Division == lista[o].Division)
+                        {
+                            lista.RemoveAt(o);
+                        }
+                        o++;
                     }
-                    o++;
+                    i++;
                 }
-                i++;
             }
             i = 0;
             while (i < lista.Count)
@@ -61,7 +64,16 @@ namespace ProyectoEscuela
         public static List<Nota> GetCursos(int id)
         {
             List<Nota> lista = new List<Nota>();
-            lista = NegocioProfesor.GetPermisos(id);
+            if (GlobalVariables.cargo == "preceptor")
+            {
+                lista = NegocioProfesor.GetPermisosPreceptor();
+                
+            }
+            else
+            {
+                lista = NegocioProfesor.GetPermisos(id);
+               
+            }
             int tam = lista.Count;
             int i = 0;
             return lista;
@@ -158,7 +170,8 @@ namespace ProyectoEscuela
 
         public void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int a = comboBox1.SelectedIndex;
+            int a = 0;
+            a = comboBox1.SelectedIndex;
             string curso = lista[a].Curso;
             string division = lista[a].Division;
             alumnos = Negocio.NegocioAlumnos.Get(0, curso, division);

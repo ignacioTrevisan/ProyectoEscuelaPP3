@@ -51,7 +51,7 @@ namespace ProyectoEscuela
 
         private void btn_asistencias_Click(object sender, EventArgs e)
         {
-            if (cargo == "profesor")
+            if (cargo == "profesor" || cargo == "preceptor")
             {
                 TomarAsistencia formulario = new TomarAsistencia();
                 formulario.ShowDialog();
@@ -138,6 +138,19 @@ namespace ProyectoEscuela
         {
             comunicado formulario = new comunicado();
             formulario.ShowDialog();
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            if (GlobalVariables.cargo == "Director")
+            {
+                Form1 cursoProfesor = new Form1();
+                cursoProfesor.ShowDialog();
+            }
+            else 
+            {
+                MessageBox.Show("No puedes acceder a este area");
+            }
         }
     }
 }

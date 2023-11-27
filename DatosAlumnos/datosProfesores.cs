@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -56,6 +57,56 @@ namespace DatosAlumnos
                 reader.Close();
                 con.Close();
                 return lista;
+            }
+        }
+
+        public static List<Nota> GetPermisosPreceptor()
+        {
+            List<Nota> lista = new List<Nota>();
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand("verificarPermisosPreceptor", con);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Nota n = new Nota();
+                    n.Curso = Convert.ToString(reader["año"]);
+                    n.Division = Convert.ToString(reader["division"]);
+                    lista.Add(n);
+                }
+                reader.Close();
+                con.Close();
+                return lista;
+            }
+        }
+
+        public static List<profesor> getProfesores()
+        {
+            List<profesor> profesores = new List<profesor>();
+            string query = "SELECT nombre, apellido, id FROM directivos WHERE cargo = 'profesor'";
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(conString))
+            {
+                connection.Open();
+                SqlCommand cmd = new SqlCommand(query, connection);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    profesor p = new profesor();
+                    p.Id = Convert.ToInt32(reader["id"]);
+                    p.Nombre = Convert.ToString(reader["nombre"]);
+                    p.Apellido = Convert.ToString(reader["apellido"]);
+                    profesores.Add(p);
+                }
+                reader.Close();
+                connection.Close();
+                return profesores;
+
             }
         }
 
