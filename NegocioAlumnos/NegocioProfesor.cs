@@ -41,7 +41,22 @@ namespace NegocioAlumnos
 
         public static void eliminarRelacionProfMat(int idProfesor, string materia, string curso, string division)
         {
-            datosProfesores.eliminarRelacionProfMat();
+            datosProfesores.eliminarRelacionProfMat(idProfesor, materia, curso, division);
+        }
+
+        public static List<string> getMaterias()
+        {
+            return datosProfesores.getMaterias();
+        }
+
+        public static List<Nota> GetCursos()
+        {
+            return datosProfesores.GetCursos();
+        }
+
+        public static string ConfigurarCursoProfesor(int idProfesor, string año, string division, string materia, string error)
+        {
+            return datosProfesores.ConfigurarCursoProfesor(idProfesor, año, division, materia, error);
         }
     }
 }

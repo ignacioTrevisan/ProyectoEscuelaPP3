@@ -56,7 +56,7 @@
             // 
             this.lbl_alumno.AutoSize = true;
             this.lbl_alumno.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.25F);
-            this.lbl_alumno.Location = new System.Drawing.Point(125, 89);
+            this.lbl_alumno.Location = new System.Drawing.Point(4, 89);
             this.lbl_alumno.Name = "lbl_alumno";
             this.lbl_alumno.Size = new System.Drawing.Size(343, 44);
             this.lbl_alumno.TabIndex = 1;
@@ -104,7 +104,7 @@
             // btn_ausente
             // 
             this.btn_ausente.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.btn_ausente.Location = new System.Drawing.Point(212, 225);
+            this.btn_ausente.Location = new System.Drawing.Point(133, 225);
             this.btn_ausente.Name = "btn_ausente";
             this.btn_ausente.Size = new System.Drawing.Size(111, 32);
             this.btn_ausente.TabIndex = 6;
@@ -142,6 +142,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.dateTimePicker1);

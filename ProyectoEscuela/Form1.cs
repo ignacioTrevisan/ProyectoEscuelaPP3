@@ -21,11 +21,15 @@ namespace ProyectoEscuela
         List<profesor> profesores = new List<profesor>();
         List<Nota> lista = new List<Nota>();
         int idProfesor = 0;
+        List<Nota> cursos = new List<Nota>();
+        List<string> materias = new List<string>();
         public Form1()
         {
 
             InitializeComponent();
             TraerProfesores();
+            getMaterias();
+            getCursos();
         }
 
         private void TraerProfesores()
@@ -79,6 +83,56 @@ namespace ProyectoEscuela
 
                     }
                 }
+
+            }
+            lista = NegocioProfesor.GetPermisos(idProfesor);
+            refreshGrid();
+        }
+        private void getMaterias() 
+        {
+            {
+                
+                materias = NegocioProfesor.getMaterias();
+                int i = 0;
+                while (i < materias.Count)
+                {
+                    comboBox2.Items.Add(materias[i]);
+                    i++;
+                }
+            }
+        }
+        private void getCursos() 
+        {
+           
+            cursos = NegocioProfesor.GetCursos();
+            int i = 0;
+            while (i < cursos.Count)
+            {
+                comboBox3.Items.Add("año: "+cursos[i].Curso +" division: "+ cursos[i].Division);
+                i++;
+            }
+        }
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            if (comboBox1.Text != "")
+            {
+                string error = "";
+                int a = comboBox1.SelectedIndex;
+                idProfesor = profesores[a].Id;
+                int es = comboBox3.SelectedIndex;
+                string año = cursos[es].Curso;
+                string division = cursos[es].Division;
+                int i = comboBox2.SelectedIndex;
+                string materia = materias[i];
+                error = NegocioProfesor.ConfigurarCursoProfesor(idProfesor, año, division, materia, error);
+                
+                    MessageBox.Show(error);
+                lista = NegocioProfesor.GetPermisos(idProfesor);
+                refreshGrid();
+            }
+            else 
+            {
+                MessageBox.Show("Debe seleccionar el profesor a asignar. ");
             }
         }
     }

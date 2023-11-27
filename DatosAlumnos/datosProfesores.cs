@@ -34,6 +34,107 @@ namespace DatosAlumnos
 
             
         }
+
+        public static string ConfigurarCursoProfesor(int idProfesor, string año, string division, string materia, string error)
+        {
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(conString))
+            {
+                SqlCommand command = new SqlCommand("ConfigurarCursoProfesor", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@IdProfesor", idProfesor);
+                command.Parameters.AddWithValue("@año", año);
+                command.Parameters.AddWithValue("@division", division);
+                command.Parameters.AddWithValue("@materia", materia);
+                try
+                {
+                    connection.Open();
+                    int idAlumnoCreado = Convert.ToInt32(command.ExecuteScalar());
+                    connection.Close(); 
+                    error = "Insercion exitosa. ";
+                    return error;
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                    error = ex.Message;
+                }
+
+            }
+        }
+
+        public static void eliminarRelacionProfMat(int idProfesor, string materia, string curso, string division)
+        {
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(conString))
+            {
+                SqlCommand command = new SqlCommand("EliminarRelacionProfMat", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@idProf", idProfesor);
+                command.Parameters.AddWithValue("@materia", materia);
+                command.Parameters.AddWithValue("@division", division);
+                command.Parameters.AddWithValue("@año", curso);
+                try
+                {
+                    connection.Open();
+                    int idAlumnoCreado = Convert.ToInt32(command.ExecuteScalar());
+                    connection.Close();
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+                
+            }
+        }
+
+        public static List<Nota> GetCursos()
+        {
+            List<Nota> lista = new List<Nota>();
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand("GetCursos", con);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Nota n = new Nota();
+                    n.Curso = Convert.ToString(reader["año"]);
+                    n.Division = Convert.ToString(reader["division"]);
+                    lista.Add(n);
+                }
+                reader.Close();
+                con.Close();
+                return lista;
+            }
+        }
+
+        public static List<string> getMaterias()
+        {
+            List <string> lista = new List<string>();
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand("GetMaterias", con);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                   
+                    string Materia = Convert.ToString(reader["Denominación"]);
+                    lista.Add(Materia);
+                }
+                reader.Close();
+                con.Close();
+                return lista;
+            }
+        }
+
         public static List<Nota> GetPermisos(int id)
         {
             List<Nota> lista = new List<Nota>();
