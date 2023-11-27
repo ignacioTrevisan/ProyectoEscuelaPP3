@@ -178,6 +178,9 @@
     <EmbeddedResource Include="CrearProfesor.resx">
       <DependentUpon>CrearProfesor.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="formularioPrueba.resx">
+      <DependentUpon>formularioPrueba.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="inicioSesion.resx">
       <DependentUpon>inicioSesion.cs</DependentUpon>
     </EmbeddedResource>
