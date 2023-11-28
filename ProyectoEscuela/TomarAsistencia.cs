@@ -75,11 +75,25 @@ namespace ProyectoEscuela
 
         private void btn_buscarAlumno_Click(object sender, EventArgs e)
         {
+            if (textBox1.Text != "")
+            {
+
+            
             string nombre = textBox1.Text;
             int a = comboBox1.SelectedIndex;
             string curso = lista[a].Curso;
             string division = lista[a].Division;
             buscar(nombre, curso, division);
+            }
+            else
+            {
+                int a = 0;
+                a = comboBox1.SelectedIndex;
+                string curso = lista[a].Curso;
+                string division = lista[a].Division;
+                alumnos = Negocio.NegocioAlumnos.Get(0, curso, division);
+                refreshgrid();
+            }
         }
         public void buscar(string nombre, string curso, string division)
         {
@@ -184,18 +198,19 @@ namespace ProyectoEscuela
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             
-            string Nombre = dataGridView1.SelectedRows[0].Cells[0].Value.ToString();
+           
+          /* string Nombre = dataGridView1.SelectedRows[0].Cells[0].Value.ToString();
             string Apellido = dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
             string Dni = dataGridView1.SelectedRows[0].Cells[2].Value.ToString();
-           /* DateTime FechaNacimiento = Convert.ToDateTime(dataGridView1.SelectedRows[0].Cells[3].Value);
-            string Email = dataGridView1.SelectedRows[0].Cells[4].Value.ToString();
-           string Domicilio = dataGridView1.SelectedRows[0].Cells[5].Value.ToString();
-           string Telefono = dataGridView1.SelectedRows[0].Cells[6].Value.ToString();
-            string Curso = dataGridView1.SelectedRows[0].Cells[7].Value.ToString(); ;
-         string division = dataGridView1.SelectedRows[0].Cells[8].Value.ToString();
-            int Id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[9].Value);
-            int cantidadFaltas = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[10].Value);
-           */
+             DateTime FechaNacimiento = Convert.ToDateTime(dataGridView1.SelectedRows[0].Cells[3].Value);
+              string Email = dataGridView1.SelectedRows[0].Cells[4].Value.ToString();
+             string Domicilio = dataGridView1.SelectedRows[0].Cells[5].Value.ToString();
+             string Telefono = dataGridView1.SelectedRows[0].Cells[6].Value.ToString();
+              string Curso = dataGridView1.SelectedRows[0].Cells[7].Value.ToString(); ;
+           string division = dataGridView1.SelectedRows[0].Cells[8].Value.ToString();
+              int Id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[9].Value);
+              int cantidadFaltas = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[10].Value);
+             */
 
             label1.Text = Dni;
             lbl_alumno.Text = Nombre + Apellido;
