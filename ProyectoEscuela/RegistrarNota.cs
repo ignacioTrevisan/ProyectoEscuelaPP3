@@ -228,5 +228,10 @@ namespace ProyectoEscuela
                 MessageBox.Show("Para registrar notas primero debe ingresar el curso, materia, alumno y su nota ");
             }
         }
+
+        private void RegistrarNota_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

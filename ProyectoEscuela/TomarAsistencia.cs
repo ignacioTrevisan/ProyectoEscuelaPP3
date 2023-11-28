@@ -15,6 +15,7 @@ using NegocioAlumnos;
 using EntidadNota;
 using static ProyectoEscuela.inicioSesion;
 using System.Reflection.Emit;
+using NotasAlumnos;
 
 namespace ProyectoEscuela
 {
@@ -197,23 +198,22 @@ namespace ProyectoEscuela
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
-            
-           
-          /* string Nombre = dataGridView1.SelectedRows[0].Cells[0].Value.ToString();
-            string Apellido = dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
-            string Dni = dataGridView1.SelectedRows[0].Cells[2].Value.ToString();
-             DateTime FechaNacimiento = Convert.ToDateTime(dataGridView1.SelectedRows[0].Cells[3].Value);
-              string Email = dataGridView1.SelectedRows[0].Cells[4].Value.ToString();
-             string Domicilio = dataGridView1.SelectedRows[0].Cells[5].Value.ToString();
-             string Telefono = dataGridView1.SelectedRows[0].Cells[6].Value.ToString();
-              string Curso = dataGridView1.SelectedRows[0].Cells[7].Value.ToString(); ;
-           string division = dataGridView1.SelectedRows[0].Cells[8].Value.ToString();
-              int Id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[9].Value);
-              int cantidadFaltas = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[10].Value);
-             */
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                DataGridViewCell cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                if (cell.Value != null)
+                {
+                    int j = cell.RowIndex;
+                        string Nombre = alumnos[j].Nombre;
+                        string Apellido = alumnos[j].Apellido;
+                    string Dni = alumnos[j].Dni;
+                    label1.Text = Dni;
+                    lbl_alumno.Text = Nombre + Apellido;
 
-            label1.Text = Dni;
-            lbl_alumno.Text = Nombre + Apellido;
+                }
+            }
+            
+            
         }
     }
 }
