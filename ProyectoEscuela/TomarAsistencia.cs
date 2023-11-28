@@ -26,6 +26,7 @@ namespace ProyectoEscuela
         public int al = 0;
         public List<Nota> lista = new List<Nota>();
         public List<Alumno> alumnos = new List<Alumno>();
+        public List<Alumno> asistencias = new List<Alumno>();
         public TomarAsistencia()
         {
             InitializeComponent();
@@ -187,6 +188,7 @@ namespace ProyectoEscuela
             string division = lista[a].Division;
 
             alumnos = Negocio.NegocioAlumnos.GetXCurso("", curso, division, GlobalVariables.ciclo);
+            asistencias = Negocio.NegocioAlumnos.TraerAsistenciasDeHoy(curso, division, dateTimePicker1.Value);
             refreshgrid();
            
         }
@@ -195,6 +197,8 @@ namespace ProyectoEscuela
         {
             bindingSource1.DataSource = null;
             bindingSource1.DataSource = alumnos;
+            bindingSource2.DataSource = null;
+            bindingSource2.DataSource = asistencias;
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)

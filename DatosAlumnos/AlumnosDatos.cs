@@ -466,6 +466,51 @@ namespace DatosAlumnos
             }
             return list;
         }
+
+        public static List<Alumno> TraerAsistenciasDeHoy(string curso, string division, DateTime dateTime)
+        {
+            List<Alumno> listas = new List<Alumno>();
+
+
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["ConexionDB"].ConnectionString;
+            using (SqlConnection Connection = new SqlConnection(conString))
+            {
+                SqlCommand command = new SqlCommand("VerAsistenciasDelDia", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@fecha", dateTime);
+                command.Parameters.AddWithValue("@año", curso);
+                command.Parameters.AddWithValue("@division", division);
+
+                try
+                {
+                    Connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    
+
+
+
+                    while (reader.Read())
+                    {
+                        Alumno busqueda = new Alumno();
+
+                        busqueda.Nombre = Convert.ToString(reader["nombre"]);
+                        busqueda.Apellido = Convert.ToString(reader["apellido"]);
+                        busqueda.estado = Convert.ToString(reader["estado"]);
+                        busqueda.Dni = Convert.ToString(reader["dni"]);
+                        listas.Add(busqueda);
+                    }
+
+                    reader.Close();
+
+
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+            }
+            return listas;
+        }
     }
 
 }

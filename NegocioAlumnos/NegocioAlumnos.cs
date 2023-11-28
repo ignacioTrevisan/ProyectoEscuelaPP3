@@ -136,6 +136,11 @@ namespace Negocio
         {
             return AlumnosDatos.verTodasFaltas();
         }
+
+        public static List<Alumno> TraerAsistenciasDeHoy(string curso, string division, DateTime value)
+        {
+            return AlumnosDatos.TraerAsistenciasDeHoy(curso, division, value);
+        }
     }
    
 }
