@@ -14,6 +14,7 @@ using static ProyectoEscuela.Front;
 using NegocioAlumnos;
 using EntidadNota;
 using static ProyectoEscuela.inicioSesion;
+using System.Reflection.Emit;
 
 namespace ProyectoEscuela
 {
@@ -74,34 +75,20 @@ namespace ProyectoEscuela
 
         private void btn_buscarAlumno_Click(object sender, EventArgs e)
         {
-            string dni = textBox1.Text;
+            string nombre = textBox1.Text;
             int a = comboBox1.SelectedIndex;
             string curso = lista[a].Curso;
             string division = lista[a].Division;
-            buscar(dni, curso, division);
+            buscar(nombre, curso, division);
         }
-        public void buscar(string dni, string curso, string division)
+        public void buscar(string nombre, string curso, string division)
         {
-            List<Alumno> a = new List<Alumno>();
-            double dnis = Convert.ToInt64(textBox1.Text);
-            a = Negocio.NegocioAlumnos.Get(dnis, curso, division);
-            if (a.Count > 0)
+            
+           
+            alumnos = Negocio.NegocioAlumnos.Get(nombre, curso, division);
+            if (alumnos.Count > 0)
             {
-                lbl_alumno.Text = a[0].Nombre + " " + a[0].Apellido;
-                label1.Text = a[0].Dni;
-                al = 0;
-                bool comprobar = false;
-                while (comprobar == false)
-                {
-                    if (alumnos[al].Dni != a[0].Dni)
-                    {
-                        al++;
-                    }
-                    else
-                    {
-                        comprobar = true;
-                    }
-                }
+                refreshgrid();
             }
             else
             {
@@ -109,6 +96,8 @@ namespace ProyectoEscuela
             }
 
         }
+        
+        /*
         private Boolean verificarRegistro()
         {
             string query = "SELECT COUNT(*) FROM asistencias WHERE DNI = @dni AND fecha = @fecha";
@@ -131,6 +120,8 @@ namespace ProyectoEscuela
                 }
             }
         }
+
+        */
 
         private void btn_prese_Click(object sender, EventArgs e)
         {
@@ -160,17 +151,6 @@ namespace ProyectoEscuela
 
         }
 
-        public void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            int a = 0;
-            a = comboBox1.SelectedIndex;
-            string curso = lista[a].Curso;
-            string division = lista[a].Division;
-            alumnos = Negocio.NegocioAlumnos.Get(0, curso, division);
-            lbl_alumno.Text = alumnos[0].Nombre + " " + alumnos[0].Apellido;
-            label1.Text = alumnos[0].Dni;
-        }
-
         private void btn_presente_Click(object sender, EventArgs e)
         {
             int cantidad = alumnos.Count();
@@ -181,6 +161,44 @@ namespace ProyectoEscuela
                 label1.Text = alumnos[al].Dni;
 
             }
+        }
+
+
+        public void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int a = 0;
+            a = comboBox1.SelectedIndex;
+            string curso = lista[a].Curso;
+            string division = lista[a].Division;
+            alumnos = Negocio.NegocioAlumnos.Get(0, curso, division);
+            refreshgrid();
+           
+        }
+
+        private void refreshgrid()
+        {
+            bindingSource1.DataSource = null;
+            bindingSource1.DataSource = alumnos;
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            
+            string Nombre = dataGridView1.SelectedRows[0].Cells[0].Value.ToString();
+            string Apellido = dataGridView1.SelectedRows[0].Cells[1].Value.ToString();
+            string Dni = dataGridView1.SelectedRows[0].Cells[2].Value.ToString();
+           /* DateTime FechaNacimiento = Convert.ToDateTime(dataGridView1.SelectedRows[0].Cells[3].Value);
+            string Email = dataGridView1.SelectedRows[0].Cells[4].Value.ToString();
+           string Domicilio = dataGridView1.SelectedRows[0].Cells[5].Value.ToString();
+           string Telefono = dataGridView1.SelectedRows[0].Cells[6].Value.ToString();
+            string Curso = dataGridView1.SelectedRows[0].Cells[7].Value.ToString(); ;
+         string division = dataGridView1.SelectedRows[0].Cells[8].Value.ToString();
+            int Id = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[9].Value);
+            int cantidadFaltas = Convert.ToInt32(dataGridView1.SelectedRows[0].Cells[10].Value);
+           */
+
+            label1.Text = Dni;
+            lbl_alumno.Text = Nombre + Apellido;
         }
     }
 }
