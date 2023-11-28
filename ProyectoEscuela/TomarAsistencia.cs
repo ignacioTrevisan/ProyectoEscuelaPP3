@@ -150,14 +150,14 @@ namespace ProyectoEscuela
             string estado = "presente";
             DateTime fechacompleta = dateTimePicker1.Value.Date;
             string fecha = Convert.ToString(fechacompleta);
-            float dni = float.Parse(label1.Text);
+            int dni = Convert.ToInt32(label1.Text);
             registrarestado(estado, fecha, dni);
 
         }
 
-        private void registrarestado(string estado, string fecha, float dni)
+        private void registrarestado(string estado, string fecha, int dni)
         {
-
+            MessageBox.Show(dni.ToString());
             Negocio.NegocioAlumnos.registrarEstado(estado, fecha, dni);
             MessageBox.Show(dni + " fue registrado como " + estado + " el dia " + fecha + " exitosamente");
 
@@ -166,9 +166,10 @@ namespace ProyectoEscuela
         private void btn_ausente_Click(object sender, EventArgs e)
         {
             string estado = "ausente";
-            float dni = float.Parse(label1.Text);
+            int dni = Convert.ToInt32(label1.Text);
             DateTime fechacompleta = dateTimePicker1.Value.Date;
             string fecha = Convert.ToString(fechacompleta);
+            
             registrarestado(estado, fecha, dni);
 
         }
