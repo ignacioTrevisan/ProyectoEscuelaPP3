@@ -129,8 +129,16 @@ namespace ProyectoEscuela
         private void button2_Click(object sender, EventArgs e)
         {
             int id = Convert.ToInt32(textBox4.Text);
-            int a = NegociosRecursosSalas.Eliminar(id);
-         
+            int a;
+            a = NegociosRecursosSalas.Eliminar(id, GlobalVariables.id, GlobalVariables.cargo);
+            if (a == 1)
+            {
+                MessageBox.Show("Reserva eliminada correctamente");
+            }
+            else 
+            {
+                MessageBox.Show("Solo el director y los preceptores pueden eliminar reservas hechas por otros profesores. ");
+            }
             dataGridView1.Rows.Clear();
             lista = NegociosRecursosSalas.GetReservas(lista);
             refreshgrid();

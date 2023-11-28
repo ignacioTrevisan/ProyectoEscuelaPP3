@@ -26,9 +26,9 @@ namespace NegocioAlumnos
             return lista = DatosRecursosSalas.GetRecursos();
         }
 
-        public static int Eliminar(int id)
+        public static int Eliminar(int id, int idProf, string cargo)
         {
-            int a = DatosRecursosSalas.Eliminar(id);
+            int a = DatosRecursosSalas.Eliminar(id, idProf, cargo);
             return a;
         }
     }

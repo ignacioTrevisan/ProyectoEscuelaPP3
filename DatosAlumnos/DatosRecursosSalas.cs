@@ -107,9 +107,9 @@ namespace datosRecursos
             }
         }
 
-        public static int Eliminar(int id)
+        public static int Eliminar(int id, int idProf, string cargo)
         {
-            
+            int resultado;
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(conString))
             {
@@ -117,16 +117,24 @@ namespace datosRecursos
                 SqlCommand command = new SqlCommand("deleteReserva", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@id", id);
+                command.Parameters.AddWithValue("@idProf", idProf);
+                command.Parameters.AddWithValue("@cargo", cargo);
+
+
                 try
                 {
-                    return Convert.ToInt32(command.ExecuteScalar()); 
+                    resultado = 1;
+                    resultado =Convert.ToInt32(command.ExecuteScalar());
+                   
                 }
                 catch (Exception)
                 {
-                    return 0;
+                    resultado = Convert.ToInt32(command.ExecuteScalar());
+                    resultado = 0;
                 }
 
             }
+            return resultado;
         }
     }
 }
