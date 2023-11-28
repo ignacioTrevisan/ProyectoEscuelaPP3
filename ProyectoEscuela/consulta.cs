@@ -31,7 +31,7 @@ namespace ProyectoEscuela
         public consulta()
         {
             InitializeComponent();
-            buscarAlumnos(0);
+            buscarAlumnos("0");
         }
 
      
@@ -58,7 +58,7 @@ namespace ProyectoEscuela
         }
 
         
-        private void buscarAlumnos(double dni)
+        private void buscarAlumnos(string nombre)
         {
            
             string curso = txtCurso.Text;
@@ -67,11 +67,11 @@ namespace ProyectoEscuela
 
             if (string.IsNullOrEmpty(curso) || string.IsNullOrEmpty(division))
             {
-                ListaAlumnos = Negocio.NegocioAlumnos.Get(dni);
+                ListaAlumnos = Negocio.NegocioAlumnos.Get(nombre, GlobalVariables.ciclo);
             }
             else
             {
-                ListaAlumnos = Negocio.NegocioAlumnos.Get(dni, curso, division);
+                ListaAlumnos = Negocio.NegocioAlumnos.Get(nombre, curso, division, GlobalVariables.ciclo);
             }
 
             refreshgrid();
@@ -87,24 +87,25 @@ namespace ProyectoEscuela
         {
             if (!string.IsNullOrEmpty(txtDni.Text))
             {
-                double dni = Convert.ToDouble(txtDni.Text);
-                buscarAlumnos(dni);
+                string nombre = txtDni.Text;
+                buscarAlumnos(nombre);
             }
             else
             {
-                double dni = 0;
-                buscarAlumnos(dni);
+                string nombre = "0";
+                buscarAlumnos(nombre);
             }
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            double dni = Convert.ToInt64(textBox1.Text);
-            alumnoInforme = Negocio.NegocioAlumnos.Get(dni);
-            string nombre = alumnoInforme[0].Nombre;
+            string nombre = textBox1.Text;
+            alumnoInforme = Negocio.NegocioAlumnos.Get(nombre, GlobalVariables.ciclo);
+            string nombree = alumnoInforme[0].Nombre;
             string apellido = alumnoInforme[0].Apellido;
             string curso = alumnoInforme[0].Curso;
             string division = alumnoInforme[0].division;
+            string dni = alumnoInforme[0].Dni;
             int cantidadDeFaltas = alumnoInforme[0].cantidadFaltas;
             GenerarInforme(nombre, apellido, dni.ToString(), curso, division, cantidadDeFaltas);
             DialogResult res = MessageBox.Show("¿Desea tambien enviar el informe del alumno: " + dni + " a su familia?", "Envio", MessageBoxButtons.YesNo, MessageBoxIcon.Question);

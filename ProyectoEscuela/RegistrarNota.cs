@@ -90,8 +90,8 @@ namespace ProyectoEscuela
             materia = lista[i].Materia;
             curso = lista[i].Curso;
             division = lista[i].Division;
-            double dni = 0;
-            return alumnos = Negocio.NegocioAlumnos.Get(dni, curso, division);
+            string dni = "0";
+            return alumnos = Negocio.NegocioAlumnos.Get(dni, curso, division, GlobalVariables.ciclo);
         }
 
 

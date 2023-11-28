@@ -100,19 +100,18 @@ namespace Negocio
             return AlumnosDatos.buscarinasistencias();
         }
 
-        public static List<Alumno> Get( double dni)
+        public static List<Alumno> Get( string nombre, int ciclo)
         {
-            return AlumnosDatos.Get(dni);
+            return AlumnosDatos.Get(nombre, ciclo);
         }
 
-        public static List<Alumno> Get(double dni, string curso, string division)
+        public static List<Alumno> Get(string nombre, string curso, string division, int ciclo)
         {
-            return AlumnosDatos.Get( dni, curso, division);
+            return AlumnosDatos.Get( nombre, curso, division, ciclo);
         }
-
-        public static List<Alumno> Get(string nombre, string curso, string division)
+        public static List<Alumno> GetXCurso(string nombre, string curso, string division, int ciclo)
         {
-            return AlumnosDatos.Get(nombre, curso, division);
+            return AlumnosDatos.GetXCurso(nombre, curso, division, ciclo);
         }
 
         public static List<Faltas> BuscarFaltas(string dni)

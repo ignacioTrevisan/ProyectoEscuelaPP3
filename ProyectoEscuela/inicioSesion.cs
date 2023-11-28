@@ -22,6 +22,7 @@ namespace ProyectoEscuela
         }
         public static class GlobalVariables
         {
+            public static int ciclo = 2023;
             public const string usuario = "Luggrenadriana@gmail.com";
             public const string password = "jyfi avhd kalc fgqp";
             public static string cargo = "";

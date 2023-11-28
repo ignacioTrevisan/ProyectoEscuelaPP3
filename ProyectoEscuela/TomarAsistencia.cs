@@ -76,6 +76,10 @@ namespace ProyectoEscuela
 
         private void btn_buscarAlumno_Click(object sender, EventArgs e)
         {
+            if (GlobalVariables.cargo == "profesor") 
+            {
+                string ciclo = "2023";
+            }
             if (textBox1.Text != "")
             {
 
@@ -92,7 +96,7 @@ namespace ProyectoEscuela
                 a = comboBox1.SelectedIndex;
                 string curso = lista[a].Curso;
                 string division = lista[a].Division;
-                alumnos = Negocio.NegocioAlumnos.Get(0, curso, division);
+                alumnos = Negocio.NegocioAlumnos.Get("0", curso, division, GlobalVariables.ciclo);
                 refreshgrid();
             }
         }
@@ -100,7 +104,7 @@ namespace ProyectoEscuela
         {
             
            
-            alumnos = Negocio.NegocioAlumnos.Get(nombre, curso, division);
+            alumnos = Negocio.NegocioAlumnos.Get(nombre, curso, division, GlobalVariables.ciclo);
             if (alumnos.Count > 0)
             {
                 refreshgrid();
@@ -185,7 +189,7 @@ namespace ProyectoEscuela
             a = comboBox1.SelectedIndex;
             string curso = lista[a].Curso;
             string division = lista[a].Division;
-            alumnos = Negocio.NegocioAlumnos.Get(0, curso, division);
+            alumnos = Negocio.NegocioAlumnos.GetXCurso("", curso, division, GlobalVariables.ciclo);
             refreshgrid();
            
         }
