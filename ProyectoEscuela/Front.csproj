@@ -118,12 +118,6 @@
     <Compile Include="CrearProfesor.Designer.cs">
       <DependentUpon>CrearProfesor.cs</DependentUpon>
     </Compile>
-    <Compile Include="formularioPrueba.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="formularioPrueba.Designer.cs">
-      <DependentUpon>formularioPrueba.cs</DependentUpon>
-    </Compile>
     <Compile Include="inicioSesion.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -177,9 +171,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="CrearProfesor.resx">
       <DependentUpon>CrearProfesor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="formularioPrueba.resx">
-      <DependentUpon>formularioPrueba.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="inicioSesion.resx">
       <DependentUpon>inicioSesion.cs</DependentUpon>

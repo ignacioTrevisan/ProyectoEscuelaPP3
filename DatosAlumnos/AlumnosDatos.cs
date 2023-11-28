@@ -288,7 +288,57 @@ namespace DatosAlumnos
             }
             return list;
         }
-        
+
+        public static List<Alumno> Get(string nombre, string curso, string division)
+        {
+            List<Alumno> list = new List<Alumno>();
+
+
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["ConexionDB"].ConnectionString;
+            using (SqlConnection Connection = new SqlConnection(conString))
+            {
+                SqlCommand command = new SqlCommand("alumnosGetXNombre", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@nombe", nombre);
+                command.Parameters.AddWithValue("@curso", curso);
+                command.Parameters.AddWithValue("@division", division);
+
+                try
+                {
+                    Connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+
+                    while (reader.Read())
+                    {
+                        Alumno busqueda = new Alumno();
+                        busqueda.Nombre = Convert.ToString(reader["nombre"]);
+                        busqueda.Apellido = Convert.ToString(reader["apellido"]);
+                        busqueda.Dni = Convert.ToString(reader["dni"]);
+                        busqueda.FechaNacimiento = Convert.ToDateTime(reader["fechaNacimiento"]);
+                        busqueda.Email = Convert.ToString(reader["email"]);
+                        busqueda.Domicilio = Convert.ToString(reader["Domicilio"]);
+                        busqueda.Telefono = Convert.ToString(reader["telefono"]);
+                        busqueda.Curso = Convert.ToString(reader["año"]);
+                        busqueda.division = Convert.ToString(reader["division"]);
+                        busqueda.Id = Convert.ToInt32(reader["id"]);
+                        busqueda.cantidadFaltas = Convert.ToInt32(reader["CantidadAusencias"]);
+
+                        list.Add(busqueda);
+
+                    }
+
+                    reader.Close();
+
+
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+            }
+            return list;
+        }
 
         public static List<Faltas> buscarfaltas(string dni)
         {
