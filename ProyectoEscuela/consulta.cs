@@ -332,5 +332,10 @@ namespace ProyectoEscuela
             faltas = BuscarFaltas(dni);
 
         }
+
+        private void consulta_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
