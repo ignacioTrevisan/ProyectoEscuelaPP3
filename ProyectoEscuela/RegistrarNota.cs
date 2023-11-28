@@ -191,8 +191,9 @@ namespace ProyectoEscuela
 
                     if (result == DialogResult.Yes)
                     {
-                       
                         NotasNegocio.eliminarNota(alumno[j].id);
+                        string nombre = alumno[j].Nombre;
+                        string apellido = alumno[j].Apellido;
                     }
                 }
                 }
