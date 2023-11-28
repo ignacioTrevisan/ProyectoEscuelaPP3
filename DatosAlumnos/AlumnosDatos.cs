@@ -249,7 +249,7 @@ namespace DatosAlumnos
                 SqlCommand command = new SqlCommand("alumnosGetXCurso", Connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@DNI", dni);
-                command.Parameters.AddWithValue("@curso", curso);
+                command.Parameters.AddWithValue("@año", curso);
                 command.Parameters.AddWithValue("@division", division);
 
                 try
