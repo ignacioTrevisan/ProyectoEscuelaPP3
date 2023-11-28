@@ -208,11 +208,11 @@ namespace ProyectoEscuela
                 if (cell.Value != null)
                 {
                     int j = cell.RowIndex;
-                        string Nombre = alumnos[j].Nombre;
-                        string Apellido = alumnos[j].Apellido;
+                    string Nombre = alumnos[j].Nombre;
+                    string Apellido = alumnos[j].Apellido;
                     string Dni = alumnos[j].Dni;
-                    label1.Text = Dni;
-                    lbl_alumno.Text = Nombre + Apellido;
+                    label1.Text = "DNI: "+ Dni;
+                    lbl_alumno.Text = Nombre + "  "+ Apellido;
 
                 }
             }
