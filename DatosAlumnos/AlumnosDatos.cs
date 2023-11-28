@@ -116,7 +116,7 @@ namespace DatosAlumnos
             return idAlumnoCreado;
 
         }
-        public static int registrarEstado(string estado, string fecha, string dni)
+        public static int registrarEstado(string estado, string fecha, float dni)
         {
             int idAlumnoCreado = 0;
 

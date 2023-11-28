@@ -29,7 +29,10 @@ namespace ProyectoEscuela
         public TomarAsistencia()
         {
             InitializeComponent();
-
+            if (GlobalVariables.cargo == "profesor")
+            {
+                dateTimePicker1.Enabled = false;
+            }
             lista = GetCursos(GlobalVariables.id);
 
 
@@ -147,12 +150,12 @@ namespace ProyectoEscuela
             string estado = "presente";
             DateTime fechacompleta = dateTimePicker1.Value.Date;
             string fecha = Convert.ToString(fechacompleta);
-            string dni = label1.Text;
+            float dni = float.Parse(label1.Text);
             registrarestado(estado, fecha, dni);
 
         }
 
-        private void registrarestado(string estado, string fecha, string dni)
+        private void registrarestado(string estado, string fecha, float dni)
         {
 
             Negocio.NegocioAlumnos.registrarEstado(estado, fecha, dni);
@@ -163,7 +166,7 @@ namespace ProyectoEscuela
         private void btn_ausente_Click(object sender, EventArgs e)
         {
             string estado = "ausente";
-            string dni = label1.Text;
+            float dni = float.Parse(label1.Text);
             DateTime fechacompleta = dateTimePicker1.Value.Date;
             string fecha = Convert.ToString(fechacompleta);
             registrarestado(estado, fecha, dni);
@@ -211,7 +214,7 @@ namespace ProyectoEscuela
                     string Nombre = alumnos[j].Nombre;
                     string Apellido = alumnos[j].Apellido;
                     string Dni = alumnos[j].Dni;
-                    label1.Text = "DNI: "+ Dni;
+                    label1.Text = Dni;
                     lbl_alumno.Text = Nombre + "  "+ Apellido;
 
                 }
