@@ -364,6 +364,8 @@ namespace DatosAlumnos
                     while (reader.Read())
                     {
                         Faltas busqueda = new Faltas();
+                        busqueda.nombre = Convert.ToString(reader["nombre"]);
+                        busqueda.apellido = Convert.ToString(reader["apellido"]);
                         busqueda.fecha = Convert.ToString(reader["fecha"]);
                         busqueda.estado = Convert.ToString(reader["estado"]);
                         list.Add(busqueda);

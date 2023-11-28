@@ -18,7 +18,6 @@ namespace EntidadAlumno
         public string Email { get; set; }
         public string Curso { get; set;}
         public string division { get; set; }
-
         public string estado { get; set; }
         public int cantidadFaltas { get; set; }
     }

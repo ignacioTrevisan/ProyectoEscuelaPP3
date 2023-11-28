@@ -172,19 +172,11 @@ namespace ProyectoEscuela
             
             registrarestado(estado, fecha, dni);
 
+          
+
         }
 
-        private void btn_presente_Click(object sender, EventArgs e)
-        {
-            int cantidad = alumnos.Count();
-            if (al < cantidad - 1)
-            {
-                al++;
-                lbl_alumno.Text = alumnos[al].Nombre + " " + alumnos[al].Apellido;
-                label1.Text = alumnos[al].Dni;
-
-            }
-        }
+       
 
 
         public void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -193,6 +185,7 @@ namespace ProyectoEscuela
             a = comboBox1.SelectedIndex;
             string curso = lista[a].Curso;
             string division = lista[a].Division;
+
             alumnos = Negocio.NegocioAlumnos.GetXCurso("", curso, division, GlobalVariables.ciclo);
             refreshgrid();
            
@@ -221,6 +214,11 @@ namespace ProyectoEscuela
                 }
             }
             
+            
+        }
+
+        private void TomarAsistencia_Load(object sender, EventArgs e)
+        {
             
         }
     }

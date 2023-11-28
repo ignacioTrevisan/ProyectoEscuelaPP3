@@ -24,6 +24,8 @@ namespace Negocio
             }
 
         }
+
+
         public static int insertar(Alumno a)
         {
             if (a.FechaNacimiento == null)
