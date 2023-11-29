@@ -38,7 +38,7 @@ namespace ProyectoEscuela
 
         private void btn_nuevoAlumno_Click(object sender, EventArgs e)
         {
-            if ( cargo == "Director" || cargo == "preceptor")
+            if ( cargo == "director" || cargo == "preceptor")
             {
                 NuevoAlumno formulario = new NuevoAlumno();
                 formulario.ShowDialog();
@@ -59,7 +59,7 @@ namespace ProyectoEscuela
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (cargo == "Director" || cargo == "preceptor")
+            if (cargo == "director" || cargo == "preceptor")
             {
                 consulta f = new consulta();
                 f.ShowDialog();
