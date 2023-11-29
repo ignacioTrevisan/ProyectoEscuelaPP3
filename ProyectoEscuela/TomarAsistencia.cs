@@ -264,8 +264,9 @@ namespace ProyectoEscuela
             {
                 if (alumnos[i].cantidadFaltas > 24) 
                 {
-                    MessageBox.Show(alumnos[i].Nombre + "Llego las 25 faltas");
-                    
+                    MessageBox.Show("ATENCIÓN, el alumno: " + alumnos[i].Nombre + " llego las 25 faltas");
+                    dataGridView1.Rows[i].Cells[4].Value = "LIBRE";
+
                 }
                 i++;
             }

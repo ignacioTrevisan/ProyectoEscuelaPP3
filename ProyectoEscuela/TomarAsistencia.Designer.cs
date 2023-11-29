@@ -65,24 +65,27 @@
             // 
             this.lbl_alumno.AutoSize = true;
             this.lbl_alumno.Font = new System.Drawing.Font("Microsoft Sans Serif", 28.25F);
-            this.lbl_alumno.Location = new System.Drawing.Point(242, 25);
+            this.lbl_alumno.Location = new System.Drawing.Point(323, 31);
+            this.lbl_alumno.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbl_alumno.Name = "lbl_alumno";
-            this.lbl_alumno.Size = new System.Drawing.Size(343, 44);
+            this.lbl_alumno.Size = new System.Drawing.Size(434, 55);
             this.lbl_alumno.TabIndex = 1;
             this.lbl_alumno.Text = "Nombre de alumno";
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(85, 88);
+            this.textBox1.Location = new System.Drawing.Point(113, 108);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(100, 20);
+            this.textBox1.Size = new System.Drawing.Size(132, 22);
             this.textBox1.TabIndex = 2;
             // 
             // btn_buscarAlumno
             // 
-            this.btn_buscarAlumno.Location = new System.Drawing.Point(25, 86);
+            this.btn_buscarAlumno.Location = new System.Drawing.Point(33, 106);
+            this.btn_buscarAlumno.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btn_buscarAlumno.Name = "btn_buscarAlumno";
-            this.btn_buscarAlumno.Size = new System.Drawing.Size(54, 23);
+            this.btn_buscarAlumno.Size = new System.Drawing.Size(72, 28);
             this.btn_buscarAlumno.TabIndex = 3;
             this.btn_buscarAlumno.Text = "Buscar";
             this.btn_buscarAlumno.UseVisualStyleBackColor = true;
@@ -91,9 +94,10 @@
             // btn_prese
             // 
             this.btn_prese.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_prese.Location = new System.Drawing.Point(392, 116);
+            this.btn_prese.Location = new System.Drawing.Point(523, 143);
+            this.btn_prese.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btn_prese.Name = "btn_prese";
-            this.btn_prese.Size = new System.Drawing.Size(117, 32);
+            this.btn_prese.Size = new System.Drawing.Size(156, 39);
             this.btn_prese.TabIndex = 4;
             this.btn_prese.Text = "Presente";
             this.btn_prese.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
@@ -103,9 +107,10 @@
             // btn_ausente
             // 
             this.btn_ausente.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.btn_ausente.Location = new System.Drawing.Point(250, 116);
+            this.btn_ausente.Location = new System.Drawing.Point(333, 143);
+            this.btn_ausente.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btn_ausente.Name = "btn_ausente";
-            this.btn_ausente.Size = new System.Drawing.Size(111, 32);
+            this.btn_ausente.Size = new System.Drawing.Size(148, 39);
             this.btn_ausente.TabIndex = 6;
             this.btn_ausente.Text = "Ausente";
             this.btn_ausente.UseVisualStyleBackColor = true;
@@ -114,29 +119,32 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(31, 58);
+            this.label2.Location = new System.Drawing.Point(41, 71);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(37, 13);
+            this.label2.Size = new System.Drawing.Size(45, 16);
             this.label2.TabIndex = 7;
             this.label2.Text = "Fecha";
             // 
             // dateTimePicker1
             // 
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dateTimePicker1.Location = new System.Drawing.Point(74, 52);
+            this.dateTimePicker1.Location = new System.Drawing.Point(99, 64);
+            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dateTimePicker1.MaxDate = new System.DateTime(2023, 12, 31, 0, 0, 0, 0);
             this.dateTimePicker1.MinDate = new System.DateTime(2023, 1, 1, 0, 0, 0, 0);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(147, 20);
+            this.dateTimePicker1.Size = new System.Drawing.Size(195, 22);
             this.dateTimePicker1.TabIndex = 8;
             this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
             // 
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(74, 25);
+            this.comboBox1.Location = new System.Drawing.Point(99, 31);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(162, 21);
+            this.comboBox1.Size = new System.Drawing.Size(215, 24);
             this.comboBox1.TabIndex = 9;
             this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
@@ -152,10 +160,11 @@
             this.apellido,
             this.dniDataGridViewTextBoxColumn1});
             this.dataGridView1.DataSource = this.bindingSource1;
-            this.dataGridView1.Location = new System.Drawing.Point(25, 191);
+            this.dataGridView1.Location = new System.Drawing.Point(33, 235);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.Size = new System.Drawing.Size(271, 252);
+            this.dataGridView1.Size = new System.Drawing.Size(361, 310);
             this.dataGridView1.TabIndex = 10;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -166,9 +175,10 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(34, 33);
+            this.label3.Location = new System.Drawing.Point(45, 41);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(34, 13);
+            this.label3.Size = new System.Drawing.Size(42, 16);
             this.label3.TabIndex = 11;
             this.label3.Text = "Curso";
             // 
@@ -176,9 +186,10 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
-            this.label1.Location = new System.Drawing.Point(245, 69);
+            this.label1.Location = new System.Drawing.Point(327, 85);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(158, 25);
+            this.label1.Size = new System.Drawing.Size(189, 30);
             this.label1.TabIndex = 5;
             this.label1.Text = "DNI del alumno";
             // 
@@ -186,9 +197,10 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
-            this.label4.Location = new System.Drawing.Point(21, 154);
+            this.label4.Location = new System.Drawing.Point(28, 190);
+            this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(223, 25);
+            this.label4.Size = new System.Drawing.Size(263, 30);
             this.label4.TabIndex = 12;
             this.label4.Text = "Seleccione el alumno:";
             // 
@@ -196,9 +208,10 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.25F);
-            this.label5.Location = new System.Drawing.Point(348, 154);
+            this.label5.Location = new System.Drawing.Point(464, 190);
+            this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(288, 25);
+            this.label5.Size = new System.Drawing.Size(337, 30);
             this.label5.TabIndex = 13;
             this.label5.Text = "Estado de asistencia del día:";
             // 
@@ -214,12 +227,12 @@
             this.estadoDataGridViewTextBoxColumn1,
             this.cantidadFaltas});
             this.dataGridView2.DataSource = this.bindingSource2;
-            this.dataGridView2.Location = new System.Drawing.Point(318, 191);
-            this.dataGridView2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridView2.Location = new System.Drawing.Point(424, 235);
+            this.dataGridView2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(600, 252);
+            this.dataGridView2.Size = new System.Drawing.Size(800, 310);
             this.dataGridView2.TabIndex = 14;
             // 
             // nombreDataGridViewTextBoxColumn1
@@ -285,6 +298,7 @@
             // 
             this.dataGridViewTextBoxColumn1.DataPropertyName = "cantidadFaltas";
             this.dataGridViewTextBoxColumn1.HeaderText = "cantidadFaltas";
+            this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
             this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
             // 
             // apellido
@@ -303,10 +317,10 @@
             // 
             // TomarAsistencia
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(927, 453);
+            this.ClientSize = new System.Drawing.Size(1236, 558);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
@@ -321,6 +335,7 @@
             this.Controls.Add(this.btn_buscarAlumno);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.lbl_alumno);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "TomarAsistencia";
             this.Text = "Registro de asistencia";
             this.Load += new System.EventHandler(this.TomarAsistencia_Load);
