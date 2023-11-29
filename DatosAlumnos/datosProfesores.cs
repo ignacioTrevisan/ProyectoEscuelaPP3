@@ -167,7 +167,7 @@ namespace DatosAlumnos
             using (SqlConnection con = new SqlConnection(conString))
             {
                 con.Open();
-                SqlCommand command = new SqlCommand("verificarPermisos", con);
+                SqlCommand command = new SqlCommand("CursosGetxProfesor", con);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@idProfesor", id);
                 SqlDataReader reader = command.ExecuteReader();
@@ -175,9 +175,9 @@ namespace DatosAlumnos
                 while (reader.Read())
                 {
                     Nota n = new Nota();
-                    n.Materia = Convert.ToString(reader["materia"]);
                     n.Curso = Convert.ToString(reader["año"]);
                     n.Division = Convert.ToString(reader["division"]);
+                    n.ciclo = Convert.ToInt32(reader["ciclo"]);
                     lista.Add(n);
                 }
                 reader.Close();
@@ -193,7 +193,7 @@ namespace DatosAlumnos
             using (SqlConnection con = new SqlConnection(conString))
             {
                 con.Open();
-                SqlCommand command = new SqlCommand("verificarPermisosPreceptor", con);
+                SqlCommand command = new SqlCommand("GetCursos", con);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 SqlDataReader reader = command.ExecuteReader();
 
@@ -202,6 +202,7 @@ namespace DatosAlumnos
                     Nota n = new Nota();
                     n.Curso = Convert.ToString(reader["año"]);
                     n.Division = Convert.ToString(reader["division"]);
+                    n.ciclo = Convert.ToInt32(reader["ciclo"]);
                     lista.Add(n);
                 }
                 reader.Close();

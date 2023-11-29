@@ -43,20 +43,7 @@ namespace ProyectoEscuela
 
             int i = 0;
             int o = 1;
-            if (GlobalVariables.cargo == "profesor")
-            {
-                // Utiliza LINQ para encontrar los elementos duplicados
-                var duplicados = lista.GroupBy(item => new { item.Curso, item.Division })
-                                     .Where(grp => grp.Count() > 1)
-                                     .SelectMany(grp => grp.Skip(1));
-
-                // Elimina los elementos duplicados de la lista
-                lista.RemoveAll(item => duplicados.Contains(item));
-            }
-            else 
-            {
-                lista = Negocio.NegocioAlumnos.GetCursosDirector();
-            }
+            
 
             i = 0;
             if (lista[i].ciclo != 0)
@@ -111,7 +98,7 @@ namespace ProyectoEscuela
         public static List<Nota> GetCursos(int id)
         {
             List<Nota> lista = new List<Nota>();
-            if (GlobalVariables.cargo == "preceptor")
+            if (GlobalVariables.cargo == "preceptor" || GlobalVariables.cargo == "director")
             {
                 lista = NegocioProfesor.GetPermisosPreceptor();
 
@@ -237,25 +224,26 @@ namespace ProyectoEscuela
         public void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             int a = 0;
+            
             a = comboBox1.SelectedIndex;
             string curso = lista[a].Curso;
             string division = lista[a].Division;
+            MessageBox.Show(lista[a].ciclo.ToString());
             if (GlobalVariables.cargo == "Director") 
             {
                 GlobalVariables.ciclo = lista[a].ciclo;
             }
             if (lista[a].ciclo == 2023)
             {
-                
                 dateTimePicker1.MaxDate = new DateTime(2023, 12, 31);
                 dateTimePicker1.MinDate = new DateTime(2023, 1, 1);
-                dateTimePicker1.Value = new DateTime(2023, 1, 1);
+                
             }
             else 
             {
                 dateTimePicker1.MinDate = new DateTime(2022, 1, 1);
                 dateTimePicker1.MaxDate = new DateTime(2022, 12, 31);
-                dateTimePicker1.Value = new DateTime(2022, 1, 1);
+               
             }
 
             alumnos = Negocio.NegocioAlumnos.GetXCurso("", curso, division, GlobalVariables.ciclo);
@@ -265,7 +253,7 @@ namespace ProyectoEscuela
                 if (alumnos[i].cantidadFaltas > 24) 
                 {
                     MessageBox.Show("ATENCIÓN, el alumno: " + alumnos[i].Nombre + " llego las 25 faltas");
-                    dataGridView1.Rows[i].Cells[4].Value = "LIBRE";
+                    
 
                 }
                 i++;
