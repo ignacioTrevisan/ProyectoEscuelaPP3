@@ -71,7 +71,16 @@ namespace ProyectoEscuela
 
         private void Front_Load(object sender, EventArgs e)
         {
+            if (cargo == "director")
+            {
+                btn_asistencias.Enabled = false;
+            }
 
+            if (cargo == "profesor")
+            {
+                btn_nuevoAlumno.Enabled = false;
+                button2.Enabled = false;
+            }
         }
 
         private void button3_Click(object sender, EventArgs e)
