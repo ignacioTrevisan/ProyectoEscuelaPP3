@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Net.Mail;
 using System.Text;
@@ -56,15 +57,23 @@ namespace ProyectoEscuela
                     System.Net.Mail.Attachment archivo = new System.Net.Mail.Attachment(c.ruta);
                     ms.Attachments.Add(archivo);
                 }
+                string extension = Path.GetExtension(c.ruta);
                 ms.Body = mensaje.ToString();
                 SmtpClient smtp = new SmtpClient("smtp.gmail.com");
                 smtp.Port = 587;
                 smtp.UseDefaultCredentials = false;
                 smtp.Credentials = new System.Net.NetworkCredential(GlobalVariables.usuario, GlobalVariables.password);
                 smtp.EnableSsl = true;
-                smtp.Send(ms);
-                c.error = "Correo enviado exitosamente ";
-                MessageBox.Show(c.error);
+                if (extension == ".pdf" || extension == ".jpg" || extension == ".png" || extension == ".pptx" || extension == ".xlsx" ||  extension == ".mp4")
+                {
+                    smtp.Send(ms);
+                    c.error = "Correo enviado exitosamente ";
+                    MessageBox.Show(c.error);
+                }
+                else 
+                {
+                    MessageBox.Show("No se permite enviar archivos que no sean .pdf o .jpg");
+                }
             }
             catch (Exception ex)
             {
