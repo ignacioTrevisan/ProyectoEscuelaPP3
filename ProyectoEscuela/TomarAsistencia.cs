@@ -291,7 +291,11 @@ namespace ProyectoEscuela
 
         private void TomarAsistencia_Load(object sender, EventArgs e)
         {
-            
+            if (GlobalVariables.cargo == "director")
+            {
+                btn_ausente.Enabled = false;
+                btn_prese.Enabled = false;
+            }
         }
 
         private void dateTimePicker1_ValueChanged(object sender, EventArgs e)

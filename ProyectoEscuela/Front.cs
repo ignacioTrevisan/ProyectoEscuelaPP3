@@ -53,6 +53,7 @@ namespace ProyectoEscuela
         {
                 TomarAsistencia formulario = new TomarAsistencia();
                 formulario.ShowDialog();
+
         }
 
 
