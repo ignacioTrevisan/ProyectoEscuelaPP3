@@ -73,13 +73,20 @@ namespace ProyectoEscuela
         {
             if (cargo == "director")
             {
-                btn_asistencias.Enabled = false;
+               button3.Enabled = false;
+                
             }
 
             if (cargo == "profesor")
             {
                 btn_nuevoAlumno.Enabled = false;
                 button2.Enabled = false;
+            }
+
+            if (cargo == "preceptor")
+            {
+                btn_nuevoAlumno.Enabled = false;
+                button3.Enabled = false;
             }
         }
 
