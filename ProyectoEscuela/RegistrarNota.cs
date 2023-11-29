@@ -80,8 +80,8 @@ namespace ProyectoEscuela
             materia = lista[i].Materia;
             curso = lista[i].Curso;
             division = lista[i].Division;
-            int idProfesor = GlobalVariables.id;
-            return notas = NotasNegocio.GetNotas(curso, division, materia, idProfesor);
+            int ciclo = GlobalVariables.ciclo;
+            return notas = NotasNegocio.GetNotas(curso, division, materia, ciclo);
         }
 
         private List <Alumno>GetAlumnos() 
@@ -110,6 +110,7 @@ namespace ProyectoEscuela
             {
                 MessageBox.Show("Para registrar notas primero debe ingresar el curso, materia, alumno y su nota ");
             }
+            actualizarPorAlumno();
         }
 
         public void registrar(string nota, string comentario)
@@ -126,8 +127,8 @@ namespace ProyectoEscuela
         public void actualizarPorAlumno() 
         {
             int id = comboBox2.SelectedIndex;
-            
-            alumno = NotasNegocio.GetNotasXAlumno(alumnos[id].Dni, materia, GlobalVariables.id, alumnos[id].Curso, alumnos[id].division);
+            int ciclo = GlobalVariables.ciclo;
+            alumno = NotasNegocio.GetNotasXAlumno(alumnos[id].Dni, materia, GlobalVariables.id, alumnos[id].Curso, alumnos[id].division, ciclo);
             bindingSource1.DataSource = null;
             bindingSource1.DataSource = alumno;
             dataGridView1.DataSource = bindingSource1;
@@ -153,6 +154,7 @@ namespace ProyectoEscuela
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             comboBox2.Items.Clear();
+            comboBox2.Text = "";
             i = 0;
             getnotas();
             GetAlumnos();

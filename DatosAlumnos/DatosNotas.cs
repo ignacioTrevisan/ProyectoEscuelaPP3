@@ -70,18 +70,18 @@ namespace DatosNotas
             }
         }
 
-        public static List<Nota> GetNotas(string curso, string division, string materia, int idProfesor)
+        public static List<Nota> GetNotas(string curso, string division, string materia, int ciclo)
         {
             List<Nota> notasLista = new List<Nota>();
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(conString))
             {
-                SqlCommand command = new SqlCommand("GetNotas", connection);
+                SqlCommand command = new SqlCommand("GetNotasF", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@año", curso);
                 command.Parameters.AddWithValue("@division", division);
                 command.Parameters.AddWithValue("@materia", materia);
-                command.Parameters.AddWithValue("idProfesor", idProfesor);
+                command.Parameters.AddWithValue("@ciclo", ciclo);
                 try
                 {
                     connection.Open();
@@ -91,14 +91,13 @@ namespace DatosNotas
                     while (reader.Read())
                     {
                         Nota n = new Nota();
-                        n.id = Convert.ToInt16(reader["id"]);
+                        
                         n.Nombre = Convert.ToString(reader["nombre"]);
                         n.Apellido = Convert.ToString(reader["apellido"]);
                         n.Materia = Convert.ToString(reader["materia"]);
                         n.Dni = Convert.ToString(reader["dni"]);
-                        n.Curso = Convert.ToString(reader["año"]);
-                        n.Division = Convert.ToString(reader["division"]);
-                        n.Calificacion = Convert.ToString(reader["nota"]);
+                        n.comentario = Convert.ToString(reader["comentario"]);
+                        n.Calificacion = Convert.ToString(reader["Nota"]);
                         n.fecha = Convert.ToString(reader["fecha"]);
                         notasLista.Add(n);
                     }
@@ -113,7 +112,7 @@ namespace DatosNotas
             return notasLista;
         }
 
-        public static List<Nota> GetNotasXAlumno(string dni, string materia, int idProfesor, string curso, string division)
+        public static List<Nota> GetNotasXAlumno(string dni, string materia, int idProfesor, string curso, string division, int ciclo)
         {
             List<Nota> alumno = new List<Nota>();
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
@@ -125,9 +124,10 @@ namespace DatosNotas
                
                 command.Parameters.AddWithValue("@dni", dni);
                 command.Parameters.AddWithValue("@materia", materia);
-                command.Parameters.AddWithValue("@idprofesor", idProfesor);
-                command.Parameters.AddWithValue("@curso", curso);
+                command.Parameters.AddWithValue("@año", curso);
                 command.Parameters.AddWithValue("@division", division);
+                command.Parameters.AddWithValue("@ciclo", ciclo);
+
                 try
                 {
                     connection.Open();
@@ -137,14 +137,11 @@ namespace DatosNotas
                     while (reader.Read())
                     {
                         Nota n = new Nota();
-                        n.id = Convert.ToInt16(reader["id"]);
-                        n.Dni = Convert.ToString(reader["DniAlumno"]);
+                        n.Dni = Convert.ToString(reader["dni"]);
                         n.Nombre = Convert.ToString(reader["nombre"]);
                         n.Apellido = Convert.ToString(reader["apellido"]);
-                        n.Materia = Convert.ToString(reader["Materia"]);
-                        n.Curso = Convert.ToString(reader["Curso"]);
-                        n.Division = Convert.ToString(reader["Division"]);
-                        n.Calificacion = Convert.ToString(reader["nota"]);
+                        n.Materia = Convert.ToString(reader["materia"]);
+                        n.Calificacion = Convert.ToString(reader["Nota"]);
                         n.comentario = Convert.ToString(reader["Comentario"]);
                         n.fecha = Convert.ToString(reader["fecha"]);
                         alumno.Add(n);
