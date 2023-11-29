@@ -199,7 +199,7 @@ namespace DatosNotas
             }
         }
 
-        public static int registroNotas(string materia, string alumno, string nota, int profesor, DateTime fecha, string comentario)
+        public static int registroNotas(string materia, string alumno, string nota, int profesor, DateTime fecha, string comentario, string curso, string division, int ciclo)
         {
             int idAlumnoCreado = 0;
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
@@ -216,6 +216,10 @@ namespace DatosNotas
                 command.Parameters.AddWithValue("@idprofesor", (profesor));
                 command.Parameters.AddWithValue("@fecha", fecha);
                 command.Parameters.AddWithValue("@Comentario", comentario);
+                command.Parameters.AddWithValue("@año", curso);
+                command.Parameters.AddWithValue("@division", division);
+                command.Parameters.AddWithValue("@ciclo", ciclo);
+
 
                 try
                 {

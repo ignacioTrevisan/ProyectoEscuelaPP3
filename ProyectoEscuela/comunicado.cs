@@ -72,7 +72,7 @@ namespace ProyectoEscuela
                 }
                 else 
                 {
-                    MessageBox.Show("No se permite enviar archivos que no sean .pdf o .jpg");
+                    MessageBox.Show("Formato de archivo no permitido");
                 }
             }
             catch (Exception ex)

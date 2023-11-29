@@ -91,13 +91,14 @@ namespace ProyectoEscuela
             curso = lista[i].Curso;
             division = lista[i].Division;
             string dni = "0";
-            return alumnos = Negocio.NegocioAlumnos.Get(dni, curso, division, GlobalVariables.ciclo);
+            return alumnos = Negocio.NegocioAlumnos.GetXCurso(dni, curso, division, GlobalVariables.ciclo);
         }
 
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
-            
+           
+            int ciclo = GlobalVariables.ciclo;
             string nota = txtNota.Text;
             string comentario = "";
             comentario = textBox2.Text;
@@ -113,9 +114,12 @@ namespace ProyectoEscuela
 
         public void registrar(string nota, string comentario)
         {
+            int i = comboBox1.SelectedIndex;
+            curso = lista[i].Curso;
+            division = lista[i].Division;
             int id = comboBox2.SelectedIndex;
-            DateTime fecha = dateTimePicker1.Value.Date;    
-            NotasNegocio.registrarNotas(materia, alumnos[id].Dni, nota, GlobalVariables.id, fecha, comentario);
+            DateTime fecha = dateTimePicker1.Value.Date;
+            NotasNegocio.registrarNotas(materia, alumnos[id].Dni, nota, GlobalVariables.id, fecha, comentario, curso, division, GlobalVariables.ciclo);
             actualizarPorAlumno();
         }
 
@@ -155,13 +159,21 @@ namespace ProyectoEscuela
 
             if (!string.IsNullOrEmpty(materia) || (!string.IsNullOrEmpty(curso)) || (!string.IsNullOrEmpty(division)))
             {
-                if (notas.Count < 1)
+                if (alumnos.Count < 1)
                 {
                     MessageBox.Show("No se encontraron datos, probablemente no tenga permisos para acceder a datos de esta materia y curso " + GlobalVariables.id);
                 }
                 else
                 {
-                    txtNota.Text = notas[i].Calificacion;
+                    if (notas.Count < 1)
+                    {
+                        MessageBox.Show("Aún no hay notas cargadas. ");
+                    }
+                    else 
+                    {
+                        txtNota.Text = notas[i].Calificacion;
+                    }
+                   
                 }
             }
             else

@@ -259,6 +259,16 @@ namespace ProyectoEscuela
             }
 
             alumnos = Negocio.NegocioAlumnos.GetXCurso("", curso, division, GlobalVariables.ciclo);
+            int i = 0;
+            while (i < alumnos.Count) 
+            {
+                if (alumnos[i].cantidadFaltas > 24) 
+                {
+                    MessageBox.Show(alumnos[i].Nombre + "Llego las 25 faltas");
+                    
+                }
+                i++;
+            }
             asistencias = Negocio.NegocioAlumnos.TraerAsistenciasDeHoy(curso, division, dateTimePicker1.Value);
             refreshgrid();
            
@@ -274,6 +284,7 @@ namespace ProyectoEscuela
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+
             if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
             {
                 DataGridViewCell cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
@@ -283,6 +294,7 @@ namespace ProyectoEscuela
                     string Nombre = alumnos[j].Nombre;
                     string Apellido = alumnos[j].Apellido;
                     string Dni = alumnos[j].Dni;
+                    
                     label1.Text = Dni;
                     lbl_alumno.Text = Nombre + "  "+ Apellido;
 
