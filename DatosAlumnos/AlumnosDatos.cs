@@ -10,6 +10,8 @@ using EntidadPermiso;
 using System.Data;
 using static System.Net.Mime.MediaTypeNames;
 using System.Net;
+using System.Globalization;
+using EntidadNota;
 
 namespace DatosAlumnos
 {
@@ -116,12 +118,11 @@ namespace DatosAlumnos
             return idAlumnoCreado;
 
         }
-        public static int registrarEstado(string estado, string fecha, int dni)
+        public static int registrarEstado(string estado, DateTime fecha, int dni, string curso, string division, int ciclo)
         {
             int idAlumnoCreado = 0;
 
-            string estadotraido = estado;
-            DateTime Fecha = DateTime.Parse(fecha);
+           
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(conString))
             {
@@ -129,8 +130,11 @@ namespace DatosAlumnos
                 SqlCommand command = new SqlCommand("InsertarAsistencia", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@dni", dni);
-                command.Parameters.AddWithValue("@asistencia", estadotraido);
-                command.Parameters.AddWithValue("@fecha", Fecha);
+                command.Parameters.AddWithValue("@asistencia", estado);
+                command.Parameters.AddWithValue("@fecha", fecha);
+                command.Parameters.AddWithValue("@año", curso);
+                command.Parameters.AddWithValue("@division", division);
+                command.Parameters.AddWithValue("@ciclo", ciclo);
                 try
                 {
 
@@ -497,6 +501,48 @@ namespace DatosAlumnos
                         busqueda.Apellido = Convert.ToString(reader["apellido"]);
                         busqueda.estado = Convert.ToString(reader["estado"]);
                         busqueda.Dni = Convert.ToString(reader["dni"]);
+                        listas.Add(busqueda);
+                    }
+
+                    reader.Close();
+
+
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+            }
+            return listas;
+        }
+
+        public static List<Nota> getCursosDirector()
+        {
+            List<Nota> listas = new List<Nota>();
+
+
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["ConexionDB"].ConnectionString;
+            using (SqlConnection Connection = new SqlConnection(conString))
+            {
+                SqlCommand command = new SqlCommand("GetCursos", Connection);
+                
+
+                try
+                {
+                    Connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+
+
+
+                    while (reader.Read())
+                    {
+                        Nota busqueda = new Nota();
+
+                        busqueda.Curso = Convert.ToString(reader["año"]);
+                        busqueda.Division = Convert.ToString(reader["division"]);
+                        
+                        busqueda.ciclo = Convert.ToInt16(reader["ciclo"]);
                         listas.Add(busqueda);
                     }
 

@@ -27,6 +27,7 @@ namespace ProyectoEscuela
         public List<Nota> lista = new List<Nota>();
         public List<Alumno> alumnos = new List<Alumno>();
         public List<Alumno> asistencias = new List<Alumno>();
+        public List<int> Ciclos = new List<int>();
         public TomarAsistencia()
         {
             InitializeComponent();
@@ -37,9 +38,10 @@ namespace ProyectoEscuela
             lista = GetCursos(GlobalVariables.id);
 
 
-            i = 0;
+
+            int i = 0;
             int o = 1;
-            if (GlobalVariables.cargo != "preceptor")
+            if (GlobalVariables.cargo == "profesor")
             {
                 // Utiliza LINQ para encontrar los elementos duplicados
                 var duplicados = lista.GroupBy(item => new { item.Curso, item.Division })
@@ -49,14 +51,59 @@ namespace ProyectoEscuela
                 // Elimina los elementos duplicados de la lista
                 lista.RemoveAll(item => duplicados.Contains(item));
             }
+            else 
+            {
+                lista = Negocio.NegocioAlumnos.GetCursosDirector();
+            }
 
             i = 0;
-            while (i < lista.Count)
+            if (lista[i].ciclo != 0)
             {
-                comboBox1.Items.Add("curso: " + lista[i].Curso + " Division: " + lista[i].Division);
+                while (i < lista.Count)
+                {
+                    comboBox1.Items.Add("curso: " + lista[i].Curso + " Division: " + lista[i].Division + "(" + lista[i].ciclo + ")");
+                    i++;
+                }
+            }
+            else 
+            {
+                while (i < lista.Count)
+                {
+                    comboBox1.Items.Add("curso: " + lista[i].Curso + " Division: " + lista[i].Division );
+                    i++;
+                }
+            }
+
+            i = 0;
+            o = 1;
+            while (i < lista.Count) 
+            {
+                Ciclos.Add(lista[i].ciclo);
                 i++;
             }
+            
+            i = 0;
+            while (i < Ciclos.Count)
+            {
+                o = i + 1; // Comienza a comparar con el siguiente elemento
+                while (o < Ciclos.Count)
+                {
+                    if (Ciclos[i] == Ciclos[o])
+                    {
+                        Ciclos.RemoveAt(o); // Elimina el elemento duplicado
+                    }
+                    else
+                    {
+                        o++;
+                    }
+                }
+                i++;
+            }
+            i = 0;
+           
+
         }
+
 
 
         public static List<Nota> GetCursos(int id)
@@ -149,17 +196,21 @@ namespace ProyectoEscuela
         private void btn_prese_Click(object sender, EventArgs e)
         {
             string estado = "presente";
-            DateTime fechacompleta = dateTimePicker1.Value.Date;
-            string fecha = Convert.ToString(fechacompleta);
-            int dni = Convert.ToInt32(label1.Text);
-            registrarestado(estado, fecha, dni);
+            DateTime fecha = dateTimePicker1.Value.Date;
+           int a = comboBox1.SelectedIndex;
 
+            int dni = Convert.ToInt32(label1.Text);
+            string curso = lista[a].Curso;
+            string division = lista[a].Division;
+            registrarestado(estado, fecha, dni, curso, division, GlobalVariables.ciclo);
+            asistencias = Negocio.NegocioAlumnos.TraerAsistenciasDeHoy(curso, division, dateTimePicker1.Value);
+            refreshgrid();
         }
 
-        private void registrarestado(string estado, string fecha, int dni)
+        private void registrarestado(string estado, DateTime fecha, int dni, string curso, string division, int ciclo)
         {
             MessageBox.Show(dni.ToString());
-            Negocio.NegocioAlumnos.registrarEstado(estado, fecha, dni);
+            Negocio.NegocioAlumnos.registrarEstado(estado, fecha, dni, curso, division, ciclo);
             MessageBox.Show(dni + " fue registrado como " + estado + " el dia " + fecha + " exitosamente");
 
         }
@@ -168,13 +219,13 @@ namespace ProyectoEscuela
         {
             string estado = "ausente";
             int dni = Convert.ToInt32(label1.Text);
-            DateTime fechacompleta = dateTimePicker1.Value.Date;
-            string fecha = Convert.ToString(fechacompleta);
-            
-            registrarestado(estado, fecha, dni);
-
-          
-
+            DateTime fecha = dateTimePicker1.Value.Date;
+           int  a = comboBox1.SelectedIndex;
+            string curso = lista[a].Curso;
+            string division = lista[a].Division;
+            registrarestado(estado, fecha, dni, curso, division, GlobalVariables.ciclo);
+            asistencias = Negocio.NegocioAlumnos.TraerAsistenciasDeHoy(curso, division, dateTimePicker1.Value);
+            refreshgrid();
         }
 
        
@@ -186,6 +237,23 @@ namespace ProyectoEscuela
             a = comboBox1.SelectedIndex;
             string curso = lista[a].Curso;
             string division = lista[a].Division;
+            if (GlobalVariables.cargo == "Director") 
+            {
+                GlobalVariables.ciclo = lista[a].ciclo;
+            }
+            if (lista[a].ciclo == 2023)
+            {
+                
+                dateTimePicker1.MaxDate = new DateTime(2023, 12, 31);
+                dateTimePicker1.MinDate = new DateTime(2023, 1, 1);
+                dateTimePicker1.Value = new DateTime(2023, 1, 1);
+            }
+            else 
+            {
+                dateTimePicker1.MinDate = new DateTime(2022, 1, 1);
+                dateTimePicker1.MaxDate = new DateTime(2022, 12, 31);
+                dateTimePicker1.Value = new DateTime(2022, 1, 1);
+            }
 
             alumnos = Negocio.NegocioAlumnos.GetXCurso("", curso, division, GlobalVariables.ciclo);
             asistencias = Negocio.NegocioAlumnos.TraerAsistenciasDeHoy(curso, division, dateTimePicker1.Value);
@@ -224,6 +292,21 @@ namespace ProyectoEscuela
         private void TomarAsistencia_Load(object sender, EventArgs e)
         {
             
+        }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            int a = 0;
+            a = comboBox1.SelectedIndex;
+            string curso = lista[a].Curso;
+            string division = lista[a].Division;
+            if (GlobalVariables.cargo == "Director")
+            {
+                GlobalVariables.ciclo = lista[a].ciclo;
+            }
+            alumnos = Negocio.NegocioAlumnos.GetXCurso("", curso, division, GlobalVariables.ciclo);
+            asistencias = Negocio.NegocioAlumnos.TraerAsistenciasDeHoy(curso, division, dateTimePicker1.Value);
+            refreshgrid();
         }
     }
 }

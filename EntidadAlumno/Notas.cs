@@ -20,6 +20,8 @@ namespace EntidadNota
         public string comentario { get; set; }
 
         public string fecha { get; set; }
+
+        public int ciclo { get; set; }
         
     }
 }

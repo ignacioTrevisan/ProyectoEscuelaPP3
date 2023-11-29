@@ -1,4 +1,5 @@
-﻿using EntidadNota;
+﻿using EntidadAlumno;
+using EntidadNota;
 using EntidadProfesor;
 using System;
 using System.Collections.Generic;

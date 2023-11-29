@@ -94,6 +94,7 @@
     <Compile Include="Alumno.cs" />
     <Compile Include="boletin.cs" />
     <Compile Include="Comunicado.cs" />
+    <Compile Include="Cursos.cs" />
     <Compile Include="Faltas.cs" />
     <Compile Include="Notas.cs" />
     <Compile Include="Permisos.cs" />

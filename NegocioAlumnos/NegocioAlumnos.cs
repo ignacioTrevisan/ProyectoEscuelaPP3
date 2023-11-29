@@ -7,6 +7,7 @@ using EntidadPermiso;
 using System.Data;
 using System.Dynamic;
 using System.Collections.Generic;
+using EntidadNota;
 
 namespace Negocio
 {
@@ -84,12 +85,12 @@ namespace Negocio
                 throw;
             }
         }
-        public static int registrarEstado(string estado, string fecha, int dni)
+        public static int registrarEstado(string estado, DateTime fecha, int dni, string curso, string division, int ciclo)
             {
             
             try
             {
-                return AlumnosDatos.registrarEstado(estado, fecha , dni  );
+                return AlumnosDatos.registrarEstado(estado, fecha , dni, curso, division, ciclo  );
             }
             catch (Exception)
             {
@@ -140,6 +141,11 @@ namespace Negocio
         public static List<Alumno> TraerAsistenciasDeHoy(string curso, string division, DateTime value)
         {
             return AlumnosDatos.TraerAsistenciasDeHoy(curso, division, value);
+        }
+
+        public static List<Nota> GetCursosDirector()
+        {
+            return AlumnosDatos.getCursosDirector();
         }
     }
    

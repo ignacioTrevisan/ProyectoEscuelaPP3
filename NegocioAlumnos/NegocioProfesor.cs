@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using DatosAlumnos;
 using EntidadNota;
 using System.Security.Cryptography.X509Certificates;
+using EntidadAlumno;
 
 namespace NegocioAlumnos
 {
