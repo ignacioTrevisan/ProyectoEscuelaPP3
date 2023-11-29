@@ -72,10 +72,7 @@ namespace Negocio
         }
         public static int buscar(Alumno a, string curso, string division)
         {
-            if (a.Dni == "")
-            {
-                return 1;
-            }
+            
             try
             {
                 return AlumnosDatos.buscar(a, curso, division);

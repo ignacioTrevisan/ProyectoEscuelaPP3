@@ -91,7 +91,7 @@ namespace DatosAlumnos
                 SqlCommand command = new SqlCommand("BuscarAlumno", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                command.Parameters.AddWithValue("@dni", Convert.ToDouble(a.Dni));
+                command.Parameters.AddWithValue("@nombre", (a.Nombre));
                 if (curso != "-" && division != "-")
                 {
                     command.Parameters.AddWithValue("@año", Convert.ToDouble(a.Curso));
@@ -103,6 +103,7 @@ namespace DatosAlumnos
                 {
                     Alumno busqueda = new Alumno();
                     a.Nombre = Convert.ToString(reader["nombre"]);
+                    a.Dni = Convert.ToString(reader["dni"]);
                     a.Apellido = Convert.ToString(reader["apellido"]);
                     a.FechaNacimiento = Convert.ToDateTime(reader["fechaNacimiento"]);
                     a.Email = Convert.ToString(reader["email"]);

@@ -32,13 +32,13 @@ namespace ProyectoEscuela
         }
         public Boolean verificarExistencia()
         {
-            string query = "SELECT COUNT(*) FROM Alumnos WHERE DNI = @dni";
+            string query = "SELECT COUNT(*) FROM Alumnos WHERE nombre = @nombre";
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(conString))
             {
                 connection.Open();
                 SqlCommand cmd = new SqlCommand(query, connection);
-                cmd.Parameters.AddWithValue("@dni", txt_dni.Text);
+                cmd.Parameters.AddWithValue("@nombre", txt_nombre.Text);
                 int count = (int)cmd.ExecuteScalar();   
                 if (count == 0)
                 {
@@ -209,7 +209,7 @@ namespace ProyectoEscuela
             if (verificarExistencia() == true)
             {
                 Alumno a = new Alumno();
-                a.Dni = Convert.ToString(txt_dni.Text);
+                a.Nombre = Convert.ToString(txt_nombre.Text);
                 int idEmp = Negocio.NegocioAlumnos.buscar(a,"-","-");
                 txt_nombre.Text = a.Nombre;
                 txt_apellido.Text = a.Apellido;
