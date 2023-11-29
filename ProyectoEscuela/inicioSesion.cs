@@ -49,7 +49,7 @@ namespace ProyectoEscuela
             Permisos idEmp = Negocio.NegocioAlumnos.buscarCargo(p);
              
 
-            if (p.Desc == "profesor" || p.Desc == "Director")
+            if (p.Desc == "profesor" || p.Desc == "director" || p.Desc=="preceptor")
             {
                 GlobalVariables.cargo = p.Desc;
                 GlobalVariables.id = p.id;
