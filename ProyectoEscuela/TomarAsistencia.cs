@@ -16,6 +16,7 @@ using EntidadNota;
 using static ProyectoEscuela.inicioSesion;
 using System.Reflection.Emit;
 using NotasAlumnos;
+using System.Runtime.CompilerServices;
 
 namespace ProyectoEscuela
 {
@@ -34,6 +35,7 @@ namespace ProyectoEscuela
             if (GlobalVariables.cargo == "profesor")
             {
                 dateTimePicker1.Enabled = false;
+                
             }
             lista = GetCursos(GlobalVariables.id);
 
@@ -139,7 +141,8 @@ namespace ProyectoEscuela
             int a = comboBox1.SelectedIndex;
             string curso = lista[a].Curso;
             string division = lista[a].Division;
-            buscar(nombre, curso, division);
+            
+                buscar(nombre, curso, division);
             }
             else
             {
