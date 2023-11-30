@@ -10,7 +10,8 @@ namespace EntidadRecursosSalas
     {
         public int id { get; set; }
 	    public DateTime fecha { get; set; }
-        public string Hora { get; set; }
+        public string HoraDesde { get; set; }
+        public string HoraHasta { get; set; }
         public string estado { get; set; }
         public string recurso { get; set; }
         public string dniProfesor { get;set; }
