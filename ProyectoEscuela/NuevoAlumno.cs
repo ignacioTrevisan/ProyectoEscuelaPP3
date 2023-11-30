@@ -14,12 +14,15 @@ using System.Net;
 using System.Data.SqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
 using System.Text.RegularExpressions;
+using NotasAlumnos;
 
 namespace ProyectoEscuela
 {
     public partial class NuevoAlumno : Form
     {
         string modo = "nada";
+        public List<Alumno> alumnos = new List<Alumno>();
+        public List<Cursos> cursos = new List<Cursos>();
         public NuevoAlumno()
         {
             InitializeComponent();
@@ -27,13 +30,13 @@ namespace ProyectoEscuela
 
         private void btn_confirmarRegistroAlumno_Click(object sender, EventArgs e)
         {
-             guardar();
+            guardar();
 
 
         }
         public Boolean verificarExistencia()
         {
-            string query = "SELECT COUNT(*) FROM Alumnos WHERE nombre = @nombre AND apellido = @apellido" ;
+            string query = "SELECT COUNT(*) FROM Alumnos WHERE nombre = @nombre AND apellido = @apellido";
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(conString))
             {
@@ -41,7 +44,7 @@ namespace ProyectoEscuela
                 SqlCommand cmd = new SqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("@nombre", txt_nombre.Text);
                 cmd.Parameters.AddWithValue("@apellido", txt_apellido.Text);
-                int count = (int)cmd.ExecuteScalar();   
+                int count = (int)cmd.ExecuteScalar();
                 if (count == 0)
                 {
                     return false;
@@ -62,7 +65,7 @@ namespace ProyectoEscuela
                 connection.Open();
                 SqlCommand cmd = new SqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("@dni", txt_dni.Text);
-                
+
                 int count = (int)cmd.ExecuteScalar();
                 if (count == 0)
                 {
@@ -89,14 +92,14 @@ namespace ProyectoEscuela
                     a.Domicilio = txt_domicilio.Text;
                     a.Telefono = txt_telefono.Text;
                     a.Email = txt_email.Text;
-                    
+
                     DialogResult res = MessageBox.Show("¿Confirma guardar ? ", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (res == DialogResult.No)
                     {
                         return;
                     }
                     int idEmp = Negocio.NegocioAlumnos.insertar(a);
-                    MessageBox.Show("Se generó el alumno con dni " + a.Dni + "Nombre: " +a.Nombre + " Apellido: " + a.Apellido);
+                    MessageBox.Show("Se generó el alumno con dni " + a.Dni + "Nombre: " + a.Nombre + " Apellido: " + a.Apellido);
                     limpiarControles();
 
                 }
@@ -104,7 +107,7 @@ namespace ProyectoEscuela
                 {
 
                     MessageBox.Show("No se puede generar el alumno por que ya existe registrado el dni " + txt_dni.Text);
-                    
+
                 }
 
             }
@@ -115,14 +118,14 @@ namespace ProyectoEscuela
             }
 
         }
-        public void limpiarControles() 
+        public void limpiarControles()
         {
             txt_nombre.Text = "";
             txt_apellido.Text = "";
             txt_domicilio.Text = "";
             txt_telefono.Text = "";
             txt_email.Text = "";
-           
+
             txt_dni.Text = "";
         }
 
@@ -135,18 +138,18 @@ namespace ProyectoEscuela
                 MessageBox.Show("El DNI está mal ingresado o no se ingresó");
                 return false;
             }
-            else if(txt_apellido.Text == "")
+            else if (txt_apellido.Text == "")
             {
                 MessageBox.Show("El APELLIDO está mal ingresado o no se ingresó");
                 return false;
             }
-            else if(txt_nombre.Text == "")
+            else if (txt_nombre.Text == "")
             {
                 MessageBox.Show("El NOMBRE está mal ingresado o no se ingresó");
                 return false;
             }
-           
-            else if(txt_telefono.Text == "")
+
+            else if (txt_telefono.Text == "")
             {
                 MessageBox.Show("El TELEFONO está mal ingresado o no se ingresó");
                 return false;
@@ -175,9 +178,9 @@ namespace ProyectoEscuela
         {
             modificar();
         }
-        private void modificar() 
+        private void modificar()
         {
-         
+
             try
             {
                 Alumno a = new Alumno();
@@ -188,27 +191,27 @@ namespace ProyectoEscuela
                 a.Domicilio = txt_domicilio.Text;
                 a.Telefono = txt_telefono.Text;
                 a.Email = txt_email.Text;
-              
-                    if (verificarExistencia()==true)
-                    {
-                        DialogResult res = MessageBox.Show("¿Confirma edicion ? ", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                        if (res == DialogResult.No)
-                        {
-                            return;
-                        }
-                        int idEmp = Negocio.NegocioAlumnos.editar(a);
-                        MessageBox.Show("Se modifico el alumno con dni " + txt_dni.Text);
-                        limpiarControles();
 
-                    }
-                    else 
+                if (verificarExistencia() == true)
+                {
+                    DialogResult res = MessageBox.Show("¿Confirma edicion ? ", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (res == DialogResult.No)
                     {
-                        MessageBox.Show("No existe el alumno con dni " + txt_dni.Text);
-                       
+                        return;
                     }
-                
-                
-                
+                    int idEmp = Negocio.NegocioAlumnos.editar(a);
+                    MessageBox.Show("Se modifico el alumno con dni " + txt_dni.Text);
+                    limpiarControles();
+
+                }
+                else
+                {
+                    MessageBox.Show("No existe el alumno con dni " + txt_dni.Text);
+
+                }
+
+
+
 
 
             }
@@ -220,32 +223,50 @@ namespace ProyectoEscuela
 
         private void btn_buscarAlumno_Click(object sender, EventArgs e)
         {
-            buscar();
+            Alumno a = new Alumno();
+            string nombre = Convert.ToString(txt_nombre.Text);
+            string apellido = txt_apellido.Text;
+            string dni = "0";
+            buscar(nombre, apellido, dni);
         }
-        private void buscar() 
+        private void buscar(string nombre, string apellido, string dni)
         {
-            
             if (verificarExistencia() == true)
             {
-                Alumno a = new Alumno();
-                a.Nombre = Convert.ToString(txt_nombre.Text);
-                a.Apellido = txt_apellido.Text;
-                int idEmp = Negocio.NegocioAlumnos.buscar(a,"-","-");
-                txt_nombre.Text = a.Nombre;
-                txt_apellido.Text = a.Apellido;
-                DateTime fecha = a.FechaNacimiento;
-                MessageBox.Show(a.FechaNacimiento.ToString());
-                txt_fechaNacimiento.Value = a.FechaNacimiento;
-                txt_domicilio.Text = a.Domicilio;
-                txt_telefono.Text = a.Telefono;
-                txt_email.Text = a.Email;
-                txt_dni.Text = a.Dni;
+                
+                alumnos = Negocio.NegocioAlumnos.buscar(nombre, apellido, dni);
+                
+                if (alumnos.Count < 2)
+                {
+                    
+                    txt_nombre.Text = alumnos[0].Nombre;
+                    txt_apellido.Text = alumnos[0].Apellido;
+                    DateTime fecha = alumnos[0].FechaNacimiento;
+                    txt_fechaNacimiento.Value = alumnos[0].FechaNacimiento;
+                    txt_domicilio.Text = alumnos[0].Domicilio;
+                    txt_telefono.Text = alumnos[0].Telefono;
+                    txt_email.Text = alumnos[0].Email;
+                    txt_dni.Text = alumnos[0].Dni;
+                    cursos = Negocio.NegocioAlumnos.GetCursos(Convert.ToInt32(alumnos[0].Dni));
+                    dataGridView2.DataSource = cursos;
+                   
+                    alumnos.Clear();
+                }
+                else
+                {
+                    
+                    MessageBox.Show("Hubo mas de una coincidencia, por favor selecciona el alumno a buscar ");
+                    dataGridView1.Visible = true;
+                    dataGridView1.DataSource = alumnos;
+                   
+                }
+
             }
-            else 
+            else
             {
-                MessageBox.Show("No existe el alumno con el nombre " + txt_nombre.Text + " " + txt_apellido.Text ); 
+                MessageBox.Show("No existe el alumno con el nombre " + txt_nombre.Text + " " + txt_apellido.Text);
             }
-            
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -259,9 +280,37 @@ namespace ProyectoEscuela
                 return;
             }
             Negocio.NegocioAlumnos.eliminar(dni);
-            MessageBox.Show("Se eliminó el alumno "+nombre+" "+apellido+ " con dni " + txt_dni.Text);
+            MessageBox.Show("Se eliminó el alumno " + nombre + " " + apellido + " con dni " + txt_dni.Text);
             limpiarControles();
-           
+
         }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+           
+            if (e.RowIndex >= 0 && e.ColumnIndex >= 0)
+            {
+                DataGridViewCell cell = dataGridView1.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                if (cell.Value != null)
+                {
+                    int j = cell.RowIndex;
+                    Alumno a = new Alumno();
+                    string Nombre = alumnos[j].Nombre;
+                    string Apellido = alumnos[j].Apellido;
+                    string Dni = alumnos[j].Dni;
+                    
+                    buscar(Nombre, Apellido, Dni);
+                    dataGridView1.Visible = false;
+                   
+
+                }
+            }
+        }
+
+        private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
     }
 }

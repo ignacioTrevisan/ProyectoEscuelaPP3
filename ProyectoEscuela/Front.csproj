@@ -206,6 +206,7 @@
     <None Include="Properties\DataSources\EntidadAlumno.Alumno.datasource" />
     <None Include="Properties\DataSources\EntidadAlumno.boletin.datasource" />
     <None Include="Properties\DataSources\EntidadAlumno.Comunicado.datasource" />
+    <None Include="Properties\DataSources\EntidadAlumno.Cursos.datasource" />
     <None Include="Properties\DataSources\EntidadAlumno.Faltas.datasource" />
     <None Include="Properties\DataSources\EntidadAlumno.Promedio.datasource" />
     <None Include="Properties\DataSources\EntidadNota.Nota.datasource" />

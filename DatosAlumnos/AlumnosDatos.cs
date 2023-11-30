@@ -79,8 +79,9 @@ namespace DatosAlumnos
             }
 
         }
-        public static int buscar(Alumno a, string curso, string division)
+        public static List<Alumno> buscar(string nombre, string apellido, string dni)
         {
+            List<Alumno> lista = new List<Alumno>();
             int idAlumnoCreado = 0;
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(conString))
@@ -90,31 +91,28 @@ namespace DatosAlumnos
                 SqlCommand command = new SqlCommand("BuscarAlumno", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
 
-                command.Parameters.AddWithValue("@nombre", (a.Nombre));
-                command.Parameters.AddWithValue("@apellido", (a.Apellido));
-                if (curso != "-" && division != "-")
-                {
-                    command.Parameters.AddWithValue("@año", Convert.ToDouble(a.Curso));
-                    command.Parameters.AddWithValue("@division", Convert.ToDouble(a.Curso));
-                }
+                command.Parameters.AddWithValue("@nombre", (nombre));
+                command.Parameters.AddWithValue("@apellido", (apellido));
+                command.Parameters.AddWithValue("@dni", (dni));
                 SqlDataReader reader = command.ExecuteReader();
 
-                if (reader.Read())
+                while (reader.Read())
                 {
-                    Alumno busqueda = new Alumno();
-                    a.Nombre = Convert.ToString(reader["nombre"]);
-                    a.Dni = Convert.ToString(reader["dni"]);
-                    a.Apellido = Convert.ToString(reader["apellido"]);
-                    a.FechaNacimiento = Convert.ToDateTime(reader["fechaNacimiento"]);
-                    a.Email = Convert.ToString(reader["email"]);
-                    a.Domicilio = Convert.ToString(reader["Domicilio"]);
-                    a.Telefono = Convert.ToString(reader["telefono"]);
-                    a.Id = Convert.ToInt32(reader["id"]);
-                    connection.Close();
-                    reader.Close();
+                    Alumno b = new Alumno();
+                    b.Nombre = Convert.ToString(reader["nombre"]);
+                    b.Dni = Convert.ToString(reader["dni"]);
+                    b.Apellido = Convert.ToString(reader["apellido"]);
+                    b.FechaNacimiento = Convert.ToDateTime(reader["fechaNacimiento"]);
+                    b.Email = Convert.ToString(reader["email"]);
+                    b.Domicilio = Convert.ToString(reader["Domicilio"]);
+                    b.Telefono = Convert.ToString(reader["telefono"]);
+                    b.Id = Convert.ToInt32(reader["id"]);
+                    lista.Add(b);
                 }
+                connection.Close();
+                reader.Close();
             }
-            return idAlumnoCreado;
+            return lista;
 
         }
         public static int registrarEstado(string estado, DateTime fecha, int dni, string curso, string division, int ciclo)
@@ -571,6 +569,43 @@ namespace DatosAlumnos
                         busqueda.Division = Convert.ToString(reader["division"]);
                         
                         busqueda.ciclo = Convert.ToInt16(reader["ciclo"]);
+                        listas.Add(busqueda);
+                    }
+
+                    reader.Close();
+
+
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+            }
+            return listas;
+        }
+
+        public static List<Cursos> getCurso(int dni)
+        {
+            List<Cursos> listas = new List<Cursos>();
+
+
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["ConexionDB"].ConnectionString;
+            using (SqlConnection Connection = new SqlConnection(conString))
+            {
+                SqlCommand command = new SqlCommand("GetHistorialCursosXdni", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@dni", dni);
+
+                try
+                {
+                    Connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Cursos busqueda = new Cursos();
+                        busqueda.año = Convert.ToString(reader["año"]);
+                        busqueda.division = Convert.ToString(reader["division"]);
+                        busqueda.ciclo = Convert.ToString(reader["ciclo"]);
                         listas.Add(busqueda);
                     }
 

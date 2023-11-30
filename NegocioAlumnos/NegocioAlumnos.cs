@@ -70,12 +70,12 @@ namespace Negocio
                 throw;
             }
         }
-        public static int buscar(Alumno a, string curso, string division)
+        public static List<Alumno> buscar(string nombre, string apellido, string dni)
         {
             
             try
             {
-                return AlumnosDatos.buscar(a, curso, division);
+                return AlumnosDatos.buscar(nombre, apellido, dni);
             }
             catch (Exception)
             {
@@ -143,6 +143,11 @@ namespace Negocio
         public static List<Nota> GetCursosDirector()
         {
             return AlumnosDatos.getCursosDirector();
+        }
+
+        public static List<Cursos> GetCursos(int dni)
+        {
+            return AlumnosDatos.getCurso(dni);
         }
     }
    
