@@ -32,13 +32,14 @@ namespace ProyectoEscuela
         }
         public Boolean verificarExistencia()
         {
-            string query = "SELECT COUNT(*) FROM Alumnos WHERE nombre = @nombre";
+            string query = "SELECT COUNT(*) FROM Alumnos WHERE nombre = @nombre AND apellido = @apellido" ;
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(conString))
             {
                 connection.Open();
                 SqlCommand cmd = new SqlCommand(query, connection);
                 cmd.Parameters.AddWithValue("@nombre", txt_nombre.Text);
+                cmd.Parameters.AddWithValue("@apellido", txt_apellido.Text);
                 int count = (int)cmd.ExecuteScalar();   
                 if (count == 0)
                 {
@@ -210,16 +211,18 @@ namespace ProyectoEscuela
             {
                 Alumno a = new Alumno();
                 a.Nombre = Convert.ToString(txt_nombre.Text);
+                a.Apellido = txt_apellido.Text;
                 int idEmp = Negocio.NegocioAlumnos.buscar(a,"-","-");
                 txt_nombre.Text = a.Nombre;
                 txt_apellido.Text = a.Apellido;
-                DateTime fecha = txt_fechaNacimiento.Value;
+                DateTime fecha = a.FechaNacimiento;
                 txt_fechaNacimiento.Value = fecha;
                 txt_domicilio.Text = a.Domicilio;
                 txt_telefono.Text = a.Telefono;
                 txt_email.Text = a.Email;
                 txt_division.Text = a.division;
                 txt_curso.Text = a.Curso;
+                txt_dni.Text = a.Dni;
             }
             else 
             {

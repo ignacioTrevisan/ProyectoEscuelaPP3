@@ -92,6 +92,7 @@ namespace DatosAlumnos
                 command.CommandType = System.Data.CommandType.StoredProcedure;
 
                 command.Parameters.AddWithValue("@nombre", (a.Nombre));
+                command.Parameters.AddWithValue("@apellido", (a.Apellido));
                 if (curso != "-" && division != "-")
                 {
                     command.Parameters.AddWithValue("@año", Convert.ToDouble(a.Curso));
