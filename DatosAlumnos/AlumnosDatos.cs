@@ -32,8 +32,7 @@ namespace DatosAlumnos
                 command.Parameters.AddWithValue("@email", a.Email);
                 command.Parameters.AddWithValue("@domicilio", a.Domicilio);
                 command.Parameters.AddWithValue("@telefono", a.Telefono);
-                command.Parameters.AddWithValue("@año", a.Curso);
-                command.Parameters.AddWithValue("@division", a.division);
+                
                 try
                 {
                     connection.Open();
@@ -410,7 +409,7 @@ namespace DatosAlumnos
             return gmail;
         }
 
-        public static void eliminar(string dni)
+        /*public static void eliminar(string dni)
         {
             int idAlumnoCreado = 1;
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
@@ -424,10 +423,39 @@ namespace DatosAlumnos
                 {
                     connection.Open();
                     idAlumnoCreado = Convert.ToInt32(cmd.ExecuteScalar());
+                    
                 }
                 catch (Exception)
                 {
                     throw;
+                }
+            }
+        }
+        */
+
+        public static void eliminar(string dni)
+        {
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+
+            using (SqlConnection connection = new SqlConnection(conString))
+            {
+                connection.Open();
+
+                using (SqlCommand cmd = new SqlCommand("eliminarAlumno", connection))
+                {
+                    cmd.CommandType = CommandType.StoredProcedure;  // Establece el tipo de comando como un procedimiento almacenado
+                    cmd.Parameters.AddWithValue("@dni", dni);
+
+                    try
+                    {
+                        cmd.ExecuteNonQuery();  // Ejecuta la instrucción SQL para eliminar el alumno
+                    }
+                    catch (Exception ex)
+                    {
+                        // Maneja la excepción adecuadamente (puedes imprimir o registrar la excepción)
+                        Console.WriteLine("Error al eliminar el alumno: " + ex.Message);
+                        throw;
+                    }
                 }
             }
         }

@@ -13,6 +13,7 @@ using System.Configuration;
 using System.Net;
 using System.Data.SqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.ProgressBar;
+using System.Text.RegularExpressions;
 
 namespace ProyectoEscuela
 {
@@ -51,13 +52,35 @@ namespace ProyectoEscuela
                 }
             }
         }
+
+        public Boolean verificarExistenciaDni()
+        {
+            string query = "SELECT COUNT(*) FROM Alumnos WHERE dni = @dni";
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(conString))
+            {
+                connection.Open();
+                SqlCommand cmd = new SqlCommand(query, connection);
+                cmd.Parameters.AddWithValue("@dni", txt_dni.Text);
+                
+                int count = (int)cmd.ExecuteScalar();
+                if (count == 0)
+                {
+                    return false;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+        }
         public void guardar()
         {
             try
             {
                 Alumno a = new Alumno();
                 if (!VerificacionDeDatosLogicos()) return;
-                if (verificarExistencia() == false)
+                if (verificarExistenciaDni() == false)
                 {
                     a.Nombre = txt_nombre.Text;
                     a.Apellido = txt_apellido.Text;
@@ -66,15 +89,14 @@ namespace ProyectoEscuela
                     a.Domicilio = txt_domicilio.Text;
                     a.Telefono = txt_telefono.Text;
                     a.Email = txt_email.Text;
-                    a.division = txt_division.Text;
-                    a.Curso = txt_curso.Text;
+                    
                     DialogResult res = MessageBox.Show("¿Confirma guardar ? ", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (res == DialogResult.No)
                     {
                         return;
                     }
                     int idEmp = Negocio.NegocioAlumnos.insertar(a);
-                    MessageBox.Show("Se generó el alumno con dni " + a.Dni);
+                    MessageBox.Show("Se generó el alumno con dni " + a.Dni + "Nombre: " +a.Nombre + " Apellido: " + a.Apellido);
                     limpiarControles();
 
                 }
@@ -100,13 +122,13 @@ namespace ProyectoEscuela
             txt_domicilio.Text = "";
             txt_telefono.Text = "";
             txt_email.Text = "";
-            txt_division.Text = "";
-            txt_curso.Text = "";
+           
             txt_dni.Text = "";
         }
 
         public bool VerificacionDeDatosLogicos()
         {
+            string patronCorreoElectronico = @"^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$";
             int caracter = txt_dni.Text.Length;
             if (caracter > 8 || caracter < 7)
             {
@@ -123,16 +145,7 @@ namespace ProyectoEscuela
                 MessageBox.Show("El NOMBRE está mal ingresado o no se ingresó");
                 return false;
             }
-            else if(txt_curso.Text == "")
-            {
-                MessageBox.Show("El CURSO está mal ingresado o no se ingresó");
-                return false;
-            }
-            else if(txt_division.Text == "")
-            {
-                MessageBox.Show("El DIVISION está mal ingresado o no se ingresó");
-                return false;
-            }
+           
             else if(txt_telefono.Text == "")
             {
                 MessageBox.Show("El TELEFONO está mal ingresado o no se ingresó");
@@ -140,8 +153,15 @@ namespace ProyectoEscuela
             }
             else if (txt_email.Text == "")
             {
+
                 MessageBox.Show("El EMAIL está mal ingresado o no se ingresó");
                 return false;
+            }
+            else if (!Regex.IsMatch(txt_email.Text, patronCorreoElectronico))
+            {
+                MessageBox.Show("El EMAIL debe tener el formato correcto");
+                return false;
+
             }
             else if (txt_domicilio.Text == "")
             {
@@ -168,9 +188,7 @@ namespace ProyectoEscuela
                 a.Domicilio = txt_domicilio.Text;
                 a.Telefono = txt_telefono.Text;
                 a.Email = txt_email.Text;
-                a.division = txt_division.Text;
-                a.Curso = txt_curso.Text;
-                
+              
                     if (verificarExistencia()==true)
                     {
                         DialogResult res = MessageBox.Show("¿Confirma edicion ? ", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -220,13 +238,11 @@ namespace ProyectoEscuela
                 txt_domicilio.Text = a.Domicilio;
                 txt_telefono.Text = a.Telefono;
                 txt_email.Text = a.Email;
-                txt_division.Text = a.division;
-                txt_curso.Text = a.Curso;
                 txt_dni.Text = a.Dni;
             }
             else 
             {
-                MessageBox.Show("No existe el alumno con dni " + txt_dni.Text); 
+                MessageBox.Show("No existe el alumno con el nombre " + txt_nombre.Text + " " + txt_apellido.Text ); 
             }
             
         }
@@ -234,7 +250,17 @@ namespace ProyectoEscuela
         private void button2_Click(object sender, EventArgs e)
         {
             string dni = txt_dni.Text;
+            string nombre = txt_nombre.Text;
+            string apellido = txt_apellido.Text;
+            DialogResult res = MessageBox.Show("¿Está seguro que desea eliminar el alumno ? ", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+            if (res == DialogResult.No)
+            {
+                return;
+            }
             Negocio.NegocioAlumnos.eliminar(dni);
+            MessageBox.Show("Se eliminó el alumno "+nombre+" "+apellido+ " con dni " + txt_dni.Text);
+            limpiarControles();
+           
         }
     }
 }
