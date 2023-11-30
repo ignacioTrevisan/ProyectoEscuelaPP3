@@ -50,24 +50,20 @@ namespace ProyectoEscuela
         private void button1_Click(object sender, EventArgs e)
         {
             string recurso = comboBox2.Text;
-            string estado = textBox1.Text;
             DateTime fecha = dateTimePicker1.Value.Date;
             string horario = Convert.ToString(numericUpDown1.Value);
             string fechados = Convert.ToString(fecha);
-            string id = Convert.ToString(GlobalVariables.id);
+            int id = GlobalVariables.id;
             string comentarios = textBox3.Text;
            
             if (comentarios == "") 
             {
                 comentarios = "--";
             }
-            if (estado == "") 
-            {
-                estado = "--";
-            }
+            
             if (!string.IsNullOrEmpty(recurso) && !string.IsNullOrEmpty(horario))
             {
-                int res = NegociosRecursosSalas.RegistrarReservas(recurso, fechados,horario, estado, comentarios, id);
+                int res = NegociosRecursosSalas.RegistrarReservas(recurso, fechados,horario, comentarios, id);
                 dataGridView1.Rows.Clear();
                 lista = NegociosRecursosSalas.GetReservas(lista);
                 refreshgrid();
@@ -80,18 +76,14 @@ namespace ProyectoEscuela
                     MessageBox.Show("Este recurso ya esta reservado para ese dia y horario. ");
                     DialogResult result = MessageBox.Show("¿Desea modificar crear otra reserva?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                    if (result == DialogResult.Yes)
+                    if (result == DialogResult.No)
                     {
-                        
-                    }
-                    else
-                    {
-                        textBox1.Text = "";
                         textBox3.Text = "";
                         textBox4.Text = "";
                         panel1.Visible = false;
                         button3.Visible = true;
                     }
+                    
                 }
             }
             else 

@@ -28,7 +28,6 @@ namespace datosRecursos
                     ReservasRecursosSalas re = new ReservasRecursosSalas();
                     re.id = Convert.ToInt32(reader["Id"]);
                     re.fecha = Convert.ToDateTime(reader["Fecha"]);
-                    re.estado = Convert.ToString(reader["estado"]);
                     re.recurso = Convert.ToString(reader["recurso"]);
                     re.dniProfesor = Convert.ToString(reader["dniProfesor"]);
                     re.comentario = Convert.ToString(reader["Comentarios"]);
@@ -57,7 +56,7 @@ namespace datosRecursos
                 }
             }
         }
-        public static int RegistrarReservas(string recurso, string fecha, string horario,string estado, string comentario, string profesor)
+        public static int RegistrarReservas(string recurso, string fecha, string horario, string comentario, int profesor)
         {
             int idAlumnoCreado = 0;
             DateTime Fecha = DateTime.Parse(fecha);
@@ -69,14 +68,13 @@ namespace datosRecursos
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@recurso", recurso);
                 command.Parameters.AddWithValue("@fecha", Fecha);
-                command.Parameters.AddWithValue("@estado", estado);
                 command.Parameters.AddWithValue("@comentario", comentario);
                 command.Parameters.AddWithValue("@IdProfesor", profesor);
                 command.Parameters.AddWithValue("@horario", resultado);
                 try
                 {
                     connection.Open();
-                    idAlumnoCreado = Convert.ToInt32(command.ExecuteScalar());
+                    idAlumnoCreado = Convert.ToInt32(command.ExecuteNonQuery());
                 }
                 catch (Exception)
                 {
