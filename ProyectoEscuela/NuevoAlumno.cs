@@ -234,7 +234,8 @@ namespace ProyectoEscuela
                 txt_nombre.Text = a.Nombre;
                 txt_apellido.Text = a.Apellido;
                 DateTime fecha = a.FechaNacimiento;
-                txt_fechaNacimiento.Value = fecha;
+                MessageBox.Show(a.FechaNacimiento.ToString());
+                txt_fechaNacimiento.Value = a.FechaNacimiento;
                 txt_domicilio.Text = a.Domicilio;
                 txt_telefono.Text = a.Telefono;
                 txt_email.Text = a.Email;

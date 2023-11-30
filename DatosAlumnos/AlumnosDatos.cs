@@ -109,8 +109,6 @@ namespace DatosAlumnos
                     a.Email = Convert.ToString(reader["email"]);
                     a.Domicilio = Convert.ToString(reader["Domicilio"]);
                     a.Telefono = Convert.ToString(reader["telefono"]);
-                    a.Curso = Convert.ToString(reader["año"]);
-                    a.division = Convert.ToString(reader["division"]);
                     a.Id = Convert.ToInt32(reader["id"]);
                     connection.Close();
                     reader.Close();
