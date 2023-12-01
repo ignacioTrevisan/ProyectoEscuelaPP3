@@ -31,7 +31,8 @@ namespace datosRecursos
                     re.recurso = Convert.ToString(reader["recurso"]);
                     re.dniProfesor = Convert.ToString(reader["dniProfesor"]);
                     re.comentario = Convert.ToString(reader["Comentarios"]);
-                    re.Hora = Convert.ToString(reader["hora"]);
+                    re.HoraDesde = Convert.ToString(reader["horadesde"]);
+                    re.HoraHasta = Convert.ToString(reader["horahasta"]);
                     lista.Add(re);
                 }
             }
@@ -56,11 +57,12 @@ namespace datosRecursos
                 }
             }
         }
-        public static int RegistrarReservas(string recurso, string fecha, string horario, string comentario, int profesor)
+        public static int RegistrarReservas(string recurso, string fecha, string horarioDesde, string horarioHasta, string comentario, int profesor)
         {
             int idAlumnoCreado = 0;
             DateTime Fecha = DateTime.Parse(fecha);
-            string resultado = TimeSpan.FromHours(Convert.ToInt32(horario)).ToString("hh':'mm");
+            string resultado = TimeSpan.FromHours(Convert.ToInt32(horarioDesde)).ToString("hh':'mm");
+            string resultado2 = TimeSpan.FromHours(Convert.ToInt32(horarioHasta)).ToString("hh':'mm");
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(conString))
             {
@@ -70,7 +72,8 @@ namespace datosRecursos
                 command.Parameters.AddWithValue("@fecha", Fecha);
                 command.Parameters.AddWithValue("@comentario", comentario);
                 command.Parameters.AddWithValue("@IdProfesor", profesor);
-                command.Parameters.AddWithValue("@horario", resultado);
+                command.Parameters.AddWithValue("@horarioDesde", resultado);
+                command.Parameters.AddWithValue("@horarioHasta", resultado2);
                 try
                 {
                     connection.Open();

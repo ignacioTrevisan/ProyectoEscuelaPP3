@@ -22,7 +22,7 @@ namespace ProyectoEscuela
             InitializeComponent();
             getRecursos();
             getdos();
-            numericUpDown1.Maximum = 20;
+            numericUpDown1.Maximum = 16;
             numericUpDown1.Minimum = 7;
             /*
              string hora = Convert.ToString(dateTimePicker2.Value.AddHours(2).AddMinutes(5));
@@ -51,7 +51,8 @@ namespace ProyectoEscuela
         {
             string recurso = comboBox2.Text;
             DateTime fecha = dateTimePicker1.Value.Date;
-            string horario = Convert.ToString(numericUpDown1.Value);
+            string horarioDesde = Convert.ToString(numericUpDown1.Value);
+            string horarioHasta =Convert.ToString(numericUpDown2.Value);
             string fechados = Convert.ToString(fecha);
             int id = GlobalVariables.id;
             string comentarios = textBox3.Text;
@@ -61,9 +62,9 @@ namespace ProyectoEscuela
                 comentarios = "--";
             }
             
-            if (!string.IsNullOrEmpty(recurso) && !string.IsNullOrEmpty(horario))
+            if (!string.IsNullOrEmpty(recurso) && !string.IsNullOrEmpty(horarioDesde))
             {
-                int res = NegociosRecursosSalas.RegistrarReservas(recurso, fechados,horario, comentarios, id);
+                int res = NegociosRecursosSalas.RegistrarReservas(recurso, fechados,horarioDesde, horarioHasta, comentarios, id);
                 dataGridView1.Rows.Clear();
                 lista = NegociosRecursosSalas.GetReservas(lista);
                 refreshgrid();
