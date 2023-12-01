@@ -52,6 +52,7 @@ namespace ProyectoEscuela
             string recurso = comboBox2.Text;
             DateTime fecha = dateTimePicker1.Value.Date;
             string horarioDesde = Convert.ToString(numericUpDown1.Value);
+
             string horarioHasta =Convert.ToString(numericUpDown2.Value);
             string fechados = Convert.ToString(fecha);
             int id = GlobalVariables.id;
