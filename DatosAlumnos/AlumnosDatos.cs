@@ -61,8 +61,6 @@ namespace DatosAlumnos
                 command.Parameters.AddWithValue("@p_email", a.Email);
                 command.Parameters.AddWithValue("@p_domicilio", a.Domicilio);
                 command.Parameters.AddWithValue("@p_telefono", a.Telefono);
-                command.Parameters.AddWithValue("@p_año", a.Curso);
-                command.Parameters.AddWithValue("@p_division", a.division);
                 try
                 {
                     connection.Open();
@@ -497,7 +495,7 @@ namespace DatosAlumnos
             return list;
         }
 
-        public static List<Alumno> TraerAsistenciasDeHoy(string curso, string division, DateTime dateTime)
+        public static List<Alumno> TraerAsistenciasDeHoy(string curso, string division, DateTime dateTime, int ciclo)
         {
             List<Alumno> listas = new List<Alumno>();
 
@@ -510,6 +508,8 @@ namespace DatosAlumnos
                 command.Parameters.AddWithValue("@fecha", dateTime);
                 command.Parameters.AddWithValue("@año", curso);
                 command.Parameters.AddWithValue("@division", division);
+                command.Parameters.AddWithValue("@ciclo", ciclo);
+
 
                 try
                 {

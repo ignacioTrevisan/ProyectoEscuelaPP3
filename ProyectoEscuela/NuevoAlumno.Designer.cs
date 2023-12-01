@@ -49,15 +49,15 @@
             this.button2 = new System.Windows.Forms.Button();
             this.label8 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.alumnoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.nombreDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.apellidoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dniDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.alumnoBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.cursosBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.añoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.divisionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cicloDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cursosBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.button3 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.alumnoBindingSource)).BeginInit();
@@ -240,16 +240,12 @@
             this.apellidoDataGridViewTextBoxColumn,
             this.dniDataGridViewTextBoxColumn});
             this.dataGridView1.DataSource = this.alumnoBindingSource;
-            this.dataGridView1.Location = new System.Drawing.Point(99, 128);
+            this.dataGridView1.Location = new System.Drawing.Point(117, 240);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(343, 120);
             this.dataGridView1.TabIndex = 25;
             this.dataGridView1.Visible = false;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // alumnoBindingSource
-            // 
-            this.alumnoBindingSource.DataSource = typeof(EntidadAlumno.Alumno);
             // 
             // nombreDataGridViewTextBoxColumn
             // 
@@ -269,6 +265,10 @@
             this.dniDataGridViewTextBoxColumn.HeaderText = "Dni";
             this.dniDataGridViewTextBoxColumn.Name = "dniDataGridViewTextBoxColumn";
             // 
+            // alumnoBindingSource
+            // 
+            this.alumnoBindingSource.DataSource = typeof(EntidadAlumno.Alumno);
+            // 
             // dataGridView2
             // 
             this.dataGridView2.AutoGenerateColumns = false;
@@ -284,10 +284,6 @@
             this.dataGridView2.Size = new System.Drawing.Size(173, 72);
             this.dataGridView2.TabIndex = 26;
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
-            // 
-            // cursosBindingSource
-            // 
-            this.cursosBindingSource.DataSource = typeof(EntidadAlumno.Cursos);
             // 
             // añoDataGridViewTextBoxColumn
             // 
@@ -307,14 +303,19 @@
             this.cicloDataGridViewTextBoxColumn.HeaderText = "ciclo";
             this.cicloDataGridViewTextBoxColumn.Name = "cicloDataGridViewTextBoxColumn";
             // 
+            // cursosBindingSource
+            // 
+            this.cursosBindingSource.DataSource = typeof(EntidadAlumno.Cursos);
+            // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(267, 276);
+            this.button3.Location = new System.Drawing.Point(190, 177);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(75, 23);
             this.button3.TabIndex = 27;
-            this.button3.Text = "button3";
+            this.button3.Text = "BuscarXdni";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // NuevoAlumno
             // 

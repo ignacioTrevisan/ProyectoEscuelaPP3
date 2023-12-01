@@ -178,7 +178,7 @@ namespace DatosAlumnos
                     n.Curso = Convert.ToString(reader["año"]);
                     n.Division = Convert.ToString(reader["division"]);
                     n.ciclo = Convert.ToInt32(reader["ciclo"]);
-                    n.Materia = Convert.ToString(reader["IdMateria"]);
+                    n.Materia = Convert.ToString(reader["materia"]);
                     lista.Add(n);
                 }
                 reader.Close();

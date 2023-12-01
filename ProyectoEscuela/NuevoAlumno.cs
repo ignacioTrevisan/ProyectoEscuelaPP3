@@ -192,7 +192,7 @@ namespace ProyectoEscuela
                 a.Telefono = txt_telefono.Text;
                 a.Email = txt_email.Text;
 
-                if (verificarExistencia() == true)
+                if (verificarExistenciaDni() == true)
                 {
                     DialogResult res = MessageBox.Show("¿Confirma edicion ? ", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (res == DialogResult.No)
@@ -223,11 +223,20 @@ namespace ProyectoEscuela
 
         private void btn_buscarAlumno_Click(object sender, EventArgs e)
         {
+            if (string.IsNullOrEmpty(txt_nombre.Text) || (string.IsNullOrEmpty(txt_apellido.Text)))
+            {
+                MessageBox.Show("Ingrese nombre y apellido del alumno a buscar ");
+            }
+            else 
+            {
+            
+            
             Alumno a = new Alumno();
             string nombre = Convert.ToString(txt_nombre.Text);
             string apellido = txt_apellido.Text;
             string dni = "0";
             buscar(nombre, apellido, dni);
+            }
         }
         private void buscar(string nombre, string apellido, string dni)
         {
@@ -312,5 +321,17 @@ namespace ProyectoEscuela
 
         }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(txt_dni.Text))
+            {
+                MessageBox.Show("Ingrese dni");
+            }
+            else 
+            {
+                buscar("-", "-", txt_dni.Text);
+            }
+            
+        }
     }
 }

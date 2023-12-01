@@ -193,15 +193,13 @@ namespace ProyectoEscuela
             string curso = lista[a].Curso;
             string division = lista[a].Division;
             registrarestado(estado, fecha, dni, curso, division, GlobalVariables.ciclo);
-            asistencias = Negocio.NegocioAlumnos.TraerAsistenciasDeHoy(curso, division, dateTimePicker1.Value);
+            asistencias = Negocio.NegocioAlumnos.TraerAsistenciasDeHoy(curso, division, dateTimePicker1.Value, GlobalVariables.ciclo);
             refreshgrid();
         }
 
         private void registrarestado(string estado, DateTime fecha, int dni, string curso, string division, int ciclo)
         {
-            MessageBox.Show(dni.ToString());
             Negocio.NegocioAlumnos.registrarEstado(estado, fecha, dni, curso, division, ciclo);
-            MessageBox.Show(dni + " fue registrado como " + estado + " el dia " + fecha + " exitosamente");
 
         }
 
@@ -214,7 +212,7 @@ namespace ProyectoEscuela
             string curso = lista[a].Curso;
             string division = lista[a].Division;
             registrarestado(estado, fecha, dni, curso, division, GlobalVariables.ciclo);
-            asistencias = Negocio.NegocioAlumnos.TraerAsistenciasDeHoy(curso, division, dateTimePicker1.Value);
+            asistencias = Negocio.NegocioAlumnos.TraerAsistenciasDeHoy(curso, division, dateTimePicker1.Value, GlobalVariables.ciclo);
             refreshgrid();
         }
 
@@ -224,27 +222,26 @@ namespace ProyectoEscuela
         public void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
             int a = 0;
-            
+
+            dateTimePicker1.MinDate = new DateTime(2000, 6, 1);
+            dateTimePicker1.MaxDate = new DateTime(3000, 1, 1);
+
             a = comboBox1.SelectedIndex;
             string curso = lista[a].Curso;
             string division = lista[a].Division;
-            MessageBox.Show(lista[a].ciclo.ToString());
-            if (GlobalVariables.cargo == "Director") 
+            if (GlobalVariables.cargo == "director" || GlobalVariables.cargo == "preceptor") 
             {
                 GlobalVariables.ciclo = lista[a].ciclo;
             }
-            if (lista[a].ciclo == 2023)
+                Int32 año = GlobalVariables.ciclo;
+            if (GlobalVariables.cargo != "profesor")
             {
-                dateTimePicker1.MaxDate = new DateTime(2023, 12, 31);
-                dateTimePicker1.MinDate = new DateTime(2023, 1, 1);
+                dateTimePicker1.Value = new DateTime(año, 6, 1);
+                dateTimePicker1.MaxDate = new DateTime(año, 12, 31);
+                dateTimePicker1.MinDate = new DateTime(año, 1, 1);
+            }
+            
                 
-            }
-            else 
-            {
-                dateTimePicker1.MinDate = new DateTime(2022, 1, 1);
-                dateTimePicker1.MaxDate = new DateTime(2022, 12, 31);
-               
-            }
 
             alumnos = Negocio.NegocioAlumnos.GetXCurso("", curso, division, GlobalVariables.ciclo);
             int i = 0;
@@ -258,7 +255,7 @@ namespace ProyectoEscuela
                 }
                 i++;
             }
-            asistencias = Negocio.NegocioAlumnos.TraerAsistenciasDeHoy(curso, division, dateTimePicker1.Value);
+            asistencias = Negocio.NegocioAlumnos.TraerAsistenciasDeHoy(curso, division, dateTimePicker1.Value, GlobalVariables.ciclo);
             refreshgrid();
            
         }
@@ -308,12 +305,12 @@ namespace ProyectoEscuela
             a = comboBox1.SelectedIndex;
             string curso = lista[a].Curso;
             string division = lista[a].Division;
-            if (GlobalVariables.cargo == "Director")
+            if (GlobalVariables.cargo == "director" || GlobalVariables.cargo == "preceptor")
             {
                 GlobalVariables.ciclo = lista[a].ciclo;
             }
             alumnos = Negocio.NegocioAlumnos.GetXCurso("", curso, division, GlobalVariables.ciclo);
-            asistencias = Negocio.NegocioAlumnos.TraerAsistenciasDeHoy(curso, division, dateTimePicker1.Value);
+            asistencias = Negocio.NegocioAlumnos.TraerAsistenciasDeHoy(curso, division, dateTimePicker1.Value, GlobalVariables.ciclo);
             refreshgrid();
         }
     }

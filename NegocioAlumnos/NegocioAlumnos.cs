@@ -135,9 +135,9 @@ namespace Negocio
             return AlumnosDatos.verTodasFaltas();
         }
 
-        public static List<Alumno> TraerAsistenciasDeHoy(string curso, string division, DateTime value)
+        public static List<Alumno> TraerAsistenciasDeHoy(string curso, string division, DateTime value, int ciclo)
         {
-            return AlumnosDatos.TraerAsistenciasDeHoy(curso, division, value);
+            return AlumnosDatos.TraerAsistenciasDeHoy(curso, division, value, ciclo);
         }
 
         public static List<Nota> GetCursosDirector()
