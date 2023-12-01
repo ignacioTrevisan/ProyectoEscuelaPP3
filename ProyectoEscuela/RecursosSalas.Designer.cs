@@ -77,7 +77,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(10, 21);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 62;
-            this.dataGridView1.Size = new System.Drawing.Size(1061, 338);
+            this.dataGridView1.Size = new System.Drawing.Size(949, 299);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
@@ -149,15 +149,15 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(26, 362);
+            this.label5.Location = new System.Drawing.Point(26, 385);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(149, 13);
+            this.label5.Size = new System.Drawing.Size(301, 13);
             this.label5.TabIndex = 15;
-            this.label5.Text = "Eliminar reserva (ingrese su id)";
+            this.label5.Text = "Eliminar reserva (ingrese el id de la reserva que desea eliminar)";
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(147, 390);
+            this.button2.Location = new System.Drawing.Point(147, 413);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
             this.button2.TabIndex = 16;
@@ -167,7 +167,7 @@
             // 
             // textBox4
             // 
-            this.textBox4.Location = new System.Drawing.Point(29, 390);
+            this.textBox4.Location = new System.Drawing.Point(29, 413);
             this.textBox4.Name = "textBox4";
             this.textBox4.Size = new System.Drawing.Size(100, 20);
             this.textBox4.TabIndex = 17;
@@ -202,7 +202,7 @@
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.comboBox2);
             this.panel1.Controls.Add(this.label4);
-            this.panel1.Location = new System.Drawing.Point(1081, 21);
+            this.panel1.Location = new System.Drawing.Point(978, 21);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(186, 262);
             this.panel1.TabIndex = 21;
@@ -226,7 +226,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(1081, 301);
+            this.button3.Location = new System.Drawing.Point(938, 384);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(186, 49);
             this.button3.TabIndex = 22;
@@ -236,16 +236,17 @@
             // 
             // Id
             // 
+            this.Id.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.AllCells;
             this.Id.DataPropertyName = "id";
             this.Id.HeaderText = "Id";
             this.Id.MinimumWidth = 8;
             this.Id.Name = "Id";
-            this.Id.Width = 150;
+            this.Id.Width = 41;
             // 
             // HoraDesde
             // 
-            this.HoraDesde.DataPropertyName = "Hora Desde";
-            this.HoraDesde.HeaderText = "HoraDesde";
+            this.HoraDesde.DataPropertyName = "HoraDesde";
+            this.HoraDesde.HeaderText = "Hora Desde";
             this.HoraDesde.MinimumWidth = 6;
             this.HoraDesde.Name = "HoraDesde";
             this.HoraDesde.Width = 125;
@@ -295,7 +296,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(1280, 477);
+            this.ClientSize = new System.Drawing.Size(1176, 477);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.textBox4);
             this.Controls.Add(this.button2);

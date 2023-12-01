@@ -37,6 +37,7 @@ namespace datosRecursos
                 }
             }
             return lista;
+            
 
         }
         public void RegistrarSalasRecursos(string descripcion)
@@ -59,6 +60,7 @@ namespace datosRecursos
         }
         public static int RegistrarReservas(string recurso, string fecha, string horarioDesde, string horarioHasta, string comentario, int profesor)
         {
+           
             int idAlumnoCreado = 0;
             DateTime Fecha = DateTime.Parse(fecha);
             string resultado = TimeSpan.FromHours(Convert.ToInt32(horarioDesde)).ToString("hh':'mm");
@@ -112,6 +114,7 @@ namespace datosRecursos
         {
             int resultado;
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+
             using (SqlConnection connection = new SqlConnection(conString))
             {
                 connection.Open();
@@ -121,21 +124,21 @@ namespace datosRecursos
                 command.Parameters.AddWithValue("@idProf", idProf);
                 command.Parameters.AddWithValue("@cargo", cargo);
 
-
                 try
                 {
-                    resultado = 1;
-                    resultado =Convert.ToInt32(command.ExecuteScalar());
-                   
+                    // Utiliza ExecuteNonQuery para operaciones de modificación
+                    resultado = command.ExecuteNonQuery();
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    resultado = Convert.ToInt32(command.ExecuteScalar());
+                    // Manejar la excepción según tus necesidades
+                    Console.WriteLine("Error al eliminar la reserva: " + ex.Message);
                     resultado = 0;
                 }
-
             }
+
             return resultado;
         }
+
     }
 }
