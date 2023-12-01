@@ -28,10 +28,10 @@ namespace NegocioAlumnos
             return datosProfesores.GetPermisos(id);
         }
 
-        public static List<Nota> GetPermisosPreceptor()
+        public static List<Nota> GetPermisosPreceptor(int estado)
         {
             List<Nota> lista = new List<Nota>();
-            return datosProfesores.GetPermisosPreceptor();
+            return datosProfesores.GetPermisosPreceptor(estado);
         }
 
         public static List<profesor> GetProfesores()

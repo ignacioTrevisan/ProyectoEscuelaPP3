@@ -100,7 +100,7 @@ namespace ProyectoEscuela
             List<Nota> lista = new List<Nota>();
             if (GlobalVariables.cargo == "preceptor" || GlobalVariables.cargo == "director")
             {
-                lista = NegocioProfesor.GetPermisosPreceptor();
+                lista = NegocioProfesor.GetPermisosPreceptor(10);
 
             }
             else
@@ -221,43 +221,56 @@ namespace ProyectoEscuela
 
         public void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int a = 0;
+            int a = comboBox1.SelectedIndex;
+            string curso = lista[a].Curso;
+            string division = lista[a].Division;
+            if (cursosGlobal.modo == 1) 
+            {
+                curso = cursosGlobal.curso;
+                division = cursosGlobal.division;
+            }
+            seleccionarCurso(curso, division);
+        }
+        public void hola() 
+        {
+            MessageBox.Show("hola");
+        }
+        public void seleccionarCurso(string curso, string division)
+        {
 
+           
             dateTimePicker1.MinDate = new DateTime(2000, 6, 1);
             dateTimePicker1.MaxDate = new DateTime(3000, 1, 1);
 
-            a = comboBox1.SelectedIndex;
-            string curso = lista[a].Curso;
-            string division = lista[a].Division;
-            if (GlobalVariables.cargo == "director" || GlobalVariables.cargo == "preceptor") 
+            int a = comboBox1.SelectedIndex;
+            if (GlobalVariables.cargo == "director" || GlobalVariables.cargo == "preceptor")
             {
                 GlobalVariables.ciclo = lista[a].ciclo;
             }
-                Int32 año = GlobalVariables.ciclo;
+            Int32 año = GlobalVariables.ciclo;
             if (GlobalVariables.cargo != "profesor")
             {
                 dateTimePicker1.Value = new DateTime(año, 6, 1);
                 dateTimePicker1.MaxDate = new DateTime(año, 12, 31);
                 dateTimePicker1.MinDate = new DateTime(año, 1, 1);
             }
-            
-                
+
+
 
             alumnos = Negocio.NegocioAlumnos.GetXCurso("", curso, division, GlobalVariables.ciclo);
             int i = 0;
-            while (i < alumnos.Count) 
+            while (i < alumnos.Count)
             {
-                if (alumnos[i].cantidadFaltas > 24) 
+                if (alumnos[i].cantidadFaltas > 24)
                 {
                     MessageBox.Show("ATENCIÓN, el alumno: " + alumnos[i].Nombre + " llego las 25 faltas");
-                    
+
 
                 }
                 i++;
             }
             asistencias = Negocio.NegocioAlumnos.TraerAsistenciasDeHoy(curso, division, dateTimePicker1.Value, GlobalVariables.ciclo);
             refreshgrid();
-           
         }
 
         private void refreshgrid()

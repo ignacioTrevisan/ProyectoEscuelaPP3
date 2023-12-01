@@ -32,6 +32,7 @@ namespace ProyectoEscuela
             public static string division = "";
             public static int id;
             public static DateTime fecha;
+           
 
         }
 

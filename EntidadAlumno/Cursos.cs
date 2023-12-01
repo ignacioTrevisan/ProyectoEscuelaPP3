@@ -11,5 +11,6 @@ namespace EntidadAlumno
         public string año { get; set; }
         public string division { get; set; }
         public string ciclo { get; set; }
+        public string estado { get; set; }
     }
 }

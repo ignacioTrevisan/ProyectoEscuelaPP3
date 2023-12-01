@@ -132,12 +132,20 @@ namespace ProyectoEscuela
         public bool VerificacionDeDatosLogicos()
         {
             string patronCorreoElectronico = @"^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$";
-            int caracter = txt_dni.Text.Length;
-            if (caracter > 8 || caracter < 7)
+            string dni = txt_dni.Text;
+
+            if (dni.Length != 7 && dni.Length != 8)
             {
-                MessageBox.Show("El DNI está mal ingresado o no se ingresó");
+                MessageBox.Show("El DNI debe tener 7 u 8 caracteres.");
                 return false;
             }
+
+            if (!int.TryParse(dni, out _))
+            {
+                MessageBox.Show("El DNI debe contener solo números.");
+                return false;
+            }
+
             else if (txt_apellido.Text == "")
             {
                 MessageBox.Show("El APELLIDO está mal ingresado o no se ingresó");
@@ -229,22 +237,27 @@ namespace ProyectoEscuela
             }
             else 
             {
-            
-            
-            Alumno a = new Alumno();
-            string nombre = Convert.ToString(txt_nombre.Text);
-            string apellido = txt_apellido.Text;
-            string dni = "0";
-            buscar(nombre, apellido, dni);
+
+                if (verificarExistencia() == true)
+                {
+                    Alumno a = new Alumno();
+                    string nombre = Convert.ToString(txt_nombre.Text);
+                    string apellido = txt_apellido.Text;
+                    string dni = "0";
+                    buscar(nombre, apellido, dni);
+                }
+                else 
+                {
+                    MessageBox.Show("No existe el alumno " + txt_nombre.Text + " " + txt_apellido.Text);
+                }
             }
         }
-        private void buscar(string nombre, string apellido, string dni)
+        public void buscar(string nombre, string apellido, string dni)
         {
-            if (verificarExistencia() == true)
-            {
-                
+            
+               
                 alumnos = Negocio.NegocioAlumnos.buscar(nombre, apellido, dni);
-                
+               
                 if (alumnos.Count < 2)
                 {
                     
@@ -271,12 +284,7 @@ namespace ProyectoEscuela
                 }
 
             }
-            else
-            {
-                MessageBox.Show("No existe el alumno con el nombre " + txt_nombre.Text + " " + txt_apellido.Text);
-            }
-
-        }
+        
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -323,15 +331,33 @@ namespace ProyectoEscuela
 
         private void button3_Click(object sender, EventArgs e)
         {
+            string dni = txt_dni.Text;
             if (string.IsNullOrEmpty(txt_dni.Text))
             {
                 MessageBox.Show("Ingrese dni");
             }
-            else 
-            {
-                buscar("-", "-", txt_dni.Text);
+            else if(!int.TryParse(dni, out _))
+                {
+                    MessageBox.Show("El DNI debe contener solo números.");
+
+                }
+                else if (dni.Length != 7 && dni.Length != 8)
+                    {
+                        MessageBox.Show("El DNI debe tener 7 u 8 caracteres.");
+
+                    }
+                
+                else if (verificarExistenciaDni() == true)
+                    {
+                        buscar("-", "-", txt_dni.Text);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No existe el alumno con dni: " + txt_dni.Text);
+                    }
+                
             }
             
         }
     }
-}
+

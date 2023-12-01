@@ -12,6 +12,7 @@ using static System.Net.Mime.MediaTypeNames;
 using System.Net;
 using System.Globalization;
 using EntidadNota;
+using iTextSharp.text.pdf.codec.wmf;
 
 namespace DatosAlumnos
 {
@@ -619,6 +620,35 @@ namespace DatosAlumnos
                 }
             }
             return listas;
+        }
+
+        public static void inscribir(string dni, string curso, string division, int ciclo)
+        {
+            int idAlumnoCreado = 0;
+
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(conString))
+            {
+
+                SqlCommand command = new SqlCommand("InscribirAlumno", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@dni", dni);
+                command.Parameters.AddWithValue("@año", curso);
+                command.Parameters.AddWithValue("@division", division);
+                command.Parameters.AddWithValue("@ciclo", ciclo);
+                try
+                {
+
+                    connection.Open();
+                    idAlumnoCreado = Convert.ToInt32(command.ExecuteScalar());
+
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                
+            }
         }
     }
 

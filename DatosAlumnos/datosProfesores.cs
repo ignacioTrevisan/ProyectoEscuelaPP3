@@ -187,7 +187,7 @@ namespace DatosAlumnos
             }
         }
 
-        public static List<Nota> GetPermisosPreceptor()
+        public static List<Nota> GetPermisosPreceptor(int estado)
         {
             List<Nota> lista = new List<Nota>();
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
@@ -196,6 +196,7 @@ namespace DatosAlumnos
                 con.Open();
                 SqlCommand command = new SqlCommand("GetCursos", con);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@estado", estado);
                 SqlDataReader reader = command.ExecuteReader();
 
                 while (reader.Read())

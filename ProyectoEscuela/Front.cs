@@ -34,6 +34,13 @@ namespace ProyectoEscuela
 
             
         }
+
+        public static class cursosGlobal
+        {
+            public static string curso = "";
+            public static string division = "";
+            public static int modo = 0;
+        }
        
 
         private void btn_nuevoAlumno_Click(object sender, EventArgs e)
@@ -88,6 +95,7 @@ namespace ProyectoEscuela
             {
                 btn_nuevoAlumno.Enabled = false;
                 button3.Enabled = false;
+                button4.Enabled = true;
             }
         }
 
@@ -150,6 +158,15 @@ namespace ProyectoEscuela
         {
             comunicado c = new comunicado();
             c.ShowDialog();
+        }
+
+        private void button4_Click_1(object sender, EventArgs e)
+        {
+            if (cargo == "preceptor")
+            {
+                Inscripciones i = new Inscripciones();
+                i.ShowDialog();
+            }
         }
     }
 }

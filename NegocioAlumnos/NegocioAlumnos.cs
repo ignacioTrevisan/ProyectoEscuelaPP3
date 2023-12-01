@@ -149,6 +149,11 @@ namespace Negocio
         {
             return AlumnosDatos.getCurso(dni);
         }
+
+        public static void inscribir(string dni, string curso, string division, int ciclo)
+        {
+            AlumnosDatos.inscribir(dni, curso, division, ciclo);
+        }
     }
    
 }
