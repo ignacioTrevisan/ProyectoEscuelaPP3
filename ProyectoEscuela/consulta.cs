@@ -74,6 +74,8 @@ namespace ProyectoEscuela
                 ListaAlumnos = Negocio.NegocioAlumnos.Get(nombre, curso, division, GlobalVariables.ciclo);
             }
 
+            lblResultados.Text = dataGridView1.Rows.Count.ToString();
+
             refreshgrid();
 
         }
@@ -81,6 +83,8 @@ namespace ProyectoEscuela
         {
             bindingSource1.DataSource = null;
             bindingSource1.DataSource = ListaAlumnos;
+            lblResultados.Text = dataGridView1.Rows.Count.ToString();
+
         }
 
         private void button1_Click(object sender, EventArgs e)
