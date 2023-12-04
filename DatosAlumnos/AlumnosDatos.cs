@@ -195,7 +195,7 @@ namespace DatosAlumnos
             }
         }
 
-        public static List<Alumno> Get(string nombre, int ciclo)
+        public static List<Alumno> Get(string dni, string nombre, int ciclo)
         {
             List<Alumno> list = new List<Alumno>();
 
@@ -205,6 +205,7 @@ namespace DatosAlumnos
                 SqlCommand command = new SqlCommand("alumnosGet", Connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@nombre", nombre);
+                command.Parameters.AddWithValue("@dni", dni);
                 command.Parameters.AddWithValue("@ciclo", ciclo);
 
 
@@ -226,6 +227,7 @@ namespace DatosAlumnos
                         busqueda.Telefono = Convert.ToString(reader["telefono"]);
                         busqueda.Curso = Convert.ToString(reader["año"]);
                         busqueda.division = Convert.ToString(reader["division"]);
+                        busqueda.ciclo = Convert.ToInt32(reader["ciclo"]);
                         busqueda.cantidadFaltas = Convert.ToInt32(reader["CantidadAusencias"]);
                         busqueda.Id = Convert.ToInt32(reader["id"]);
                         list.Add(busqueda);
@@ -343,7 +345,7 @@ namespace DatosAlumnos
         }
 
 
-        public static List<Faltas> buscarfaltas(string dni)
+        public static List<Faltas> buscarfaltas(string dni, int ciclo, int curso, int division)
         {
             List<Faltas> list = new List<Faltas>();
 
@@ -354,6 +356,12 @@ namespace DatosAlumnos
                 SqlCommand command = new SqlCommand("verFaltas", Connection);
                 command.CommandType = CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@dni", dni);
+                command.Parameters.AddWithValue("@año", curso);
+                command.Parameters.AddWithValue("@division", division);
+                command.Parameters.AddWithValue("@ciclo", ciclo);
+
+
+
 
                 try
                 {

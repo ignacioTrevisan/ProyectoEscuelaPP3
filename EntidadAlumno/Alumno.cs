@@ -20,6 +20,7 @@ namespace EntidadAlumno
         public string division { get; set; }
         public string estado { get; set; }
         public int cantidadFaltas { get; set; }
+        public int ciclo { get; set; }
     }
     
 }

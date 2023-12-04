@@ -12,7 +12,7 @@ namespace DatosNotas
 {
     public class NotasDatos
     {
-        public static List<boletin> armarboletin(string dni)
+        public static List<boletin> armarboletin(string dni, int curso, int division, int ciclo)
         {
             List<boletin> boletin = new List<boletin>();
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
@@ -21,7 +21,10 @@ namespace DatosNotas
                 SqlCommand command = new SqlCommand("ArmarBoletin", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@dni", dni);
-                
+                command.Parameters.AddWithValue("@año", curso);
+                command.Parameters.AddWithValue("@division", division);
+                command.Parameters.AddWithValue("@ciclo", ciclo);
+
                 try
                 {
                     connection.Open();
@@ -67,6 +70,37 @@ namespace DatosNotas
                     throw;
                 }
                 return 1;
+            }
+        }
+
+        public static List<string> GetMateriasxCurso(string curso, string division, int ciclo, string dnii)
+        {
+            List<string> materias = new List<string>();
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["ConexionDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(conString))
+            {
+                SqlCommand command = new SqlCommand("GetMateriasXcurso", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@año", curso);
+                command.Parameters.AddWithValue("@division", division);
+                command.Parameters.AddWithValue("@ciclo", ciclo);
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+                    while (reader.Read())
+                    {
+                        string denominacion = Convert.ToString(reader["Denominación"]);
+                        materias.Add(denominacion);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+                return materias;
+
             }
         }
 
@@ -158,7 +192,7 @@ namespace DatosNotas
         
         }
 
-        public static List<Nota> GetNotasXdni(string dni, string v)
+        public static List<Nota> GetNotasXdni(string dni, string v, int curso, int division, int ciclo)
         {
             List<Nota> alumno = new List<Nota>();
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
@@ -168,7 +202,11 @@ namespace DatosNotas
                 command.CommandType = System.Data.CommandType.StoredProcedure;
 
                 command.Parameters.AddWithValue("@dni", dni);
-                command.Parameters.AddWithValue("@deno", v);
+                command.Parameters.AddWithValue("@Deno", v);
+                command.Parameters.AddWithValue("@año", curso);
+                command.Parameters.AddWithValue("@division", division);
+                command.Parameters.AddWithValue("@ciclo", ciclo);
+
                 try
                 {
                     connection.Open();

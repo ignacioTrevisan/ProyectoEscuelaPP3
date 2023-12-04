@@ -101,9 +101,9 @@ namespace Negocio
             return AlumnosDatos.buscarinasistencias();
         }
 
-        public static List<Alumno> Get( string nombre, int ciclo)
+        public static List<Alumno> Get( string dni, string nombre ,int ciclo)
         {
-            return AlumnosDatos.Get(nombre, ciclo);
+            return AlumnosDatos.Get(dni, nombre, ciclo);
         }
 
         public static List<Alumno> Get(string nombre, string curso, string division, int ciclo)
@@ -115,10 +115,10 @@ namespace Negocio
             return AlumnosDatos.GetXCurso(nombre, curso, division, ciclo);
         }
 
-        public static List<Faltas> BuscarFaltas(string dni)
+        public static List<Faltas> BuscarFaltas(string dni, int ciclo, int curso, int division)
         {
 
-            return AlumnosDatos.buscarfaltas(dni);
+            return AlumnosDatos.buscarfaltas(dni, ciclo, curso, division);
         }
 
         public static string getgmail(string text)

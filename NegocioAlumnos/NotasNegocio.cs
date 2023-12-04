@@ -34,14 +34,19 @@ namespace NotasAlumnos
             return NotasDatos.Eliminar(id);
         }
 
-        public static List<Nota> GetNotasXdni(string dni, string v)
+        public static List<Nota> GetNotasXdni(string dni, string v, int curso, int division, int ciclo)
         {
-            return DatosNotas.NotasDatos.GetNotasXdni(dni, v);
+            return DatosNotas.NotasDatos.GetNotasXdni(dni, v, curso, division, ciclo);
         }
 
-        public static List<boletin> armarboletin(string dni)
+        public static List<boletin> armarboletin(string dni, int curso, int division, int ciclo)
         {
-            return NotasDatos.armarboletin(dni);
+            return NotasDatos.armarboletin(dni, curso, division, ciclo);
+        }
+
+        public static List<string> getMateriasxCurso(string curso, string division, int ciclo, string dnii)
+        {
+            return NotasDatos.GetMateriasxCurso(curso, division, ciclo, dnii);
         }
     }
 }

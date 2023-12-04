@@ -28,12 +28,13 @@ namespace ProyectoEscuela
         List<Alumno> alumnoInforme = new List<Alumno>();
         List <Faltas> faltas = new List<Faltas>();
         List <boletin> boletin = new List <boletin>();
+        List<Nota> lista = new List<Nota>();
         public consulta()
         {
             InitializeComponent();
             buscarAlumnos("0");
         }
-
+        
      
         private void mostrarAlumnos()
         {
@@ -67,7 +68,7 @@ namespace ProyectoEscuela
 
             if (string.IsNullOrEmpty(curso) || string.IsNullOrEmpty(division))
             {
-                ListaAlumnos = Negocio.NegocioAlumnos.Get(nombre, GlobalVariables.ciclo);
+                ListaAlumnos = Negocio.NegocioAlumnos.Get("0",nombre, GlobalVariables.ciclo);
             }
             else
             {
@@ -75,7 +76,13 @@ namespace ProyectoEscuela
             }
 
             lblResultados.Text = dataGridView1.Rows.Count.ToString();
-
+            int i = 0;
+            lista = NegocioProfesor.GetPermisosPreceptor(10);
+            while (i < lista.Count()) 
+            {
+                comboBox1.Items.Add("año: "+lista[i].Curso+" division: " + lista[i].Division + "(" + lista[i].ciclo +")");
+                i++;
+            }
             refreshgrid();
 
         }
@@ -103,15 +110,16 @@ namespace ProyectoEscuela
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string nombre = textBox1.Text;
-            alumnoInforme = Negocio.NegocioAlumnos.Get(nombre, GlobalVariables.ciclo);
+            string dni = textBox1.Text;
+            int i = comboBox1.SelectedIndex;
+            alumnoInforme = Negocio.NegocioAlumnos.Get(dni, "-", lista[i].ciclo);
+            int ciclo = alumnoInforme[0].ciclo;
             string nombree = alumnoInforme[0].Nombre;
             string apellido = alumnoInforme[0].Apellido;
             string curso = alumnoInforme[0].Curso;
             string division = alumnoInforme[0].division;
-            string dni = alumnoInforme[0].Dni;
             int cantidadDeFaltas = alumnoInforme[0].cantidadFaltas;
-            GenerarInforme(nombre, apellido, dni.ToString(), curso, division, cantidadDeFaltas);
+            GenerarInforme(nombree, apellido, dni.ToString(), curso, division, cantidadDeFaltas, ciclo);
             DialogResult res = MessageBox.Show("¿Desea tambien enviar el informe del alumno: " + dni + " a su familia?", "Envio", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (res == DialogResult.Yes)
             {
@@ -138,13 +146,13 @@ namespace ProyectoEscuela
             }
         }
 
-        public void GenerarInforme(string nombre, string apellido, string dni, string curso, string division, int cantidadDeFaltas)
+        public void GenerarInforme(string nombre, string apellido, string dni, string curso, string division, int cantidadDeFaltas, int ciclo)
         {
             FileStream fs = new FileStream(@"C:\Users\nacho\Documentos\informes\" + dni + ".pdf", FileMode.Create);
             Document doc = new Document(PageSize.LETTER, 5, 5, 7, 7);
             PdfWriter pw = PdfWriter.GetInstance(doc, fs);
-            buscarFaltas(dni);
-            armarBoletin(dni);
+            buscarFaltas(dni, ciclo, Convert.ToInt32(curso), Convert.ToInt32(division));
+            
             doc.Open();
 
             doc.AddAuthor("autor");
@@ -192,7 +200,7 @@ namespace ProyectoEscuela
             }
             doc.Add(tablaejemplo);
             i = 0;
-            doc.Add(new Paragraph("cantidad de faltas: " + cantidadDeFaltas));
+            doc.Add(new Paragraph("cantidad de faltas: " + faltas.Count()));
             //
             //
             //
@@ -211,7 +219,7 @@ namespace ProyectoEscuela
             int cantidadMaterias = mat.Count();
             while (i < cantidadMaterias) 
             {
-                notas = NotasAlumnos.NotasNegocio.GetNotasXdni(dni, mat[i]);
+                notas = NotasAlumnos.NotasNegocio.GetNotasXdni(dni, mat[i], Convert.ToInt32(curso), Convert.ToInt32(division), ciclo);
                 doc.Add(new Paragraph(mat[i]));
                 PdfPTable tablaNotas = new PdfPTable(3);
                 tablaNotas.WidthPercentage = 100;
@@ -258,8 +266,8 @@ namespace ProyectoEscuela
             doc.Add(Chunk.NEWLINE);
             doc.Add(new Paragraph("Boletin: "));
             i = 0;
-           
-                boletin = NotasAlumnos.NotasNegocio.armarboletin(dni);
+                
+                boletin = NotasAlumnos.NotasNegocio.armarboletin(dni, Convert.ToInt32(curso), Convert.ToInt32(division), ciclo);
                 PdfPTable Tablaboletin = new PdfPTable(2);
                 Tablaboletin.WidthPercentage = 100;
 
@@ -294,47 +302,21 @@ namespace ProyectoEscuela
             MessageBox.Show("Informe para el alumno " + nombre + " " + apellido + " generado exitosamente!" + cantidadMaterias);
         }
 
-        private List<boletin> armarBoletin(string dni)
-        {
-            return boletin = NotasNegocio.armarboletin(dni);
-        }
+       
 
         private List<string> cantidaddematerias(string dni)
         {
             List<string> mat = new List<string>();
-            string consulta = "SELECT mat.Denominación from Materias mat, Materia_curso mc, alumnos al where mc.IdCurso = al.curso and mc.IdMateria = mat.id and al.dni = @dni";
-            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["ConexionDB"].ConnectionString;
-            using (SqlConnection Connection = new SqlConnection(conString))
-            {
-                SqlCommand command = new SqlCommand(consulta, Connection);
-             
-                command.Parameters.AddWithValue("@dni", dni);
-                try
-                {
-                    Connection.Open();
-                    SqlDataReader reader = command.ExecuteReader();
-
-
-                    while (reader.Read())
-                    {
-                        mat.Add(Convert.ToString(reader["Denominación"]));
-
-                    }
-
-                    reader.Close();
-
-                }
-                catch (Exception ex)
-                {
-                    throw;
-                }
-                return mat;
-            }
+            string dnii = textBox1.Text;
+            int i = comboBox1.SelectedIndex;
+            mat = NotasNegocio.getMateriasxCurso(lista[i].Curso, lista[i].Division, lista[i].ciclo, dnii);
+            return mat;
+            
         }
 
-        public void buscarFaltas(string dni) 
+        public void buscarFaltas(string dni, int ciclo, int curso, int division) 
         {
-            faltas = BuscarFaltas(dni);
+            faltas = BuscarFaltas(dni, ciclo, curso, division);
 
         }
 
