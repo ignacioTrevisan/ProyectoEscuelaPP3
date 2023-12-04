@@ -63,8 +63,10 @@ namespace datosRecursos
            
             int idAlumnoCreado = 0;
             DateTime Fecha = DateTime.Parse(fecha);
-            string resultado = TimeSpan.FromHours(Convert.ToInt32(horarioDesde)).ToString("hh':'mm");
-            string resultado2 = TimeSpan.FromHours(Convert.ToInt32(horarioHasta)).ToString("hh':'mm");
+            Convert.ToDateTime(horarioDesde);
+            Convert.ToDateTime(horarioHasta);
+
+
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(conString))
             {
@@ -74,8 +76,8 @@ namespace datosRecursos
                 command.Parameters.AddWithValue("@fecha", Fecha);
                 command.Parameters.AddWithValue("@comentario", comentario);
                 command.Parameters.AddWithValue("@IdProfesor", profesor);
-                command.Parameters.AddWithValue("@horarioDesde", resultado);
-                command.Parameters.AddWithValue("@horarioHasta", resultado2);
+                command.Parameters.AddWithValue("@horarioDesde", horarioDesde);
+                command.Parameters.AddWithValue("@horarioHasta", horarioHasta);
                 try
                 {
                     connection.Open();
