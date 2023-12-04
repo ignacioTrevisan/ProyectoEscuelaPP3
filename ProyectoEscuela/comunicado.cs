@@ -17,31 +17,68 @@ namespace ProyectoEscuela
 {
     public partial class comunicado : Form
     {
+       
         public comunicado()
         {
             InitializeComponent();
         }
+        public int todos = 0;
 
         private void button1_Click(object sender, EventArgs e)
         {
+            Task.Run(() => enviar());
+        }
+        private void enviar() 
+        {
+
+            if (checkBox1.Checked == false)
+            {
                 Comunicado c = new Comunicado();
                 c.error = "";
                 StringBuilder mensajeBuilder = new StringBuilder();
                 mensajeBuilder.Append(textBox3.Text);
                 c.de = "nachotizii988@gmail.com";
-                c.para = Negocio.NegocioAlumnos.getgmail(textBox1.Text);
+                string[] para = Negocio.NegocioAlumnos.getgmail(textBox1.Text).Split(',');
                 c.asunto = textBox3.Text;
                 c.fecha = DateTime.Now.Date;
                 c.ruta = txtRutaArchivo.Text;
                 DialogResult res = MessageBox.Show("¿El correo electronico se enviar a: " + c.para + " confirma enviar?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                int i = 0;
+
                 if (res == DialogResult.Yes)
                 {
-                    enviarCorreo(mensajeBuilder, c);
+                    enviarCorreo(mensajeBuilder, c, para, 0);
                 }
 
-            
+            }
+            else
+            {
+                Comunicado c = new Comunicado();
+                c.error = "";
+                StringBuilder mensajeBuilder = new StringBuilder();
+                mensajeBuilder.Append(textBox3.Text);
+                c.de = "nachotizii988@gmail.com";
+                List<string> correos = new List<string>();
+                correos = Negocio.NegocioAlumnos.getaAllgmail("-");
+                string correosConcatenados = string.Join(",", correos.SelectMany(ca => ca.Split(',')));
+                int i = 0;
+                string[] para = correosConcatenados.Split(',');
+                c.asunto = textBox3.Text;
+                c.fecha = DateTime.Now.Date;
+                c.ruta = txtRutaArchivo.Text;
+                if (i == 0)
+                {
+                    DialogResult res = MessageBox.Show("¿El correo electronico se enviar a todos los correos registrados por alumno, confirma enviar?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (res == DialogResult.Yes)
+                    {
+                        enviarCorreo(mensajeBuilder, c, para, 0);
+
+                    }
+                }
+
+            }
         }
-        public static void enviarCorreo(StringBuilder mensaje, Comunicado c)
+        public static void enviarCorreo(StringBuilder mensaje, Comunicado c, string[] para, int confirmacion)
         {
             c.error = "";
             try
@@ -50,7 +87,7 @@ namespace ProyectoEscuela
                 mensaje.Append(Environment.NewLine);
                 MailMessage ms = new MailMessage();
                 ms.From = new MailAddress(c.de);
-                ms.To.Add(c.para);
+                foreach (string correo in para) if (correo != "") ms.CC.Add(new MailAddress(correo));
                 ms.Subject = c.asunto;
                 if (c.ruta.Equals("") == false)
                 {
@@ -64,11 +101,15 @@ namespace ProyectoEscuela
                 smtp.UseDefaultCredentials = false;
                 smtp.Credentials = new System.Net.NetworkCredential(GlobalVariables.usuario, GlobalVariables.password);
                 smtp.EnableSsl = true;
-                if (extension == ".pdf" || extension == ".jpg" || extension == ".png" || extension == ".pptx" || extension == ".xlsx" ||  extension == ".mp4")
+                if (extension == "" || extension == ".pdf" || extension == ".jpg" || extension == ".png" || extension == ".pptx" || extension == ".xlsx" ||  extension == ".mp4" || extension == ".docx")
                 {
                     smtp.Send(ms);
-                    c.error = "Correo enviado exitosamente ";
-                    MessageBox.Show(c.error);
+                    if (confirmacion == 0)
+                    {
+                        c.error = "Correo enviado exitosamente ";
+                        MessageBox.Show(c.error);
+                        
+                    }
                 }
                 else 
                 {

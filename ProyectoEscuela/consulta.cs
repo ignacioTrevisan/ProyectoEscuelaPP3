@@ -124,13 +124,13 @@ namespace ProyectoEscuela
             StringBuilder mensajeBuilder = new StringBuilder();
             mensajeBuilder.Append("Se adjunta informe oficial correspondiente del alumno con dni de: " + dni);
             c.de = "nachotizii988@gmail.com";
-            c.para = Negocio.NegocioAlumnos.getgmail(dni);
+            string[] para = Negocio.NegocioAlumnos.getgmail(textBox1.Text).Split(',');
             c.asunto = "Informe oficial";
             c.fecha = DateTime.Now.Date;
             DialogResult res = MessageBox.Show("¿El correo electronico se enviar a: " + c.para + " confirma enviar?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (res == DialogResult.Yes)
             {
-                comunicado.enviarCorreo(mensajeBuilder, c);
+                comunicado.enviarCorreo(mensajeBuilder, c, para, 1);
             }
         }
 

@@ -8,6 +8,7 @@ using System.Data;
 using System.Dynamic;
 using System.Collections.Generic;
 using EntidadNota;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Negocio
 {
@@ -153,6 +154,11 @@ namespace Negocio
         public static void inscribir(string dni, string curso, string division, int ciclo)
         {
             AlumnosDatos.inscribir(dni, curso, division, ciclo);
+        }
+
+        public static List<string> getaAllgmail(string v)
+        {
+            return AlumnosDatos.getAllGmail(v);
         }
     }
    
