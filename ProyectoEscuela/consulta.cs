@@ -77,6 +77,7 @@ namespace ProyectoEscuela
 
             lblResultados.Text = dataGridView1.Rows.Count.ToString();
             int i = 0;
+            comboBox1.Items.Clear();
             lista = NegocioProfesor.GetPermisosPreceptor(10);
             while (i < lista.Count()) 
             {
@@ -123,15 +124,15 @@ namespace ProyectoEscuela
             DialogResult res = MessageBox.Show("¿Desea tambien enviar el informe del alumno: " + dni + " a su familia?", "Envio", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (res == DialogResult.Yes)
             {
-                envioDeInforme(dni.ToString());
+                envioDeInforme(dni.ToString(), ciclo);
             }
 
         }
 
-        private void envioDeInforme(string dni)
+        private void envioDeInforme(string dni, int ciclo)
         {
             Comunicado c = new Comunicado();
-            c.ruta = @"C:\Users\nacho\Documentos\informes\" + dni + ".pdf";
+            c.ruta = @"C:\Users\nacho\Documentos\informes\" + dni + "(" + ciclo + ")" + ".pdf";
             c.error = "";
             StringBuilder mensajeBuilder = new StringBuilder();
             mensajeBuilder.Append("Se adjunta informe oficial correspondiente del alumno con dni de: " + dni);
@@ -142,13 +143,13 @@ namespace ProyectoEscuela
             DialogResult res = MessageBox.Show("¿El correo electronico se enviar a: " + c.para + " confirma enviar?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (res == DialogResult.Yes)
             {
-                comunicado.enviarCorreo(mensajeBuilder, c, para, 1);
+                comunicado.enviarCorreo(mensajeBuilder, c, para, 0);
             }
         }
 
         public void GenerarInforme(string nombre, string apellido, string dni, string curso, string division, int cantidadDeFaltas, int ciclo)
         {
-            FileStream fs = new FileStream(@"C:\Users\nacho\Documentos\informes\" + dni + ".pdf", FileMode.Create);
+            FileStream fs = new FileStream(@"C:\Users\nacho\Documentos\informes\" + dni +"("+ciclo+")"+".pdf", FileMode.Create);
             Document doc = new Document(PageSize.LETTER, 5, 5, 7, 7);
             PdfWriter pw = PdfWriter.GetInstance(doc, fs);
             buscarFaltas(dni, ciclo, Convert.ToInt32(curso), Convert.ToInt32(division));
@@ -321,6 +322,11 @@ namespace ProyectoEscuela
         }
 
         private void consulta_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
