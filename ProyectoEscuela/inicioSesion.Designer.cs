@@ -38,12 +38,14 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.label4);
             this.panel1.Controls.Add(this.button1);
@@ -53,7 +55,7 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Controls.Add(this.label1);
             this.panel1.Location = new System.Drawing.Point(20, 28);
-            this.panel1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.panel1.Margin = new System.Windows.Forms.Padding(2);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(532, 318);
             this.panel1.TabIndex = 0;
@@ -61,7 +63,7 @@
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(239, 226);
-            this.button2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button2.Margin = new System.Windows.Forms.Padding(2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(78, 19);
             this.button2.TabIndex = 7;
@@ -82,7 +84,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(249, 181);
-            this.button1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.button1.Margin = new System.Windows.Forms.Padding(2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(56, 19);
             this.button1.TabIndex = 5;
@@ -93,7 +95,7 @@
             // txt_contraseña
             // 
             this.txt_contraseña.Location = new System.Drawing.Point(159, 141);
-            this.txt_contraseña.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_contraseña.Margin = new System.Windows.Forms.Padding(2);
             this.txt_contraseña.Name = "txt_contraseña";
             this.txt_contraseña.PasswordChar = '*';
             this.txt_contraseña.Size = new System.Drawing.Size(236, 20);
@@ -102,7 +104,7 @@
             // txt_dni
             // 
             this.txt_dni.Location = new System.Drawing.Point(159, 96);
-            this.txt_dni.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txt_dni.Margin = new System.Windows.Forms.Padding(2);
             this.txt_dni.Name = "txt_dni";
             this.txt_dni.Size = new System.Drawing.Size(236, 20);
             this.txt_dni.TabIndex = 3;
@@ -149,6 +151,15 @@
             this.label5.TabIndex = 1;
             this.label5.Text = "Desarrollado por SGE Detras de la Montaña ";
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(270, 28);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(35, 13);
+            this.label6.TabIndex = 2;
+            this.label6.Text = "label6";
+            // 
             // inicioSesion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -156,7 +167,7 @@
             this.ClientSize = new System.Drawing.Size(589, 388);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.panel1);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "inicioSesion";
             this.Text = "inicioSesion                                       Asociacion Integral Vuriloche";
             this.panel1.ResumeLayout(false);
@@ -178,5 +189,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
     }
 }

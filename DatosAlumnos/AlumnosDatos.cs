@@ -680,6 +680,77 @@ namespace DatosAlumnos
             }
             return lista;
         }
+
+        public static List<Alumno> getPorcentaje()
+        {
+            List<Alumno> lista = new List<Alumno>();
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["ConexionDB"].ConnectionString;
+            using (SqlConnection Connection = new SqlConnection(conString))
+            {
+                SqlCommand command = new SqlCommand("PorcentajeAsistencias", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+               
+
+                try
+                {
+                    Connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Alumno a = new Alumno();
+                        a.Dni = Convert.ToString(reader["lista_de_Alumnos"]);
+                        
+                        lista.Add(a);
+                    }
+
+                    reader.Close();
+
+
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+            }
+            return lista;
+
+        }
+
+        public static List<Alumno> getPorcentajeTomado(DateTime fecha)
+        {
+            List<Alumno> lista = new List<Alumno>();
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["ConexionDB"].ConnectionString;
+            using (SqlConnection Connection = new SqlConnection(conString))
+            {
+                SqlCommand command = new SqlCommand("AsistenciasGenerales", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                
+                command.Parameters.AddWithValue("@fecha", fecha);
+
+
+                try
+                {
+                    Connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Alumno a = new Alumno();
+                        a.Dni = Convert.ToString(reader["dni"]);
+
+                        lista.Add(a);
+                    }
+
+                    reader.Close();
+
+
+                }
+                catch (Exception ex)
+                {
+                    throw;
+                }
+            }
+            return lista;
+        }
     }
 
 }

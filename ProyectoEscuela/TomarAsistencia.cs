@@ -45,51 +45,39 @@ namespace ProyectoEscuela
             int o = 1;
             
 
-            i = 0;
-            if (lista[i].ciclo != 0)
-            {
-                while (i < lista.Count)
-                {
-                    comboBox1.Items.Add("curso: " + lista[i].Curso + " Division: " + lista[i].Division + "(" + lista[i].ciclo + ")");
-                    i++;
-                }
-            }
-            else 
-            {
-                while (i < lista.Count)
-                {
-                    comboBox1.Items.Add("curso: " + lista[i].Curso + " Division: " + lista[i].Division );
-                    i++;
-                }
-            }
+           
 
             i = 0;
             o = 1;
-            while (i < lista.Count) 
+            if (lista.Count > 0)
             {
-                Ciclos.Add(lista[i].ciclo);
-                i++;
+                while (i < lista.Count)
+                {   
+                   
+                    while (o != lista.Count)
+                    {
+                        if (lista[i].id == lista[o].id && i!=o)
+                        {
+                            lista.RemoveAt(o);
+                        }
+                        else
+                        {
+                            o++;
+                        }
+                    }
+                    o = 0;
+                    i++;
+                }
             }
             
             i = 0;
-            while (i < Ciclos.Count)
+
+            while (i != lista.Count)
             {
-                o = i + 1; // Comienza a comparar con el siguiente elemento
-                while (o < Ciclos.Count)
-                {
-                    if (Ciclos[i] == Ciclos[o])
-                    {
-                        Ciclos.RemoveAt(o); // Elimina el elemento duplicado
-                    }
-                    else
-                    {
-                        o++;
-                    }
-                }
+                comboBox1.Items.Add("curso: " + lista[i].Curso + " Division: " + lista[i].Division + "(" + lista[i].ciclo + ")");
                 i++;
             }
-            i = 0;
-           
+
 
         }
 
@@ -101,7 +89,6 @@ namespace ProyectoEscuela
             if (GlobalVariables.cargo == "preceptor" || GlobalVariables.cargo == "director")
             {
                 lista = NegocioProfesor.GetPermisosPreceptor(10);
-
             }
             else
             {
@@ -156,39 +143,12 @@ namespace ProyectoEscuela
             }
 
         }
-        
-        /*
-        private Boolean verificarRegistro()
-        {
-            string query = "SELECT COUNT(*) FROM asistencias WHERE DNI = @dni AND fecha = @fecha";
-            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
-            using (SqlConnection connection = new SqlConnection(conString))
-            {
-                connection.Open();
-                SqlCommand cmd = new SqlCommand(query, connection);
-                cmd.Parameters.AddWithValue("@dni", label1.Text);
-                string fecha = dateTimePicker1.Value.ToString("yyyy-MM-dd");
-                cmd.Parameters.AddWithValue("@fecha", fecha);
-                int count = (int)cmd.ExecuteScalar();
-                if (count == 0)
-                {
-                    return false;
-                }
-                else
-                {
-                    return true;
-                }
-            }
-        }
-
-        */
 
         private void btn_prese_Click(object sender, EventArgs e)
         {
             string estado = "presente";
             DateTime fecha = dateTimePicker1.Value.Date;
-           int a = comboBox1.SelectedIndex;
-
+            int a = comboBox1.SelectedIndex;
             int dni = Convert.ToInt32(label1.Text);
             string curso = lista[a].Curso;
             string division = lista[a].Division;
@@ -275,10 +235,70 @@ namespace ProyectoEscuela
 
         private void refreshgrid()
         {
+            lbl_alumno.Visible = true;
+            label1.Visible = true;
+            lbl_alumno.Text = alumnos[0].Nombre;
+            label1.Text = alumnos[0].Dni;
             bindingSource1.DataSource = null;
             bindingSource1.DataSource = alumnos;
             bindingSource2.DataSource = null;
             bindingSource2.DataSource = asistencias;
+            obtenerListaDeAlumnosSinTomarAsistencia(alumnos, asistencias);
+        }
+
+        private void obtenerListaDeAlumnosSinTomarAsistencia(List<Alumno> alumnos, List<Alumno> asistencias)
+        {
+            //este metodo sirve para obtener una lista nueva de todos los alumnos a los cuales no se les paso asistencias
+            //para asi poder cambiar el color en su grid en un nuevo metodo
+            List<Alumno> nuevaLista = new List<Alumno>(alumnos);
+            int e = 0;
+            int a = 0;
+            
+            bool aviso = false;
+            
+            while (e < asistencias.Count) 
+            {
+                aviso = false;
+                a = 0;
+                while (a < nuevaLista.Count) 
+                {
+                    if (nuevaLista[a].Dni == asistencias[e].Dni)
+                    {
+                        nuevaLista.RemoveAt(a);
+                    }
+                    else 
+                    {
+                        a++;
+                    }
+                }
+                e++;
+            }
+            a = 0;
+           
+            cambiarColor(nuevaLista, alumnos);
+        }
+
+        private void cambiarColor(List<Alumno> nuevaLista, List<Alumno> alumnos)
+        {
+            //teniendo la lista de los alumnos a los que no se les paso asistencia podemos comparar
+            //con la lista de alumnos del curso, por lo cual podemos trabajar estos datos de manera mas particular
+            int i = 0;
+            int a = 0;
+            while (i < alumnos.Count) 
+            {
+                a = 0;
+                while (a < nuevaLista.Count) 
+                {
+                    if (alumnos[i].Dni == nuevaLista[a].Dni)
+                    {
+                        dataGridView1.Rows[i].DefaultCellStyle.BackColor = Color.White;
+                    }
+                    a++;
+                }
+                i++;
+                
+                                 
+            }
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)

@@ -160,6 +160,14 @@ namespace Negocio
         {
             return AlumnosDatos.getAllGmail(v);
         }
+        public static List<Alumno> getPorcentaje()
+        {
+            return AlumnosDatos.getPorcentaje();
+        }
+        public static List<Alumno> getPorcentajeTomado(DateTime fecha)
+        {
+            return AlumnosDatos.getPorcentajeTomado(fecha);
+        }
     }
    
 }

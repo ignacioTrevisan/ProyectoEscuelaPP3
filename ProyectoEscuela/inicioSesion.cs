@@ -1,4 +1,5 @@
-﻿using EntidadPermiso;
+﻿using EntidadAlumno;
+using EntidadPermiso;
 using Negocio;
 using System;
 using System.Collections.Generic;
@@ -15,10 +16,14 @@ namespace ProyectoEscuela
 {
     public partial class inicioSesion : Form
     {
+        public List<Alumno> lista = new List<Alumno>();
+        public List<Alumno> listaAsistenciasTomadas = new List<Alumno>();
+
         public inicioSesion()
         {
             InitializeComponent();
-
+            privadas();
+            label6.Visible = false;
         }
         public static class GlobalVariables
         {
@@ -35,7 +40,14 @@ namespace ProyectoEscuela
            
 
         }
-
+        private void privadas() 
+        {
+            GlobalVariables.fecha = DateTime.Now.Date;
+            lista = Negocio.NegocioAlumnos.getPorcentaje();
+            listaAsistenciasTomadas = Negocio.NegocioAlumnos.getPorcentajeTomado(GlobalVariables.fecha);
+            float porcentaje = (Convert.ToInt32(listaAsistenciasTomadas.Count) * 100) / Convert.ToInt32(lista.Count);
+            label6.Text= porcentaje+"% de asistencias tomada el dia de hoy";
+        }
         private void button1_Click(object sender, EventArgs e)
         {
             Permisos p = new Permisos();

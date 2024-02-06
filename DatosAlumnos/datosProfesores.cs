@@ -175,6 +175,7 @@ namespace DatosAlumnos
                 while (reader.Read())
                 {
                     Nota n = new Nota();
+                    n.id = Convert.ToInt32(reader["id"]);
                     n.Curso = Convert.ToString(reader["año"]);
                     n.Division = Convert.ToString(reader["division"]);
                     n.ciclo = Convert.ToInt32(reader["ciclo"]);
