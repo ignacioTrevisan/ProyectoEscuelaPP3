@@ -22,11 +22,6 @@ namespace ProyectoEscuela
             InitializeComponent();
             getRecursos();
             getdos();
-            
-            /*
-             string hora = Convert.ToString(dateTimePicker2.Value.AddHours(2).AddMinutes(5));
-             //MessageBox.Show(hora);
-            */
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)

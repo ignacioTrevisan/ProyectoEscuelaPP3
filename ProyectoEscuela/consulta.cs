@@ -113,7 +113,7 @@ namespace ProyectoEscuela
         {
             string dni = textBox1.Text;
             int i = comboBox1.SelectedIndex;
-            alumnoInforme = Negocio.NegocioAlumnos.Get(dni, "-", lista[i].ciclo);
+            alumnoInforme = Get(dni, "-", 2023);
             int ciclo = alumnoInforme[0].ciclo;
             string nombree = alumnoInforme[0].Nombre;
             string apellido = alumnoInforme[0].Apellido;

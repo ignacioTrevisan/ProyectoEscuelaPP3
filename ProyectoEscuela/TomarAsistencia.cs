@@ -22,6 +22,7 @@ namespace ProyectoEscuela
 {
     public partial class TomarAsistencia : Form
     {
+        
         public int id = 1;
         int i = 0;
         public int al = 0;
@@ -35,7 +36,6 @@ namespace ProyectoEscuela
             if (GlobalVariables.cargo == "profesor")
             {
                 dateTimePicker1.Enabled = false;
-                
             }
             lista = GetCursos(GlobalVariables.id);
 
@@ -49,26 +49,30 @@ namespace ProyectoEscuela
 
             i = 0;
             o = 1;
-            if (lista.Count > 0)
+            if (GlobalVariables.cargo == "profesor") 
             {
-                while (i < lista.Count)
-                {   
-                   
-                    while (o != lista.Count)
+                if (lista.Count > 0)
+                {
+                    while (i < lista.Count)
                     {
-                        if (lista[i].id == lista[o].id && i!=o)
+
+                        while (o != lista.Count)
                         {
-                            lista.RemoveAt(o);
+                            if (lista[i].id == lista[o].id && i != o)
+                            {
+                                lista.RemoveAt(o);
+                            }
+                            else
+                            {
+                                o++;
+                            }
                         }
-                        else
-                        {
-                            o++;
-                        }
+                        o = 0;
+                        i++;
                     }
-                    o = 0;
-                    i++;
                 }
             }
+           
             
             i = 0;
 
@@ -77,8 +81,6 @@ namespace ProyectoEscuela
                 comboBox1.Items.Add("curso: " + lista[i].Curso + " Division: " + lista[i].Division + "(" + lista[i].ciclo + ")");
                 i++;
             }
-
-
         }
 
 
@@ -168,10 +170,11 @@ namespace ProyectoEscuela
             string estado = "ausente";
             int dni = Convert.ToInt32(label1.Text);
             DateTime fecha = dateTimePicker1.Value.Date;
-           int  a = comboBox1.SelectedIndex;
+            int  a = comboBox1.SelectedIndex;
             string curso = lista[a].Curso;
             string division = lista[a].Division;
             registrarestado(estado, fecha, dni, curso, division, GlobalVariables.ciclo);
+            //MessageBox.Show(estado + "-fecha:" + fecha.ToString()+ "-dni:" + dni.ToString()+ "-curso:" + curso.ToString() + "-division:" + division + "-ciclo:" + GlobalVariables.ciclo);
             asistencias = Negocio.NegocioAlumnos.TraerAsistenciasDeHoy(curso, division, dateTimePicker1.Value, GlobalVariables.ciclo);
             refreshgrid();
         }
@@ -214,6 +217,10 @@ namespace ProyectoEscuela
                 dateTimePicker1.MaxDate = new DateTime(año, 12, 31);
                 dateTimePicker1.MinDate = new DateTime(año, 1, 1);
             }
+            if (GlobalVariables.cargo == "profesor") 
+            {
+                dateTimePicker1.Value = DateTime.Now;
+            }
 
 
 
@@ -235,15 +242,20 @@ namespace ProyectoEscuela
 
         private void refreshgrid()
         {
-            lbl_alumno.Visible = true;
-            label1.Visible = true;
-            lbl_alumno.Text = alumnos[0].Nombre;
-            label1.Text = alumnos[0].Dni;
-            bindingSource1.DataSource = null;
-            bindingSource1.DataSource = alumnos;
-            bindingSource2.DataSource = null;
-            bindingSource2.DataSource = asistencias;
-            obtenerListaDeAlumnosSinTomarAsistencia(alumnos, asistencias);
+            if (alumnos.Count > 0) {
+                lbl_alumno.Visible = true;
+                label1.Visible = true;
+                lbl_alumno.Text = alumnos[0].Nombre;
+                label1.Text = alumnos[0].Dni;
+                bindingSource1.DataSource = null;
+                bindingSource1.DataSource = alumnos;
+                bindingSource2.DataSource = null;
+                bindingSource2.DataSource = asistencias;
+                obtenerListaDeAlumnosSinTomarAsistencia(alumnos, asistencias);
+            }
+            else {
+                MessageBox.Show("No se encontraron alumnos inscriptos a este curso");
+            }
         }
 
         private void obtenerListaDeAlumnosSinTomarAsistencia(List<Alumno> alumnos, List<Alumno> asistencias)

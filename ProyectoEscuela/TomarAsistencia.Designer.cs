@@ -39,23 +39,20 @@
             this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dniDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
+            this.bindingSource2 = new System.Windows.Forms.BindingSource(this.components);
+            this.nombre = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.apellido = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dniDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.nombreDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.apellidoDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dniDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cursoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.estadoDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cantidadFaltas = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.bindingSource2 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -151,7 +148,6 @@
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.nombre,
-            this.dataGridViewTextBoxColumn1,
             this.apellido,
             this.dniDataGridViewTextBoxColumn1});
             this.dataGridView1.DataSource = this.bindingSource1;
@@ -166,38 +162,11 @@
             this.dataGridView1.GridColor = System.Drawing.SystemColors.Window;
             this.dataGridView1.Location = new System.Drawing.Point(25, 191);
             this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 51;
-            this.dataGridView1.Size = new System.Drawing.Size(271, 252);
+            this.dataGridView1.Size = new System.Drawing.Size(311, 252);
             this.dataGridView1.TabIndex = 10;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
-            // 
-            // nombre
-            // 
-            this.nombre.DataPropertyName = "nombre";
-            this.nombre.HeaderText = "nombre";
-            this.nombre.MinimumWidth = 6;
-            this.nombre.Name = "nombre";
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            this.dataGridViewTextBoxColumn1.DataPropertyName = "cantidadFaltas";
-            this.dataGridViewTextBoxColumn1.HeaderText = "cantidadFaltas";
-            this.dataGridViewTextBoxColumn1.MinimumWidth = 6;
-            this.dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            // 
-            // apellido
-            // 
-            this.apellido.DataPropertyName = "apellido";
-            this.apellido.HeaderText = "apellido";
-            this.apellido.MinimumWidth = 6;
-            this.apellido.Name = "apellido";
-            // 
-            // dniDataGridViewTextBoxColumn1
-            // 
-            this.dniDataGridViewTextBoxColumn1.DataPropertyName = "Dni";
-            this.dniDataGridViewTextBoxColumn1.HeaderText = "Dni";
-            this.dniDataGridViewTextBoxColumn1.MinimumWidth = 6;
-            this.dniDataGridViewTextBoxColumn1.Name = "dniDataGridViewTextBoxColumn1";
             // 
             // bindingSource1
             // 
@@ -251,17 +220,44 @@
             this.nombreDataGridViewTextBoxColumn1,
             this.apellidoDataGridViewTextBoxColumn1,
             this.dniDataGridViewTextBoxColumn,
-            this.cursoDataGridViewTextBoxColumn,
-            this.estadoDataGridViewTextBoxColumn1,
-            this.cantidadFaltas});
+            this.estadoDataGridViewTextBoxColumn1});
             this.dataGridView2.DataSource = this.bindingSource2;
-            this.dataGridView2.Location = new System.Drawing.Point(318, 191);
-            this.dataGridView2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dataGridView2.Location = new System.Drawing.Point(369, 191);
+            this.dataGridView2.Margin = new System.Windows.Forms.Padding(2);
             this.dataGridView2.Name = "dataGridView2";
+            this.dataGridView2.ReadOnly = true;
             this.dataGridView2.RowHeadersWidth = 51;
             this.dataGridView2.RowTemplate.Height = 24;
-            this.dataGridView2.Size = new System.Drawing.Size(600, 252);
+            this.dataGridView2.Size = new System.Drawing.Size(549, 252);
             this.dataGridView2.TabIndex = 14;
+            // 
+            // bindingSource2
+            // 
+            this.bindingSource2.DataSource = typeof(EntidadAlumno.Alumno);
+            // 
+            // nombre
+            // 
+            this.nombre.DataPropertyName = "nombre";
+            this.nombre.HeaderText = "nombre";
+            this.nombre.MinimumWidth = 6;
+            this.nombre.Name = "nombre";
+            this.nombre.ReadOnly = true;
+            // 
+            // apellido
+            // 
+            this.apellido.DataPropertyName = "apellido";
+            this.apellido.HeaderText = "apellido";
+            this.apellido.MinimumWidth = 6;
+            this.apellido.Name = "apellido";
+            this.apellido.ReadOnly = true;
+            // 
+            // dniDataGridViewTextBoxColumn1
+            // 
+            this.dniDataGridViewTextBoxColumn1.DataPropertyName = "Dni";
+            this.dniDataGridViewTextBoxColumn1.HeaderText = "Dni";
+            this.dniDataGridViewTextBoxColumn1.MinimumWidth = 6;
+            this.dniDataGridViewTextBoxColumn1.Name = "dniDataGridViewTextBoxColumn1";
+            this.dniDataGridViewTextBoxColumn1.ReadOnly = true;
             // 
             // nombreDataGridViewTextBoxColumn1
             // 
@@ -269,6 +265,7 @@
             this.nombreDataGridViewTextBoxColumn1.HeaderText = "Nombre";
             this.nombreDataGridViewTextBoxColumn1.MinimumWidth = 6;
             this.nombreDataGridViewTextBoxColumn1.Name = "nombreDataGridViewTextBoxColumn1";
+            this.nombreDataGridViewTextBoxColumn1.ReadOnly = true;
             this.nombreDataGridViewTextBoxColumn1.Width = 125;
             // 
             // apellidoDataGridViewTextBoxColumn1
@@ -277,6 +274,7 @@
             this.apellidoDataGridViewTextBoxColumn1.HeaderText = "Apellido";
             this.apellidoDataGridViewTextBoxColumn1.MinimumWidth = 6;
             this.apellidoDataGridViewTextBoxColumn1.Name = "apellidoDataGridViewTextBoxColumn1";
+            this.apellidoDataGridViewTextBoxColumn1.ReadOnly = true;
             this.apellidoDataGridViewTextBoxColumn1.Width = 125;
             // 
             // dniDataGridViewTextBoxColumn
@@ -285,15 +283,8 @@
             this.dniDataGridViewTextBoxColumn.HeaderText = "Dni";
             this.dniDataGridViewTextBoxColumn.MinimumWidth = 6;
             this.dniDataGridViewTextBoxColumn.Name = "dniDataGridViewTextBoxColumn";
+            this.dniDataGridViewTextBoxColumn.ReadOnly = true;
             this.dniDataGridViewTextBoxColumn.Width = 125;
-            // 
-            // cursoDataGridViewTextBoxColumn
-            // 
-            this.cursoDataGridViewTextBoxColumn.DataPropertyName = "Curso";
-            this.cursoDataGridViewTextBoxColumn.HeaderText = "Curso";
-            this.cursoDataGridViewTextBoxColumn.MinimumWidth = 6;
-            this.cursoDataGridViewTextBoxColumn.Name = "cursoDataGridViewTextBoxColumn";
-            this.cursoDataGridViewTextBoxColumn.Width = 125;
             // 
             // estadoDataGridViewTextBoxColumn1
             // 
@@ -301,19 +292,8 @@
             this.estadoDataGridViewTextBoxColumn1.HeaderText = "estado";
             this.estadoDataGridViewTextBoxColumn1.MinimumWidth = 6;
             this.estadoDataGridViewTextBoxColumn1.Name = "estadoDataGridViewTextBoxColumn1";
+            this.estadoDataGridViewTextBoxColumn1.ReadOnly = true;
             this.estadoDataGridViewTextBoxColumn1.Width = 125;
-            // 
-            // cantidadFaltas
-            // 
-            this.cantidadFaltas.DataPropertyName = "cantidadFaltas";
-            this.cantidadFaltas.HeaderText = "cantidadFaltas";
-            this.cantidadFaltas.MinimumWidth = 6;
-            this.cantidadFaltas.Name = "cantidadFaltas";
-            this.cantidadFaltas.Width = 125;
-            // 
-            // bindingSource2
-            // 
-            this.bindingSource2.DataSource = typeof(EntidadAlumno.Alumno);
             // 
             // TomarAsistencia
             // 
@@ -364,15 +344,12 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.BindingSource bindingSource2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
+        private System.Windows.Forms.DataGridViewTextBoxColumn apellido;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dniDataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombreDataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn apellidoDataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dniDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cursoDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn estadoDataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn cantidadFaltas;
-        private System.Windows.Forms.DataGridViewTextBoxColumn nombre;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn apellido;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dniDataGridViewTextBoxColumn1;
     }
 }

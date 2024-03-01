@@ -27,7 +27,7 @@ namespace ProyectoEscuela
         }
         public static class GlobalVariables
         {
-            public static int ciclo = 2023;
+            public static int ciclo = 2024;
             public const string usuario = "Luggrenadriana@gmail.com";
             public const string password = "jyfi avhd kalc fgqp";
             public static string cargo = "";
@@ -45,8 +45,11 @@ namespace ProyectoEscuela
             GlobalVariables.fecha = DateTime.Now.Date;
             lista = Negocio.NegocioAlumnos.getPorcentaje();
             listaAsistenciasTomadas = Negocio.NegocioAlumnos.getPorcentajeTomado(GlobalVariables.fecha);
-            float porcentaje = (Convert.ToInt32(listaAsistenciasTomadas.Count) * 100) / Convert.ToInt32(lista.Count);
-            label6.Text= porcentaje+"% de asistencias tomada el dia de hoy";
+            if (lista.Count > 0) 
+            {
+                float porcentaje = (Convert.ToInt32(listaAsistenciasTomadas.Count) * 100) / Convert.ToInt32(lista.Count);
+                label6.Text= porcentaje+"% de asistencias tomada el dia de hoy";
+            }
         }
         private void button1_Click(object sender, EventArgs e)
         {
