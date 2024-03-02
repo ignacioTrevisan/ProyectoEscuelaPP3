@@ -22,7 +22,7 @@ namespace NegocioAlumnos
             int bol = datosProfesores.buscarDirectivo(dni, pass);
             return bol;
         }
-        public static List<Nota> GetPermisos(int id) 
+        public static List<Nota> GetCursos(int id) 
         {
             List<Nota> lista = new List<Nota>();
             return datosProfesores.GetPermisos(id);
@@ -50,10 +50,7 @@ namespace NegocioAlumnos
             return datosProfesores.getMaterias();
         }
 
-        public static List<Nota> GetCursos()
-        {
-            return datosProfesores.GetCursos();
-        }
+       
 
         public static string ConfigurarCursoProfesor(int idProfesor, string año, string division, string materia, string error)
         {

@@ -143,7 +143,12 @@ namespace ProyectoEscuela
             txt_calle.Text = "";
             txt_telefono.Text = "";
             txt_email.Text = "";
-
+            txt_altura.Text = "";
+            txt_barrio.Text = "";
+            txt_calle.Text = "";
+            txt_edificio.Text = "";
+            txt_estado.Text = "";
+            txt_numero_dpto.Text = "";
             txt_dni.Text = "";
         }
 
@@ -151,6 +156,7 @@ namespace ProyectoEscuela
         {
             string patronCorreoElectronico = @"^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$";
             string dni = txt_dni.Text;
+            
 
             if (dni.Length != 7 && dni.Length != 8)
             {
@@ -175,7 +181,7 @@ namespace ProyectoEscuela
                 return false;
             }
 
-            else if (txt_telefono.Text == "")
+            else if (txt_telefono.TextLength < 8 && txt_telefono.TextLength > 11)
             {
                 MessageBox.Show("El TELEFONO está mal ingresado o no se ingresó");
                 return false;
@@ -192,11 +198,7 @@ namespace ProyectoEscuela
                 return false;
 
             }
-            else if (txt_calle.Text == "")
-            {
-                MessageBox.Show("El DOMICILIO está mal ingresado o no se ingresó");
-                return false;
-            }
+            
             return true;
         }
 

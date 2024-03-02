@@ -113,5 +113,11 @@ namespace ProyectoEscuela
             formulario.ShowDialog();
 
         }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            profesor_curso formulario = new profesor_curso();
+            formulario.ShowDialog();
+        }
     }
 }

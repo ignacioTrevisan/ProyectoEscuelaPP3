@@ -114,29 +114,7 @@ namespace DatosAlumnos
             }
         }
 
-        public static List<Nota> GetCursos()
-        {
-            List<Nota> lista = new List<Nota>();
-            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
-            using (SqlConnection con = new SqlConnection(conString))
-            {
-                con.Open();
-                SqlCommand command = new SqlCommand("GetCursos", con);
-                command.CommandType = System.Data.CommandType.StoredProcedure;
-                SqlDataReader reader = command.ExecuteReader();
-
-                while (reader.Read())
-                {
-                    Nota n = new Nota();
-                    n.Curso = Convert.ToString(reader["año"]);
-                    n.Division = Convert.ToString(reader["division"]);
-                    lista.Add(n);
-                }
-                reader.Close();
-                con.Close();
-                return lista;
-            }
-        }
+       
 
         public static List<string> getMaterias()
         {
@@ -207,6 +185,7 @@ namespace DatosAlumnos
                     n.Curso = Convert.ToString(reader["año"]);
                     n.Division = Convert.ToString(reader["division"]);
                     n.ciclo = Convert.ToInt32(reader["ciclo"]);
+                    
                     lista.Add(n);
                 }
                 reader.Close();
@@ -235,7 +214,14 @@ namespace DatosAlumnos
                     p.Apellido = Convert.ToString(reader["apellido"]);
                     p.FechaNacimiento = Convert.ToDateTime(reader["fechadenacimiento"]);
                     p.Email = Convert.ToString(reader["email"]);
-                    p.Domicilio = Convert.ToString(reader["domicilio"]);
+                    p.barrio = Convert.ToString(reader["barrio"]);
+                    p.calle = Convert.ToString(reader["calle"]);
+                    p.altura = Convert.ToString(reader["altura"]);
+                    p.edificio = Convert.ToString(reader["edificio"]);
+                    p.piso = Convert.ToString(reader["piso"]);
+                    p.numero_dpto = Convert.ToString(reader["numero_dpto"]);
+                    p.indicacion = Convert.ToString(reader["indicacion"]);
+
                     p.Telefono = Convert.ToString(reader["telefono"]);
 
                 }
@@ -284,7 +270,13 @@ namespace DatosAlumnos
                 command.Parameters.AddWithValue("@dni", p.Dni);
                 command.Parameters.AddWithValue("@fechaNacimiento", p.FechaNacimiento);
                 command.Parameters.AddWithValue("@email", p.Email);
-                command.Parameters.AddWithValue("@domicilio", p.Domicilio);
+                command.Parameters.AddWithValue("@barrio", p.barrio);
+                command.Parameters.AddWithValue("@calle", p.calle);
+                command.Parameters.AddWithValue("@altura", p.altura);
+                command.Parameters.AddWithValue("@edificio", p.edificio);
+                command.Parameters.AddWithValue("@piso", p.piso);
+                command.Parameters.AddWithValue("@numero_dpto", p.numero_dpto);
+                command.Parameters.AddWithValue("@indicacion", p.indicacion);
                 command.Parameters.AddWithValue("@Telefono", p.Telefono);
                 command.Parameters.AddWithValue("@contraseña", p.contraseña);
                 command.Parameters.AddWithValue("@cargo", cargo);
@@ -317,7 +309,13 @@ namespace DatosAlumnos
                 command.Parameters.AddWithValue("@dni", p.Dni);
                 command.Parameters.AddWithValue("@fechaNacimiento", p.FechaNacimiento);
                 command.Parameters.AddWithValue("@email", p.Email);
-                command.Parameters.AddWithValue("@domicilio", p.Domicilio);
+                command.Parameters.AddWithValue("@barrio", p.barrio);
+                command.Parameters.AddWithValue("@calle", p.calle);
+                command.Parameters.AddWithValue("@altura", p.altura);
+                command.Parameters.AddWithValue("@edificio", p.edificio);
+                command.Parameters.AddWithValue("@piso", p.piso);
+                command.Parameters.AddWithValue("@numero_dpto", p.numero_dpto);
+                command.Parameters.AddWithValue("@indicacion", p.indicacion);
                 command.Parameters.AddWithValue("@Telefono", p.Telefono);
                 command.Parameters.AddWithValue("@contraseña", p.contraseña);
                 command.Parameters.AddWithValue("@cargo", "Profesor");

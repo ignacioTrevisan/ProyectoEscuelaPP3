@@ -1,0 +1,106 @@
+﻿using EntidadAlumno;
+using EntidadNota;
+using EntidadProfesor;
+using NegocioAlumnos;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Data.SqlClient;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace ProyectoEscuela
+{
+    public partial class profesor_curso : Form
+    {
+        public List<string> Listamaterias = new List<string>();
+        public List<profesor> ListaProfesor = new List<profesor> ();
+        public List<Nota> ListaCursos = new List<Nota>();
+        
+        public profesor_curso()
+        {
+            InitializeComponent();
+            traerMaterias();
+            traerProfesores();
+            traerCursos();
+        }
+
+        private void traerCursos()
+        {
+            ListaCursos = NegocioProfesor.GetPermisosPreceptor(1);
+            foreach (var curso in ListaCursos)
+            {
+                
+                comboBox3.Items.Add("año "+curso.Curso + " division " + curso.Division + " (" + curso.ciclo + ")");
+            }
+        }
+
+        public void traerMaterias() 
+        {
+            string query = "select Denominación from Materias";
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(conString))
+            {
+                connection.Open();
+                SqlCommand cmd = new SqlCommand(query, connection);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    string materia = "";
+                    materia = Convert.ToString(reader["Denominación"]);
+
+                    Listamaterias.Add(materia);
+                }
+                connection.Close();
+                reader.Close();
+                foreach (var lista in Listamaterias)
+                {
+                    comboBox2.Items.Add(lista);
+                }
+            }
+        }
+        public void traerProfesores()
+        {
+            string query = "select * from directivos where cargo = 'profesor'";
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(conString))
+            {
+                connection.Open();
+                SqlCommand cmd = new SqlCommand(query, connection);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    profesor p = new profesor();
+                    p.Id = Convert.ToInt32(reader["id"]);
+                    p.Apellido = Convert.ToString(reader["apellido"]);
+                    p.Nombre = Convert.ToString(reader["nombre"]);
+                    p.Dni = Convert.ToString(reader["dni"]);
+
+                    ListaProfesor.Add(p);
+                }
+                connection.Close();
+                reader.Close();
+                foreach (var profesor in ListaProfesor)
+                {
+                    comboBox1.Items.Add(profesor.Apellido+" "+ profesor.Nombre+" ("+profesor.Dni+")");
+                }
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            int i = comboBox1.SelectedIndex;
+            int idProfesor = ListaProfesor[i].Id;
+            int o = comboBox3.SelectedIndex;
+            string añoCurso = ListaCursos[o].Curso;
+            string divisionCurso = ListaCursos[o].Division;
+            string materia = comboBox2.Text;
+            MessageBox.Show (NegocioProfesor.ConfigurarCursoProfesor(idProfesor, añoCurso, divisionCurso, materia, ""));
+            
+        }
+    }
+}

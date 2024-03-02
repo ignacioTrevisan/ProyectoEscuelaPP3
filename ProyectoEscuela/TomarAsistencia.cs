@@ -93,7 +93,7 @@ namespace ProyectoEscuela
             }
             else
             {
-                lista = NegocioProfesor.GetPermisos(id);
+                lista = NegocioProfesor.GetCursos(id);
 
             }
             int tam = lista.Count;

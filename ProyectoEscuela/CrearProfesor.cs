@@ -1,4 +1,5 @@
-﻿using EntidadProfesor;
+﻿using EntidadAlumno;
+using EntidadProfesor;
 using NegocioAlumnos;
 using System;
 using System.Collections.Generic;
@@ -15,9 +16,15 @@ namespace ProyectoEscuela
 {
     public partial class CrearProfesor : Form
     {
+        public List<barrios> barriosLista = new List<barrios>();
         public CrearProfesor()
         {
             InitializeComponent();
+            barriosLista = Negocio.NegocioAlumnos.getBarrios();
+            foreach (var barrio in barriosLista)
+            {
+                txt_barrio.Items.Add(barrio.descripcion);
+            }
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -38,7 +45,13 @@ namespace ProyectoEscuela
                     p.Apellido = txt_apellido.Text;
                     p.Dni = txt_dni.Text;
                     p.FechaNacimiento = txt_fechaNacimiento.Value;
-                    p.Domicilio = txt_domicilio.Text;
+                    p.barrio = txt_barrio.Text;
+                    p.calle = txt_calle.Text;
+                    p.altura = txt_altura.Text;
+                    p.edificio = txt_edificio.Text;
+                    p.piso = txt_piso.Text;
+                    p.numero_dpto = txt_numero_dpto.Text;
+                    p.indicacion = txt_indicacion.Text;
                     p.Telefono = txt_telefono.Text;
                     p.Email = txt_email.Text;
                     p.contraseña = txt_contraseña.Text;
@@ -114,11 +127,7 @@ namespace ProyectoEscuela
                 return false;
             }
             else
-                if (txt_domicilio.Text == "")
-            {
-                MessageBox.Show("El domicilio está mal ingresado o no se ingresó");
-                return false;
-            }
+               
 
             return true;
         }
@@ -128,7 +137,6 @@ namespace ProyectoEscuela
         {
             txt_nombre.Text = string.Empty;
             txt_apellido.Text = string.Empty;
-            txt_domicilio.Text = string.Empty;
             txt_telefono.Text = string.Empty;
             txt_email.Text = string.Empty;
             
@@ -146,7 +154,7 @@ namespace ProyectoEscuela
                 txt_nombre.Text = pro.Nombre;
                 txt_apellido.Text = pro.Apellido;
                 txt_dni.Text = pro.Dni;
-                txt_domicilio.Text = pro.Domicilio;
+               
                 txt_telefono.Text = pro.Telefono;
                 if (pro.FechaNacimiento != DateTime.MinValue)
                 {
@@ -175,7 +183,13 @@ namespace ProyectoEscuela
             p.Apellido = txt_apellido.Text;
             p.Dni = txt_dni.Text;
             p.FechaNacimiento = txt_fechaNacimiento.Value;
-            p.Domicilio = txt_domicilio.Text;
+            p.barrio = txt_barrio.Text;
+            p.calle = txt_calle.Text;
+            p.altura = txt_altura.Text;
+            p.edificio = txt_edificio.Text;
+            p.piso = txt_piso.Text;
+            p.numero_dpto = txt_numero_dpto.Text;
+            p.indicacion = txt_indicacion.Text;
             p.Telefono = txt_telefono.Text;
             p.Email = txt_email.Text;
             p.contraseña = txt_contraseña.Text;

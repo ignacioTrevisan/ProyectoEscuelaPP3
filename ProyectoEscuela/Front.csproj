@@ -137,6 +137,12 @@
     <Compile Include="pre_registroProfesor.Designer.cs">
       <DependentUpon>pre_registroProfesor.cs</DependentUpon>
     </Compile>
+    <Compile Include="profesor-curso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="profesor-curso.Designer.cs">
+      <DependentUpon>profesor-curso.cs</DependentUpon>
+    </Compile>
     <Compile Include="RecursosSalas.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -186,6 +192,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="pre_registroProfesor.resx">
       <DependentUpon>pre_registroProfesor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="profesor-curso.resx">
+      <DependentUpon>profesor-curso.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="RecursosSalas.resx">
       <DependentUpon>RecursosSalas.cs</DependentUpon>

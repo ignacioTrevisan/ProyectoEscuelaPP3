@@ -328,7 +328,10 @@ namespace ProyectoEscuela
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            int i = comboBox1.SelectedIndex;
+            ListaAlumnos = GetXCurso("", lista[i].Curso, lista[i].Division, lista[i].ciclo);
+            dataGridView1.DataSource = ListaAlumnos;
+            lblResultados.Text = ListaAlumnos.Count.ToString();
         }
     }
 }

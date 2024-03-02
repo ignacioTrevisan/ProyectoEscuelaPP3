@@ -52,7 +52,7 @@ namespace ProyectoEscuela
         public static List<Nota> GetCursos(int id)
         {
             List<Nota> lista = new List<Nota>();
-            lista = NegocioProfesor.GetPermisos(id);
+            lista = NegocioProfesor.GetCursos(id);
             int tam = lista.Count;
             
             return lista;
