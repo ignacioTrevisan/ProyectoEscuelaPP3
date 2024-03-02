@@ -30,7 +30,7 @@ namespace NotasAlumnos
         }
         public static int eliminarNota(int id) 
         {
-            int i = 0;
+            
             return NotasDatos.Eliminar(id);
         }
 

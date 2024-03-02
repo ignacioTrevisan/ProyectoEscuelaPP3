@@ -43,7 +43,7 @@ namespace DatosNotas
 
                     reader.Close();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     throw;
                 }
@@ -65,7 +65,7 @@ namespace DatosNotas
                     int idAlumnoCreado = Convert.ToInt32(command.ExecuteScalar());
                     connection.Close();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     throw;
                 }
@@ -95,7 +95,7 @@ namespace DatosNotas
                         materias.Add(denominacion);
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     throw;
                 }
@@ -132,13 +132,14 @@ namespace DatosNotas
                         n.Dni = Convert.ToString(reader["dni"]);
                         n.comentario = Convert.ToString(reader["comentario"]);
                         n.Calificacion = Convert.ToString(reader["Nota"]);
-                        n.fecha = Convert.ToString(reader["fecha"]);
+                        DateTime fecha = (DateTime)reader["fecha"];
+                        n.fecha = fecha.ToString("dd/MM/yyyy");
                         notasLista.Add(n);
                     }
 
                     reader.Close();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     throw;
                 }
@@ -177,13 +178,14 @@ namespace DatosNotas
                         n.Materia = Convert.ToString(reader["materia"]);
                         n.Calificacion = Convert.ToString(reader["Nota"]);
                         n.comentario = Convert.ToString(reader["Comentario"]);
-                        n.fecha = Convert.ToString(reader["fecha"]);
+                        DateTime fecha = (DateTime)reader["fecha"];
+                        n.fecha = fecha.ToString("dd/MM/yyyy");
                         alumno.Add(n);
                     }
 
                     reader.Close();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     throw;
                 }
@@ -226,7 +228,7 @@ namespace DatosNotas
 
                     reader.Close();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     throw;
                 }

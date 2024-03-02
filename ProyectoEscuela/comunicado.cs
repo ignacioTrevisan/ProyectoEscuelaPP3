@@ -43,7 +43,6 @@ namespace ProyectoEscuela
                 c.fecha = DateTime.Now.Date;
                 c.ruta = txtRutaArchivo.Text;
                 DialogResult res = MessageBox.Show("¿El correo electronico se enviar a: " + c.para + " confirma enviar?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                int i = 0;
 
                 if (res == DialogResult.Yes)
                 {

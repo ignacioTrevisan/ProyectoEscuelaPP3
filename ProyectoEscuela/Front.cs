@@ -12,7 +12,6 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using EntidadProfesor;
 using NotasAlumnos;
-using Negocio;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TextBox;
 using static ProyectoEscuela.inicioSesion;
 using NegocioAlumnos;

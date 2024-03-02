@@ -20,12 +20,22 @@ namespace ProyectoEscuela
 {
     public partial class NuevoAlumno : Form
     {
+        public List<barrios> barriosLista = new List<barrios>();
+        
         string modo = "nada";
         public List<Alumno> alumnos = new List<Alumno>();
         public List<Cursos> cursos = new List<Cursos>();
+       
         public NuevoAlumno()
         {
             InitializeComponent();
+            barriosLista = Negocio.NegocioAlumnos.getBarrios();
+
+           
+            foreach (var barrio in barriosLista)
+            {
+                txt_barrio.Items.Add(barrio.descripcion);
+            }
         }
 
         private void btn_confirmarRegistroAlumno_Click(object sender, EventArgs e)
@@ -89,9 +99,17 @@ namespace ProyectoEscuela
                     a.Apellido = txt_apellido.Text;
                     a.Dni = txt_dni.Text;
                     a.FechaNacimiento = txt_fechaNacimiento.Value;
-                    a.Domicilio = txt_domicilio.Text;
+                    a.barrio = txt_barrio.Text;
+                    a.calle = txt_calle.Text;
+                    a.altura= txt_altura.Text;
+                    a.edificio=txt_edificio.Text;
+                    a.piso = txt_piso.Text;
+                    a.numero_dpto = txt_numero_dpto.Text;
                     a.Telefono = txt_telefono.Text;
                     a.Email = txt_email.Text;
+                    a.estado = txt_estado.Text;
+                    a.indicacion = txt_indicacion.Text;
+
 
                     DialogResult res = MessageBox.Show("¿Confirma guardar ? ", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (res == DialogResult.No)
@@ -122,7 +140,7 @@ namespace ProyectoEscuela
         {
             txt_nombre.Text = "";
             txt_apellido.Text = "";
-            txt_domicilio.Text = "";
+            txt_calle.Text = "";
             txt_telefono.Text = "";
             txt_email.Text = "";
 
@@ -174,7 +192,7 @@ namespace ProyectoEscuela
                 return false;
 
             }
-            else if (txt_domicilio.Text == "")
+            else if (txt_calle.Text == "")
             {
                 MessageBox.Show("El DOMICILIO está mal ingresado o no se ingresó");
                 return false;
@@ -196,7 +214,14 @@ namespace ProyectoEscuela
                 a.Apellido = txt_apellido.Text;
                 a.Dni = Convert.ToString(txt_dni.Text);
                 a.FechaNacimiento = txt_fechaNacimiento.Value;
-                a.Domicilio = txt_domicilio.Text;
+                a.barrio = txt_barrio.Text;
+                a.calle = txt_calle.Text;
+                a.altura = txt_altura.Text;
+                a.edificio = txt_edificio.Text;
+                a.piso = txt_piso.Text;
+                a.numero_dpto = txt_numero_dpto.Text;
+                a.indicacion = txt_indicacion.Text;
+                a.estado = txt_estado.Text;
                 a.Telefono = txt_telefono.Text;
                 a.Email = txt_email.Text;
 
@@ -265,10 +290,17 @@ namespace ProyectoEscuela
                     txt_apellido.Text = alumnos[0].Apellido;
                     DateTime fecha = alumnos[0].FechaNacimiento;
                     txt_fechaNacimiento.Value = alumnos[0].FechaNacimiento;
-                    txt_domicilio.Text = alumnos[0].Domicilio;
+                    txt_barrio.Text = alumnos[0].barrio;
+                    txt_calle.Text = alumnos[0].calle;
+                    txt_altura.Text = alumnos[0].altura;
+                    txt_edificio.Text = alumnos[0].edificio;
+                    txt_piso.Text = alumnos[0].piso;
+                    txt_numero_dpto.Text = alumnos[0].numero_dpto;
+                    txt_estado.Text = alumnos[0].estado;
                     txt_telefono.Text = alumnos[0].Telefono;
                     txt_email.Text = alumnos[0].Email;
                     txt_dni.Text = alumnos[0].Dni;
+                    txt_indicacion.Text = alumnos[0].indicacion;
                     cursos = Negocio.NegocioAlumnos.GetCursos(Convert.ToInt32(alumnos[0].Dni));
                     dataGridView2.DataSource = cursos;
                    

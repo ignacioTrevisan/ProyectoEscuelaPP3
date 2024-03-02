@@ -14,6 +14,12 @@ namespace Negocio
 {
     public class NegocioAlumnos
     {
+
+        public static List<barrios> getBarrios() 
+        {
+            List<barrios> list = new List<barrios>();
+            return list = AlumnosDatos.getBarrios();
+        }
         public static Permisos buscarCargo(Permisos p)
         {
             try

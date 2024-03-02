@@ -17,6 +17,7 @@ namespace ProyectoEscuela
     public partial class RecursosSalas : Form
     {
         List<ReservasRecursosSalas> lista = new List<ReservasRecursosSalas>();
+        DateTime fecha = DateTime.Now;
         public RecursosSalas()
         {
             InitializeComponent();
@@ -31,8 +32,8 @@ namespace ProyectoEscuela
 
         private void RecursosSalas_Load(object sender, EventArgs e)
         {
-
-            lista = NegociosRecursosSalas.GetReservas(lista);
+            
+            lista = NegociosRecursosSalas.GetReservas(fecha);
             refreshgrid();
         }
         private void refreshgrid()
@@ -64,7 +65,8 @@ namespace ProyectoEscuela
             {
                 int res = NegociosRecursosSalas.RegistrarReservas(recurso, fechados,horarioDesde, horarioHasta, comentarios, id);
                 dataGridView1.Rows.Clear();
-                lista = NegociosRecursosSalas.GetReservas(lista);
+                fecha = DateTime.Now;
+                lista = NegociosRecursosSalas.GetReservas(fecha);
                 refreshgrid();
                 if (res == 1)
                 {
@@ -73,7 +75,7 @@ namespace ProyectoEscuela
                 else 
                 {
                     MessageBox.Show("Este recurso ya esta reservado para ese dia y horario. ");
-                    DialogResult result = MessageBox.Show("¿Desea modificar crear otra reserva?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    DialogResult result = MessageBox.Show("¿Desea modificar el horario de la reserva?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
                     if (result == DialogResult.No)
                     {
@@ -128,10 +130,11 @@ namespace ProyectoEscuela
             }
             else 
             {
-                MessageBox.Show("Solo el director y los preceptores pueden eliminar reservas hechas por otros profesores. ");
+                MessageBox.Show("Solo el director y los preceptores pueden eliminar reservas ");
             }
             dataGridView1.Rows.Clear();
-            lista = NegociosRecursosSalas.GetReservas(lista);
+            fecha = DateTime.Now;
+            lista = NegociosRecursosSalas.GetReservas(fecha);
             refreshgrid();
         }
 
@@ -139,6 +142,25 @@ namespace ProyectoEscuela
         {
             panel1.Visible = true;
             button3.Visible = false;
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (button4.Text == "Ver todas las reservas")
+            {
+                fecha = new DateTime(0 - 0 - 0);
+                lista = NegociosRecursosSalas.GetReservas(fecha);
+                refreshgrid();
+                button4.Text = "Ver las reservas del dia";
+            }
+            else 
+            {
+                fecha = DateTime.Now;
+                lista = NegociosRecursosSalas.GetReservas(fecha);
+                refreshgrid();
+                button4.Text = "Ver todas las reservas";
+            }
+           
         }
     }
 }

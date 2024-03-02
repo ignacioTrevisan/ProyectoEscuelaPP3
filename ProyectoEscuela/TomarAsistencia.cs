@@ -24,7 +24,6 @@ namespace ProyectoEscuela
     {
         
         public int id = 1;
-        int i = 0;
         public int al = 0;
         public List<Nota> lista = new List<Nota>();
         public List<Alumno> alumnos = new List<Alumno>();
@@ -98,17 +97,13 @@ namespace ProyectoEscuela
 
             }
             int tam = lista.Count;
-            int i = 0;
             return lista;
         }
 
 
         private void btn_buscarAlumno_Click(object sender, EventArgs e)
         {
-            if (GlobalVariables.cargo == "profesor") 
-            {
-                string ciclo = "2023";
-            }
+           
             if (textBox1.Text != "")
             {
 
@@ -266,11 +261,11 @@ namespace ProyectoEscuela
             int e = 0;
             int a = 0;
             
-            bool aviso = false;
+            
             
             while (e < asistencias.Count) 
             {
-                aviso = false;
+               
                 a = 0;
                 while (a < nuevaLista.Count) 
                 {

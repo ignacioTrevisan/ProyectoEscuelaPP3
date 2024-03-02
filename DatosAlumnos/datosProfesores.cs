@@ -57,8 +57,9 @@ namespace DatosAlumnos
                 }
                 catch (Exception ex)
                 {
-                    throw;
                     error = ex.Message;
+                    throw;
+                    
                 }
 
             }
@@ -105,7 +106,7 @@ namespace DatosAlumnos
                     int idAlumnoCreado = Convert.ToInt32(command.ExecuteScalar());
                     connection.Close();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     throw;
                 }

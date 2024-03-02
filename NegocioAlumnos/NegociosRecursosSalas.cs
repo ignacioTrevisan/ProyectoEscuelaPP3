@@ -11,9 +11,9 @@ namespace NegocioAlumnos
 {
     public class NegociosRecursosSalas
     {
-        public static List<ReservasRecursosSalas> GetReservas(List<ReservasRecursosSalas> lista)
+        public static List<ReservasRecursosSalas> GetReservas(DateTime fecha)
         {
-            return DatosRecursosSalas.GetReservas(lista);
+            return DatosRecursosSalas.GetReservas(fecha);
         }
         public static int RegistrarReservas(string recurso, string fecha,string horarioDesde, string horarioHasta, string comentario, int profesor)    
         {

@@ -54,7 +54,6 @@ namespace ProyectoEscuela
             List<Nota> lista = new List<Nota>();
             lista = NegocioProfesor.GetPermisos(id);
             int tam = lista.Count;
-            int i = 0;
             
             return lista;
         }

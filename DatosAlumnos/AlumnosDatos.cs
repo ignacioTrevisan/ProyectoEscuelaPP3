@@ -18,6 +18,30 @@ namespace DatosAlumnos
 {
     public class AlumnosDatos
     {
+        public static List<barrios> getBarrios()
+        {
+            List<barrios> ListaBarrios = new List<barrios>();
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(conString))
+
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand("getBarrios", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    barrios b = new barrios();
+                    b.descripcion = Convert.ToString(reader["descripcion"]);
+
+                    ListaBarrios.Add(b);
+                }
+                connection.Close();
+                reader.Close();
+            }
+            return ListaBarrios;
+
+        }
         public static int insertar(Alumno a)
         {
             int idAlumnoCreado = 0;
@@ -31,9 +55,17 @@ namespace DatosAlumnos
                 command.Parameters.AddWithValue("@dni", a.Dni);
                 command.Parameters.AddWithValue("@fechaNacimiento", a.FechaNacimiento);
                 command.Parameters.AddWithValue("@email", a.Email);
-                command.Parameters.AddWithValue("@domicilio", a.Domicilio);
+                command.Parameters.AddWithValue("@barrio", a.barrio);
+                command.Parameters.AddWithValue("@calle", a.calle);
+                command.Parameters.AddWithValue("@altura", a.altura);
+                command.Parameters.AddWithValue("@edificio", a.edificio);
+                command.Parameters.AddWithValue("@piso", a.piso);
+                command.Parameters.AddWithValue("@numero_dpto", a.numero_dpto);
+                command.Parameters.AddWithValue("@indicacion", a.indicacion);
                 command.Parameters.AddWithValue("@telefono", a.Telefono);
-                
+                command.Parameters.AddWithValue("@estado", a.estado);
+
+
                 try
                 {
                     connection.Open();
@@ -60,7 +92,16 @@ namespace DatosAlumnos
                 command.Parameters.AddWithValue("@p_apellido", a.Apellido);
                 command.Parameters.AddWithValue("@p_fecha_nacimiento", a.FechaNacimiento);
                 command.Parameters.AddWithValue("@p_email", a.Email);
-                command.Parameters.AddWithValue("@p_domicilio", a.Domicilio);
+                command.Parameters.AddWithValue("@p_barrio", a.barrio);
+                command.Parameters.AddWithValue("@p_calle", a.calle);
+                command.Parameters.AddWithValue("@p_altura", a.altura);
+                command.Parameters.AddWithValue("@p_edificio", a.edificio);
+                command.Parameters.AddWithValue("@p_piso", a.piso);
+                command.Parameters.AddWithValue("@p_numero_dpto", a.numero_dpto);
+                command.Parameters.AddWithValue("@p_indicacion", a.indicacion);
+                command.Parameters.AddWithValue("@estado", a.estado);
+
+
                 command.Parameters.AddWithValue("@p_telefono", a.Telefono);
                 try
                 {
@@ -73,15 +114,15 @@ namespace DatosAlumnos
                     throw;
 
                 }
-                return idAlumnoCreado;
                 connection.Close();
+                return idAlumnoCreado;
+                
             }
 
         }
         public static List<Alumno> buscar(string nombre, string apellido, string dni)
         {
             List<Alumno> lista = new List<Alumno>();
-            int idAlumnoCreado = 0;
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(conString))
 
@@ -103,7 +144,14 @@ namespace DatosAlumnos
                     b.Apellido = Convert.ToString(reader["apellido"]);
                     b.FechaNacimiento = Convert.ToDateTime(reader["fechaNacimiento"]);
                     b.Email = Convert.ToString(reader["email"]);
-                    b.Domicilio = Convert.ToString(reader["Domicilio"]);
+                    b.barrio = Convert.ToString(reader["barrio"]);
+                    b.calle = Convert.ToString(reader["calle"]);
+                    b.altura = Convert.ToString(reader["altura"]);
+                    b.edificio = Convert.ToString(reader["edificio"]);
+                    b.piso = Convert.ToString(reader["piso"]);
+                    b.numero_dpto = Convert.ToString(reader["numero_dpto"]);
+                    b.indicacion = Convert.ToString(reader["indicacion"]);
+                    b.estado = Convert.ToString(reader["estado"]);
                     b.Telefono = Convert.ToString(reader["telefono"]);
                     b.Id = Convert.ToInt32(reader["id"]);
                     lista.Add(b);
@@ -223,7 +271,13 @@ namespace DatosAlumnos
                         busqueda.FechaNacimiento = Convert.ToDateTime(reader["fechaNacimiento"]);
                         busqueda.Email = Convert.ToString(reader["email"]);
                         busqueda.Dni = Convert.ToString(reader["dni"]);
-                        busqueda.Domicilio = Convert.ToString(reader["Domicilio"]);
+                        busqueda.barrio = Convert.ToString(reader["barrio"]);
+                        busqueda.calle = Convert.ToString(reader["calle"]);
+                        busqueda.altura = Convert.ToString(reader["altura"]);
+                        busqueda.edificio = Convert.ToString(reader["edificio"]);
+                        busqueda.numero_dpto = Convert.ToString(reader["numero_dpto"]);
+                        busqueda.piso = Convert.ToString(reader["piso"]);
+
                         busqueda.Telefono = Convert.ToString(reader["telefono"]);
                         busqueda.Curso = Convert.ToString(reader["año"]);
                         busqueda.division = Convert.ToString(reader["division"]);
@@ -235,7 +289,7 @@ namespace DatosAlumnos
 
                     reader.Close();
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     throw;
                 }
@@ -271,7 +325,13 @@ namespace DatosAlumnos
                         busqueda.Dni = Convert.ToString(reader["dni"]);
                         busqueda.FechaNacimiento = Convert.ToDateTime(reader["fechaNacimiento"]);
                         busqueda.Email = Convert.ToString(reader["email"]);
-                        busqueda.Domicilio = Convert.ToString(reader["Domicilio"]);
+                        busqueda.barrio = Convert.ToString(reader["barrio"]);
+                        busqueda.calle = Convert.ToString(reader["calle"]);
+                        busqueda.altura = Convert.ToString(reader["altura"]);
+                        busqueda.piso = Convert.ToString(reader["piso"]);
+                        busqueda.edificio = Convert.ToString(reader["edificio"]);
+                        busqueda.numero_dpto = Convert.ToString(reader["numero_dpto"]);
+
                         busqueda.Telefono = Convert.ToString(reader["telefono"]);
                         busqueda.Curso = Convert.ToString(reader["año"]);
                         busqueda.division = Convert.ToString(reader["division"]);
@@ -286,7 +346,7 @@ namespace DatosAlumnos
 
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     throw;
                 }
@@ -321,7 +381,12 @@ namespace DatosAlumnos
                         busqueda.Dni = Convert.ToString(reader["dni"]);
                         busqueda.FechaNacimiento = Convert.ToDateTime(reader["fechaNacimiento"]);
                         busqueda.Email = Convert.ToString(reader["email"]);
-                        busqueda.Domicilio = Convert.ToString(reader["Domicilio"]);
+                        busqueda.barrio = Convert.ToString(reader["barrio"]);
+                        busqueda.calle = Convert.ToString(reader["calle"]);
+                        busqueda.altura = Convert.ToString(reader["altura"]);
+                        busqueda.piso = Convert.ToString(reader["piso"]);
+                        busqueda.edificio = Convert.ToString(reader["edificio"]);
+                        busqueda.numero_dpto = Convert.ToString(reader["numero_dpto"]);
                         busqueda.Telefono = Convert.ToString(reader["telefono"]);
                         busqueda.Curso = Convert.ToString(reader["año"]);
                         busqueda.division = Convert.ToString(reader["division"]);
@@ -336,7 +401,7 @@ namespace DatosAlumnos
 
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     throw;
                 }
@@ -384,7 +449,7 @@ namespace DatosAlumnos
 
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     throw;
                 }
@@ -496,7 +561,7 @@ namespace DatosAlumnos
 
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     throw;
                 }
@@ -543,7 +608,7 @@ namespace DatosAlumnos
 
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     throw;
                 }
@@ -585,7 +650,7 @@ namespace DatosAlumnos
 
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     throw;
                 }
@@ -622,7 +687,7 @@ namespace DatosAlumnos
 
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     throw;
                 }
@@ -707,7 +772,7 @@ namespace DatosAlumnos
 
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     throw;
                 }
@@ -744,7 +809,7 @@ namespace DatosAlumnos
 
 
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     throw;
                 }

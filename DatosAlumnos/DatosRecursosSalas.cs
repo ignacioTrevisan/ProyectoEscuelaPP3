@@ -7,20 +7,28 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
-using EntidadRecursosSalas;
 
 namespace datosRecursos
 {
     public class DatosRecursosSalas
     {
-        public static List<ReservasRecursosSalas> GetReservas(List<ReservasRecursosSalas> lista)
+        public static List<ReservasRecursosSalas> GetReservas( DateTime fecha)
         {
+            List<ReservasRecursosSalas> lista = new List<ReservasRecursosSalas>();
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(conString))
             { 
                 connection.Open();
                 SqlCommand command = new SqlCommand("GetReserva", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
+                if (fecha != new DateTime(0 - 0 - 0)) 
+                {
+                    command.Parameters.AddWithValue("@fecha", fecha);
+                }
+               /*
+                Si la reserva es 0-0-0 el valor que llega a sql es null, entonces muestra todas las
+                reservas
+               */
                 SqlDataReader reader = command.ExecuteReader();
 
                 while (reader.Read())
