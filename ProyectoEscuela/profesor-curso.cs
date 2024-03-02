@@ -31,7 +31,7 @@ namespace ProyectoEscuela
 
         private void traerCursos()
         {
-            ListaCursos = NegocioProfesor.GetPermisosPreceptor(1);
+            ListaCursos = NegocioProfesor.GetPermisosPreceptor(1    );
             foreach (var curso in ListaCursos)
             {
                 
@@ -100,7 +100,24 @@ namespace ProyectoEscuela
             string divisionCurso = ListaCursos[o].Division;
             string materia = comboBox2.Text;
             MessageBox.Show (NegocioProfesor.ConfigurarCursoProfesor(idProfesor, añoCurso, divisionCurso, materia, ""));
+            actualizarGrila();
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            actualizarGrila();
             
+        }
+
+        private void actualizarGrila()
+        {
+            dataGridView1.DataSource = NegocioProfesor.GetCursos(ListaProfesor[comboBox1.SelectedIndex].Id);
+        }
+
+        private void profesor_curso_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
