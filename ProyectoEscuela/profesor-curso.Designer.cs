@@ -30,6 +30,12 @@
         {
             this.components = new System.ComponentModel.Container();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.materiaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cursoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.divisionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.cicloDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             this.label1 = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.button1 = new System.Windows.Forms.Button();
@@ -40,15 +46,9 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
-            this.idDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.materiaDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cursoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.divisionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cicloDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
+            this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // dataGridView1
@@ -66,6 +66,40 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(575, 283);
             this.dataGridView1.TabIndex = 0;
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            this.idDataGridViewTextBoxColumn.DataPropertyName = "id";
+            this.idDataGridViewTextBoxColumn.HeaderText = "id";
+            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            // 
+            // materiaDataGridViewTextBoxColumn
+            // 
+            this.materiaDataGridViewTextBoxColumn.DataPropertyName = "Materia";
+            this.materiaDataGridViewTextBoxColumn.HeaderText = "Materia";
+            this.materiaDataGridViewTextBoxColumn.Name = "materiaDataGridViewTextBoxColumn";
+            // 
+            // cursoDataGridViewTextBoxColumn
+            // 
+            this.cursoDataGridViewTextBoxColumn.DataPropertyName = "Curso";
+            this.cursoDataGridViewTextBoxColumn.HeaderText = "Curso";
+            this.cursoDataGridViewTextBoxColumn.Name = "cursoDataGridViewTextBoxColumn";
+            // 
+            // divisionDataGridViewTextBoxColumn
+            // 
+            this.divisionDataGridViewTextBoxColumn.DataPropertyName = "Division";
+            this.divisionDataGridViewTextBoxColumn.HeaderText = "Division";
+            this.divisionDataGridViewTextBoxColumn.Name = "divisionDataGridViewTextBoxColumn";
+            // 
+            // cicloDataGridViewTextBoxColumn
+            // 
+            this.cicloDataGridViewTextBoxColumn.DataPropertyName = "ciclo";
+            this.cicloDataGridViewTextBoxColumn.HeaderText = "ciclo";
+            this.cicloDataGridViewTextBoxColumn.Name = "cicloDataGridViewTextBoxColumn";
+            // 
+            // bindingSource1
+            // 
+            this.bindingSource1.DataSource = typeof(EntidadNota.Nota);
             // 
             // label1
             // 
@@ -93,6 +127,7 @@
             this.button1.TabIndex = 3;
             this.button1.Text = "Asignar nuevo curso/materia";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // comboBox2
             // 
@@ -150,6 +185,7 @@
             this.button3.TabIndex = 9;
             this.button3.Text = "Cancelar";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // panel1
             // 
@@ -160,51 +196,18 @@
             this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.label3);
             this.panel1.Controls.Add(this.comboBox3);
-            this.panel1.Location = new System.Drawing.Point(690, 88);
+            this.panel1.Location = new System.Drawing.Point(222, 103);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(206, 177);
             this.panel1.TabIndex = 10;
-            // 
-            // bindingSource1
-            // 
-            this.bindingSource1.DataSource = typeof(EntidadNota.Nota);
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            this.idDataGridViewTextBoxColumn.DataPropertyName = "id";
-            this.idDataGridViewTextBoxColumn.HeaderText = "id";
-            this.idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            // 
-            // materiaDataGridViewTextBoxColumn
-            // 
-            this.materiaDataGridViewTextBoxColumn.DataPropertyName = "Materia";
-            this.materiaDataGridViewTextBoxColumn.HeaderText = "Materia";
-            this.materiaDataGridViewTextBoxColumn.Name = "materiaDataGridViewTextBoxColumn";
-            // 
-            // cursoDataGridViewTextBoxColumn
-            // 
-            this.cursoDataGridViewTextBoxColumn.DataPropertyName = "Curso";
-            this.cursoDataGridViewTextBoxColumn.HeaderText = "Curso";
-            this.cursoDataGridViewTextBoxColumn.Name = "cursoDataGridViewTextBoxColumn";
-            // 
-            // divisionDataGridViewTextBoxColumn
-            // 
-            this.divisionDataGridViewTextBoxColumn.DataPropertyName = "Division";
-            this.divisionDataGridViewTextBoxColumn.HeaderText = "Division";
-            this.divisionDataGridViewTextBoxColumn.Name = "divisionDataGridViewTextBoxColumn";
-            // 
-            // cicloDataGridViewTextBoxColumn
-            // 
-            this.cicloDataGridViewTextBoxColumn.DataPropertyName = "ciclo";
-            this.cicloDataGridViewTextBoxColumn.HeaderText = "ciclo";
-            this.cicloDataGridViewTextBoxColumn.Name = "cicloDataGridViewTextBoxColumn";
+            this.panel1.Visible = false;
             // 
             // profesor_curso
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(989, 450);
+            this.ClientSize = new System.Drawing.Size(762, 450);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.comboBox1);
@@ -214,9 +217,9 @@
             this.Text = "profesor_curso";
             this.Load += new System.EventHandler(this.profesor_curso_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 

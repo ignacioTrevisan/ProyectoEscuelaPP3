@@ -101,7 +101,20 @@ namespace ProyectoEscuela
             string materia = comboBox2.Text;
             MessageBox.Show (NegocioProfesor.ConfigurarCursoProfesor(idProfesor, añoCurso, divisionCurso, materia, ""));
             actualizarGrila();
-
+            cambiarVisibilidad(false);
+        }
+        public void cambiarVisibilidad(Boolean visible) 
+        {
+            if (visible == true)
+            {
+                panel1.Visible = true;
+                dataGridView1.Visible = false;
+            }
+            else 
+            {
+                panel1.Visible = false;
+                dataGridView1.Visible = true;
+            }
         }
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -118,6 +131,16 @@ namespace ProyectoEscuela
         private void profesor_curso_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            cambiarVisibilidad(true);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            cambiarVisibilidad(false) ;
         }
     }
 }

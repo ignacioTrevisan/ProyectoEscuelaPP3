@@ -7,6 +7,7 @@ using NegocioAlumnos;
 using EntidadNota;
 using static ProyectoEscuela.inicioSesion;
 using System.Net;
+using Org.BouncyCastle.Crypto.Tls;
 namespace ProyectoEscuela
 {
     public partial class Inscripciones : Form
@@ -14,20 +15,35 @@ namespace ProyectoEscuela
         List<Alumno> alumnos = new List<Alumno>();
         int modo = 0;
         List<Nota> cursos = new List<Nota>();
+        List<Alumno> dni = new List<Alumno>();
 
-        
+
+
         public Inscripciones()
         {
             InitializeComponent();
             getCursos();
         }
-        
+
+       
 
         private void button1_Click(object sender, EventArgs e)
         {
-            int i = comboBox2.SelectedIndex;
-            Inscribir(comboBox1.Text, cursos[i].Curso , cursos[i].Division, cursos[i].ciclo);
-            MessageBox.Show("Inscripcion hecha correctamente. ");
+           
+            List<Alumno> lis= new List<Alumno>();
+            lis = Negocio.NegocioAlumnos.buscar("-","-",textBox1.Text);
+            if (lis[0].estado == "Activo")
+            {
+                int i = comboBox2.SelectedIndex;
+                Inscribir(textBox1.Text, cursos[i].Curso, cursos[i].Division, cursos[i].ciclo);
+                MessageBox.Show("Inscripcion hecha correctamente. ");
+                buscarCurso(0, cursos[i].Curso, cursos[i].Division, cursos[i].ciclo);
+            }
+            else 
+            {
+                MessageBox.Show("No se puede inscribir a un alumno en estado 'Inactivo', por favor modifique su estado en la seccion 'alumnos'");
+            }
+
         }
         private void getCursos() 
         {
@@ -49,26 +65,9 @@ namespace ProyectoEscuela
         {
            
             modo = 1;
-            cambiarPermisos();
+            CambiarVisibilidad(true);
         }
-        public void cambiarPermisos() 
-        {
-            if (modo == 0)
-            {
-                panel1.Visible = false;
-                comboBox1.Enabled = true;
-                comboBox2.Enabled = true;
-                
-                button1.Enabled = true;
-            }
-            else 
-            {
-                panel1.Visible = true;
-                comboBox1.Enabled=false;
-                comboBox2.Enabled = false;
-                button1.Enabled = false;
-            }
-        }
+       
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -133,20 +132,24 @@ namespace ProyectoEscuela
                 if (cell.Value != null)
                 {
                     int j = cell.RowIndex;
-                   
-                    comboBox1.Text = alumnos[j].Dni;
-                   
-
-
+                    if (alumnos[j].estado == "Inactivo")
+                    {
+                        MessageBox.Show("No se puede inscribir a un alumno en estado 'Inactivo', por favor modifique su estado en la seccion 'alumnos'");
+                    }
+                    else 
+                    {
+                        CambiarVisibilidad(false);
+                        textBox1.Text = alumnos[j].Dni;
+                    }
+                    
                 }
             }
             modo = 0;
-            cambiarPermisos();
+         
         }
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
-          
             int i = comboBox2.SelectedIndex;
             buscarCurso(0, cursos[i].Curso, cursos[i].Division, cursos[i].ciclo);
         }
@@ -154,8 +157,51 @@ namespace ProyectoEscuela
         private void buscarCurso(int v, string curso, string division, int ciclo)
         {
             alumnos = Negocio.NegocioAlumnos.GetXCurso(v.ToString(), curso, division, ciclo);
-           
+            dataGridView2.Visible = true;
             dataGridView2.DataSource = alumnos;
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Inscripciones_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            CambiarVisibilidad(false);
+        }
+        private void CambiarVisibilidad(Boolean visible)
+        {
+            if (visible)
+            {
+                
+                textBox1.Visible = false;
+                comboBox2.Visible = false;
+                dataGridView2.Visible = false;
+                linkLabel1.Visible = false;
+                button1.Visible = false;
+                label3.Visible = false;
+                label4.Visible = false;
+                panel1.Visible = true;
+            }
+            else 
+            {
+                panel1.Visible = false;
+                textBox1.Visible = true;
+                comboBox2.Visible = true;
+                dataGridView2.Visible = true;
+                linkLabel1.Visible = true;
+                label3.Visible = true;
+                button1.Visible = true;
+                label4.Visible = true;
+            }
+            
+            
         }
     }
 }

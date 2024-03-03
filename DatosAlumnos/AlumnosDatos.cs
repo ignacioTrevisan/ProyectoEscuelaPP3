@@ -130,9 +130,11 @@ namespace DatosAlumnos
                 connection.Open();
                 SqlCommand command = new SqlCommand("BuscarAlumno", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
-
-                command.Parameters.AddWithValue("@nombre", (nombre));
-                command.Parameters.AddWithValue("@apellido", (apellido));
+                
+                    command.Parameters.AddWithValue("@nombre", (nombre));
+                   command.Parameters.AddWithValue("@apellido", (apellido));
+                
+                
                 command.Parameters.AddWithValue("@dni", (dni));
                 SqlDataReader reader = command.ExecuteReader();
 
