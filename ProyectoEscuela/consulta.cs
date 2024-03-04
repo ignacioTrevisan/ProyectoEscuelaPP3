@@ -62,17 +62,17 @@ namespace ProyectoEscuela
         private void buscarAlumnos(string nombre)
         {
            
-            string curso = txtCurso.Text;
-            string division = txtDivision.Text;
+            string curso = comboBox1.Text;
+            
 
 
-            if (string.IsNullOrEmpty(curso) || string.IsNullOrEmpty(division))
+            if (string.IsNullOrEmpty(curso) )
             {
                 ListaAlumnos = Negocio.NegocioAlumnos.Get("0",nombre, GlobalVariables.ciclo);
             }
             else
             {
-                ListaAlumnos = Negocio.NegocioAlumnos.Get(nombre, curso, division, GlobalVariables.ciclo);
+                ListaAlumnos = Negocio.NegocioAlumnos.Get(nombre, curso,  GlobalVariables.ciclo);
             }
 
             lblResultados.Text = dataGridView1.Rows.Count.ToString();

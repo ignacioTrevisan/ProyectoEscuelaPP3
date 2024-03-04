@@ -32,10 +32,14 @@ namespace ProyectoEscuela
         public TomarAsistencia()
         {
             InitializeComponent();
+            
             if (GlobalVariables.cargo == "profesor")
             {
                 dateTimePicker1.Enabled = false;
             }
+
+           
+
             lista = GetCursos(GlobalVariables.id);
 
 
@@ -149,9 +153,22 @@ namespace ProyectoEscuela
             int dni = Convert.ToInt32(label1.Text);
             string curso = lista[a].Curso;
             string division = lista[a].Division;
-            registrarestado(estado, fecha, dni, curso, division, GlobalVariables.ciclo);
+            DateTime fechaActual = DateTime.Today;
+            DateTime fechaHace7Dias = fechaActual.AddDays(-7);
+            if (fecha <= fechaHace7Dias)
+            {
+                MessageBox.Show("No es posible modificar una asistencia en un rango anterior a una semana");
+            }
+            else if (fecha > fechaActual)
+            {
+                MessageBox.Show("No es posible determinar asistencias de días futuros");
+            }
+            else
+            {
+                registrarestado(estado, fecha, dni, curso, division, GlobalVariables.ciclo);
             asistencias = Negocio.NegocioAlumnos.TraerAsistenciasDeHoy(curso, division, dateTimePicker1.Value, GlobalVariables.ciclo);
             refreshgrid();
+            }
         }
 
         private void registrarestado(string estado, DateTime fecha, int dni, string curso, string division, int ciclo)
@@ -168,10 +185,22 @@ namespace ProyectoEscuela
             int  a = comboBox1.SelectedIndex;
             string curso = lista[a].Curso;
             string division = lista[a].Division;
+            DateTime fechaActual = DateTime.Today;
+            DateTime fechaHace7Dias = fechaActual.AddDays(-7);
+            if (fecha <= fechaHace7Dias)
+            {
+                MessageBox.Show("No es posible modificar una asistencia en un rango anterior a una semana");
+            }
+            else if (fecha>fechaActual) {
+                MessageBox.Show("No es posible determinar asistencias de días futuros");
+            }
+            else 
+            { 
             registrarestado(estado, fecha, dni, curso, division, GlobalVariables.ciclo);
             //MessageBox.Show(estado + "-fecha:" + fecha.ToString()+ "-dni:" + dni.ToString()+ "-curso:" + curso.ToString() + "-division:" + division + "-ciclo:" + GlobalVariables.ciclo);
             asistencias = Negocio.NegocioAlumnos.TraerAsistenciasDeHoy(curso, division, dateTimePicker1.Value, GlobalVariables.ciclo);
             refreshgrid();
+            }
         }
 
        
@@ -189,10 +218,7 @@ namespace ProyectoEscuela
             }
             seleccionarCurso(curso, division);
         }
-        public void hola() 
-        {
-            MessageBox.Show("hola");
-        }
+       
         public void seleccionarCurso(string curso, string division)
         {
 
