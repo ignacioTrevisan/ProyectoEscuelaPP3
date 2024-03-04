@@ -279,7 +279,6 @@ namespace DatosAlumnos
                         busqueda.edificio = Convert.ToString(reader["edificio"]);
                         busqueda.numero_dpto = Convert.ToString(reader["numero_dpto"]);
                         busqueda.piso = Convert.ToString(reader["piso"]);
-
                         busqueda.Telefono = Convert.ToString(reader["telefono"]);
                         busqueda.Curso = Convert.ToString(reader["año"]);
                         busqueda.division = Convert.ToString(reader["division"]);

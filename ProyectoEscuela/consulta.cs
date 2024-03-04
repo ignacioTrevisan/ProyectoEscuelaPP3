@@ -97,15 +97,37 @@ namespace ProyectoEscuela
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtDni.Text))
+            if (string.IsNullOrEmpty(comboBox1.Text))
             {
-                string nombre = txtDni.Text;
-                buscarAlumnos(nombre);
+                if (string.IsNullOrEmpty(textBox3.Text))
+                {
+                    if (!string.IsNullOrEmpty(textBox1.Text))
+                    {
+                        string query = "select nombre, apellido, dni, estadofrom alumnos where nombre = '" + textBox1.Text + "'";
+                    }
+                    else
+                    {
+                        MessageBox.Show("Complete algun campo");
+                    }
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(textBox1.Text))
+                    {
+                        string query = "select nombre, apellido, dni, estadofrom alumnos where nombre = '" + textBox1.Text + "' and apellido ='" + textBox3.Text + "'";
+                    }
+                    else
+                    {
+                        string query = "select nombre, apellido, dni, estadofrom alumnos where apellido = '" + textBox3.Text + "'";
+                    }
+                }
             }
-            else
+            else 
             {
-                string nombre = "0";
-                buscarAlumnos(nombre);
+                if (string.IsNullOrEmpty(textBox1.Text) && string.IsNullOrEmpty(textBox3.Text)) 
+                {
+                    
+                }
             }
         }
 
