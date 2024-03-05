@@ -168,6 +168,7 @@ namespace ProyectoEscuela
                 registrarestado(estado, fecha, dni, curso, division, GlobalVariables.ciclo);
             asistencias = Negocio.NegocioAlumnos.TraerAsistenciasDeHoy(curso, division, dateTimePicker1.Value, GlobalVariables.ciclo);
             refreshgrid();
+
             }
         }
 
@@ -195,15 +196,51 @@ namespace ProyectoEscuela
                 MessageBox.Show("No es posible determinar asistencias de días futuros");
             }
             else 
-            { 
-            registrarestado(estado, fecha, dni, curso, division, GlobalVariables.ciclo);
-            //MessageBox.Show(estado + "-fecha:" + fecha.ToString()+ "-dni:" + dni.ToString()+ "-curso:" + curso.ToString() + "-division:" + division + "-ciclo:" + GlobalVariables.ciclo);
-            asistencias = Negocio.NegocioAlumnos.TraerAsistenciasDeHoy(curso, division, dateTimePicker1.Value, GlobalVariables.ciclo);
+            {
+                bool hasBackgroundColor = SelectedRowHasBackgroundColor(dataGridView1);
+                if (hasBackgroundColor)
+                {
+                    MessageBox.Show("La fila seleccionada tiene el color de fondo blanco.");
+                }
+                else
+                {
+                    MessageBox.Show("La fila seleccionada no tiene el color de fondo blanco.");
+
+                }
+
+                registrarestado(estado, fecha, dni, curso, division, GlobalVariables.ciclo);
+                //MessageBox.Show(estado + "-fecha:" + fecha.ToString()+ "-dni:" + dni.ToString()+ "-curso:" + curso.ToString() + "-division:" + division + "-ciclo:" + GlobalVariables.ciclo);
+                
+                asistencias = Negocio.NegocioAlumnos.TraerAsistenciasDeHoy(curso, division, dateTimePicker1.Value, GlobalVariables.ciclo);
             refreshgrid();
+               
             }
         }
 
-       
+        private bool SelectedRowHasBackgroundColor(DataGridView dataGridView)
+        {
+            // Verificar si hay una fila seleccionada
+            if (dataGridView.SelectedRows.Count > 0)
+            {
+                // Obtener la fila seleccionada
+                DataGridViewRow selectedRow = dataGridView.SelectedRows[0];
+
+                // Obtener el color de fondo de la fila seleccionada
+                Color rowBackColor = selectedRow.DefaultCellStyle.BackColor;
+
+                // Verificar si el color de fondo de la fila seleccionada es igual al color objetivo
+                if (rowBackColor == Color.White)
+                {
+                    // La fila seleccionada tiene el color de fondo especificado
+                    return true;
+                }
+            }
+
+            // La fila seleccionada no tiene el color de fondo especificado
+            return false;
+
+        }
+
 
 
         public void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -378,6 +415,33 @@ namespace ProyectoEscuela
             alumnos = Negocio.NegocioAlumnos.GetXCurso("", curso, division, GlobalVariables.ciclo);
             asistencias = Negocio.NegocioAlumnos.TraerAsistenciasDeHoy(curso, division, dateTimePicker1.Value, GlobalVariables.ciclo);
             refreshgrid();
+        }
+
+        private void btn_media_Click(object sender, EventArgs e)
+        {
+            string estado = "media falta";
+            int dni = Convert.ToInt32(label1.Text);
+            DateTime fecha = dateTimePicker1.Value.Date;
+            int a = comboBox1.SelectedIndex;
+            string curso = lista[a].Curso;
+            string division = lista[a].Division;
+            DateTime fechaActual = DateTime.Today;
+            DateTime fechaHace7Dias = fechaActual.AddDays(-7);
+            if (fecha <= fechaHace7Dias)
+            {
+                MessageBox.Show("No es posible modificar una asistencia en un rango anterior a una semana");
+            }
+            else if (fecha > fechaActual)
+            {
+                MessageBox.Show("No es posible determinar asistencias de días futuros");
+            }
+            else
+            {
+                registrarestado(estado, fecha, dni, curso, division, GlobalVariables.ciclo);
+                //MessageBox.Show(estado + "-fecha:" + fecha.ToString()+ "-dni:" + dni.ToString()+ "-curso:" + curso.ToString() + "-division:" + division + "-ciclo:" + GlobalVariables.ciclo);
+                asistencias = Negocio.NegocioAlumnos.TraerAsistenciasDeHoy(curso, division, dateTimePicker1.Value, GlobalVariables.ciclo);
+                refreshgrid();
+            }
         }
     }
 }
