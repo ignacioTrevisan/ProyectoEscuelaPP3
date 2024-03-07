@@ -121,7 +121,7 @@ namespace Negocio
             return AlumnosDatos.GetXCurso(nombre, curso, division, ciclo);
         }
 
-        public static List<Faltas> BuscarFaltas(string dni, int ciclo, int curso, int division)
+        public static List<Faltas> BuscarFaltas(string dni, int ciclo, string curso, string division)
         {
 
             return AlumnosDatos.buscarfaltas(dni, ciclo, curso, division);

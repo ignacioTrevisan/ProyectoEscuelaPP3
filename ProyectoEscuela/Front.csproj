@@ -112,6 +112,12 @@
     <Compile Include="consulta.Designer.cs">
       <DependentUpon>consulta.cs</DependentUpon>
     </Compile>
+    <Compile Include="consultaAlumnoParticular.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="consultaAlumnoParticular.Designer.cs">
+      <DependentUpon>consultaAlumnoParticular.cs</DependentUpon>
+    </Compile>
     <Compile Include="CrearProfesor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -180,6 +186,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="consulta.resx">
       <DependentUpon>consulta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="consultaAlumnoParticular.resx">
+      <DependentUpon>consultaAlumnoParticular.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="CrearProfesor.resx">
       <DependentUpon>CrearProfesor.cs</DependentUpon>

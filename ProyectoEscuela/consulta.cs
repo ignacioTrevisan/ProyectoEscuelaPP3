@@ -97,6 +97,7 @@ namespace ProyectoEscuela
                     cambiarVisibilidad(true);
                     dataGridView1.DataSource = null;
                     dataGridView2.DataSource = listaRepetida;
+                    
                 }
                 else
                 {
@@ -108,6 +109,8 @@ namespace ProyectoEscuela
                         VaribalesParaConsultaParticular.año = listaRepetida[0].Curso;
                         VaribalesParaConsultaParticular.division = listaRepetida[0].Division;
                         VaribalesParaConsultaParticular.ciclo = listaRepetida[0].ciclo;
+                        consultaAlumnoParticular cap = new consultaAlumnoParticular();
+                        cap.ShowDialog();
                     }
                     else 
                     {
@@ -132,23 +135,23 @@ namespace ProyectoEscuela
             string query = "";
             if (string.IsNullOrEmpty(txt_apellido.Text) && string.IsNullOrEmpty(txt_Nombre.Text))
             {
-                query = "select * from alumnos order by nombre asc";
+                query = "select * from alumnos order by nombre, apellido asc";
             }
             else
             {
                 if (!string.IsNullOrEmpty(txt_apellido.Text) && !string.IsNullOrEmpty(txt_Nombre.Text))
                 {
-                    query = "select * from alumnos where nombre = '" + txt_Nombre.Text + "' and apellido = '" + txt_apellido.Text + "' order by nombre asc";
+                    query = "select * from alumnos where nombre = '" + txt_Nombre.Text + "' and apellido = '" + txt_apellido.Text + "' order by nombre, apellido asc";
                 }
                 else
                 {
                     if (string.IsNullOrEmpty(txt_apellido.Text))
                     {
-                        query = "select * from alumnos where nombre = '" + txt_Nombre.Text + "' order by nombre asc";
+                        query = "select * from alumnos where nombre = '" + txt_Nombre.Text + "' order by nombre, apellido asc";
                     }
                     else
                     {
-                        query = "select * from alumnos where apellido = '" + txt_apellido.Text + "' order by apellido asc";
+                        query = "select * from alumnos where apellido = '" + txt_apellido.Text + "' order by apellido, nombre asc";
                     }
                 }
 
@@ -232,6 +235,8 @@ namespace ProyectoEscuela
                     VaribalesParaConsultaParticular.año = row.Cells[1].Value.ToString();
                     VaribalesParaConsultaParticular.division = row.Cells[2].Value.ToString();
                     VaribalesParaConsultaParticular.ciclo = Convert.ToInt32(row.Cells[6].Value.ToString());
+                    consultaAlumnoParticular cap = new consultaAlumnoParticular();
+                    cap.ShowDialog();
                 }
             ;
             }

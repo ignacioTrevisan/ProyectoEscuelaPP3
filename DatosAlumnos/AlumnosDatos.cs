@@ -411,7 +411,7 @@ namespace DatosAlumnos
         }
 
 
-        public static List<Faltas> buscarfaltas(string dni, int ciclo, int curso, int division)
+        public static List<Faltas> buscarfaltas(string dni, int ciclo, string curso, string division)
         {
             List<Faltas> list = new List<Faltas>();
 
