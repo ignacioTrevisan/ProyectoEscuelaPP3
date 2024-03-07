@@ -17,6 +17,10 @@ using static ProyectoEscuela.inicioSesion;
 using System.Reflection.Emit;
 using NotasAlumnos;
 using System.Runtime.CompilerServices;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using System.Net.Mail;
+using System.IO;
 
 namespace ProyectoEscuela
 {
@@ -165,9 +169,25 @@ namespace ProyectoEscuela
             }
             else
             {
+                if (comprobarCambio(asistencias) == true)
+                {
+                    DialogResult resultado = MessageBox.Show("El alumno ya cuenta con una asistencia registrada. ¿Está seguro que desea modificar el estado?", "Confirmar Modificación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+
+                    if (resultado == DialogResult.Yes)
+                    {
+                        Task.Run(() => enviar());
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
                 registrarestado(estado, fecha, dni, curso, division, GlobalVariables.ciclo);
-            asistencias = Negocio.NegocioAlumnos.TraerAsistenciasDeHoy(curso, division, dateTimePicker1.Value, GlobalVariables.ciclo);
-            refreshgrid();
+
+
+                asistencias = Negocio.NegocioAlumnos.TraerAsistenciasDeHoy(curso, division, dateTimePicker1.Value, GlobalVariables.ciclo);
+                refreshgrid();
 
             }
         }
@@ -197,19 +217,23 @@ namespace ProyectoEscuela
             }
             else 
             {
-                bool hasBackgroundColor = SelectedRowHasBackgroundColor(dataGridView1);
-                if (hasBackgroundColor)
+                
+                if (comprobarCambio( asistencias) == true)
                 {
-                    MessageBox.Show("La fila seleccionada tiene el color de fondo blanco.");
-                }
-                else
-                {
-                    MessageBox.Show("La fila seleccionada no tiene el color de fondo blanco.");
+                    DialogResult resultado = MessageBox.Show("El alumno ya cuenta con una asistencia registrada. ¿Está seguro que desea modificar el estado?", "Confirmar Modificación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
-                }
 
-                registrarestado(estado, fecha, dni, curso, division, GlobalVariables.ciclo);
-                //MessageBox.Show(estado + "-fecha:" + fecha.ToString()+ "-dni:" + dni.ToString()+ "-curso:" + curso.ToString() + "-division:" + division + "-ciclo:" + GlobalVariables.ciclo);
+                    if (resultado == DialogResult.Yes)
+                    {
+                        Task.Run(() => enviar());
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
+               registrarestado(estado, fecha, dni, curso, division, GlobalVariables.ciclo);
+                
                 
                 asistencias = Negocio.NegocioAlumnos.TraerAsistenciasDeHoy(curso, division, dateTimePicker1.Value, GlobalVariables.ciclo);
             refreshgrid();
@@ -217,30 +241,74 @@ namespace ProyectoEscuela
             }
         }
 
-        private bool SelectedRowHasBackgroundColor(DataGridView dataGridView)
+        private bool comprobarCambio( List<Alumno> asistencias)
         {
-            // Verificar si hay una fila seleccionada
-            if (dataGridView.SelectedRows.Count > 0)
-            {
-                // Obtener la fila seleccionada
-                DataGridViewRow selectedRow = dataGridView.SelectedRows[0];
-
-                // Obtener el color de fondo de la fila seleccionada
-                Color rowBackColor = selectedRow.DefaultCellStyle.BackColor;
-
-                // Verificar si el color de fondo de la fila seleccionada es igual al color objetivo
-                if (rowBackColor == Color.White)
+            
+            // Verificar si hay alguna fila seleccionada en el DataGridView
+           
+                
+                // Iterar sobre todas las asistencias para comprobar si el alumno ya tiene asistencia registrada
+                foreach (Alumno asistencia in asistencias)
                 {
-                    // La fila seleccionada tiene el color de fondo especificado
-                    return true;
+                    if (label1.Text == asistencia.Dni && asistencia.estado != string.Empty)
+                    {
+                        return true; // El alumno ya tiene asistencia registrada
+                    }
                 }
+
+            // Si se recorren todas las asistencias y no se encuentra coincidencia, devolver false
+                return false;
             }
 
-            // La fila seleccionada no tiene el color de fondo especificado
-            return false;
+        private void enviar()
+        {
 
+            
+                Comunicado c = new Comunicado();
+                c.error = "";
+                StringBuilder mensajeBuilder = new StringBuilder();
+                mensajeBuilder.Append("El usuario: "+ GlobalVariables.usuario + "cambió la asistencia de día: " + dateTimePicker1.Value.Date 
+                    + " para el alumno con dni: "+ label1.Text);
+                c.de = "bauermaia1@gmail.com";
+                c.para = "Nachotizii988@gmail.com";
+                c.asunto = "Cambio en asistencias";
+                c.fecha = DateTime.Now.Date;
+                c.ruta ="";
+               
+                    enviarCorreo(mensajeBuilder, c, 0);
+                
+
+            }
+
+        public static void enviarCorreo(StringBuilder mensaje, Comunicado c, int confirmacion)
+        {
+            c.error = "";
+            try
+            {
+                mensaje.Append(Environment.NewLine);
+                mensaje.Append(Environment.NewLine);
+                MailMessage ms = new MailMessage();
+                ms.From = new MailAddress(c.de);
+                ms.CC.Add(new MailAddress(c.para));
+                ms.Subject = c.asunto;
+                
+                string extension = Path.GetExtension(c.ruta);
+                ms.Body = mensaje.ToString();
+                SmtpClient smtp = new SmtpClient("smtp.gmail.com");
+                smtp.Port = 587;
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new System.Net.NetworkCredential(GlobalVariables.usuario, GlobalVariables.password);
+                smtp.EnableSsl = true;
+                smtp.Send(ms);
+
+            }
+            catch (Exception ex)
+            {
+                c.error = "Error: " + ex.Message;
+                MessageBox.Show(c.error);
+                return;
+            }
         }
-
 
 
         public void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
@@ -437,8 +505,23 @@ namespace ProyectoEscuela
             }
             else
             {
+                if (comprobarCambio(asistencias) == true)
+                {
+                    DialogResult resultado = MessageBox.Show("El alumno ya cuenta con una asistencia registrada. ¿Está seguro que desea modificar el estado?", "Confirmar Modificación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+
+                    if (resultado == DialogResult.Yes)
+                    {
+                        Task.Run(() => enviar());
+                    }
+                    else
+                    {
+                        return;
+                    }
+                }
                 registrarestado(estado, fecha, dni, curso, division, GlobalVariables.ciclo);
-                //MessageBox.Show(estado + "-fecha:" + fecha.ToString()+ "-dni:" + dni.ToString()+ "-curso:" + curso.ToString() + "-division:" + division + "-ciclo:" + GlobalVariables.ciclo);
+
+
                 asistencias = Negocio.NegocioAlumnos.TraerAsistenciasDeHoy(curso, division, dateTimePicker1.Value, GlobalVariables.ciclo);
                 refreshgrid();
             }
