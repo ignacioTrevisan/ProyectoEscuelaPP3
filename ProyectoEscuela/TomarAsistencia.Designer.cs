@@ -75,7 +75,7 @@
             // textBox1
             // 
             this.textBox1.Location = new System.Drawing.Point(113, 108);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(132, 22);
             this.textBox1.TabIndex = 2;
@@ -83,7 +83,7 @@
             // btn_buscarAlumno
             // 
             this.btn_buscarAlumno.Location = new System.Drawing.Point(33, 106);
-            this.btn_buscarAlumno.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btn_buscarAlumno.Margin = new System.Windows.Forms.Padding(4);
             this.btn_buscarAlumno.Name = "btn_buscarAlumno";
             this.btn_buscarAlumno.Size = new System.Drawing.Size(72, 28);
             this.btn_buscarAlumno.TabIndex = 3;
@@ -95,7 +95,7 @@
             // 
             this.btn_prese.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_prese.Location = new System.Drawing.Point(523, 143);
-            this.btn_prese.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btn_prese.Margin = new System.Windows.Forms.Padding(4);
             this.btn_prese.Name = "btn_prese";
             this.btn_prese.Size = new System.Drawing.Size(156, 39);
             this.btn_prese.TabIndex = 4;
@@ -108,7 +108,7 @@
             // 
             this.btn_ausente.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
             this.btn_ausente.Location = new System.Drawing.Point(333, 143);
-            this.btn_ausente.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.btn_ausente.Margin = new System.Windows.Forms.Padding(4);
             this.btn_ausente.Name = "btn_ausente";
             this.btn_ausente.Size = new System.Drawing.Size(148, 39);
             this.btn_ausente.TabIndex = 6;
@@ -130,7 +130,7 @@
             // 
             this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dateTimePicker1.Location = new System.Drawing.Point(99, 64);
-            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4);
             this.dateTimePicker1.MaxDate = new System.DateTime(2023, 12, 31, 0, 0, 0, 0);
             this.dateTimePicker1.MinDate = new System.DateTime(2023, 1, 1, 0, 0, 0, 0);
             this.dateTimePicker1.Name = "dateTimePicker1";
@@ -143,7 +143,7 @@
             // 
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Location = new System.Drawing.Point(99, 31);
-            this.comboBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox1.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(215, 24);
             this.comboBox1.TabIndex = 9;
@@ -170,7 +170,7 @@
             this.dataGridView1.DefaultCellStyle = dataGridViewCellStyle1;
             this.dataGridView1.GridColor = System.Drawing.SystemColors.Window;
             this.dataGridView1.Location = new System.Drawing.Point(33, 235);
-            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.dataGridView1.Margin = new System.Windows.Forms.Padding(4);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 51;
@@ -343,7 +343,7 @@
             this.Controls.Add(this.btn_buscarAlumno);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.lbl_alumno);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "TomarAsistencia";
             this.Text = "Registro de asistencia";
             this.Load += new System.EventHandler(this.TomarAsistencia_Load);
