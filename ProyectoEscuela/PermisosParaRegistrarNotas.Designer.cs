@@ -63,7 +63,7 @@
             // txt_curso
             // 
             this.txt_curso.FormattingEnabled = true;
-            this.txt_curso.Location = new System.Drawing.Point(42, 174);
+            this.txt_curso.Location = new System.Drawing.Point(45, 189);
             this.txt_curso.Name = "txt_curso";
             this.txt_curso.Size = new System.Drawing.Size(211, 21);
             this.txt_curso.TabIndex = 1;
@@ -82,7 +82,7 @@
             // lbl_curso
             // 
             this.lbl_curso.AutoSize = true;
-            this.lbl_curso.Location = new System.Drawing.Point(42, 158);
+            this.lbl_curso.Location = new System.Drawing.Point(44, 173);
             this.lbl_curso.Name = "lbl_curso";
             this.lbl_curso.Size = new System.Drawing.Size(89, 13);
             this.lbl_curso.TabIndex = 3;
@@ -92,7 +92,7 @@
             // lbl_profesor
             // 
             this.lbl_profesor.AutoSize = true;
-            this.lbl_profesor.Location = new System.Drawing.Point(42, 102);
+            this.lbl_profesor.Location = new System.Drawing.Point(44, 119);
             this.lbl_profesor.Name = "lbl_profesor";
             this.lbl_profesor.Size = new System.Drawing.Size(101, 13);
             this.lbl_profesor.TabIndex = 4;
@@ -102,7 +102,7 @@
             // lbl_materia
             // 
             this.lbl_materia.AutoSize = true;
-            this.lbl_materia.Location = new System.Drawing.Point(42, 213);
+            this.lbl_materia.Location = new System.Drawing.Point(44, 223);
             this.lbl_materia.Name = "lbl_materia";
             this.lbl_materia.Size = new System.Drawing.Size(97, 13);
             this.lbl_materia.TabIndex = 5;
@@ -112,7 +112,7 @@
             // txt_profesor
             // 
             this.txt_profesor.FormattingEnabled = true;
-            this.txt_profesor.Location = new System.Drawing.Point(42, 118);
+            this.txt_profesor.Location = new System.Drawing.Point(45, 134);
             this.txt_profesor.Name = "txt_profesor";
             this.txt_profesor.Size = new System.Drawing.Size(208, 21);
             this.txt_profesor.TabIndex = 6;
@@ -122,7 +122,7 @@
             // txt_materia
             // 
             this.txt_materia.FormattingEnabled = true;
-            this.txt_materia.Location = new System.Drawing.Point(42, 229);
+            this.txt_materia.Location = new System.Drawing.Point(45, 239);
             this.txt_materia.Name = "txt_materia";
             this.txt_materia.Size = new System.Drawing.Size(211, 21);
             this.txt_materia.TabIndex = 7;
@@ -130,6 +130,7 @@
             // 
             // txt_modificacion
             // 
+            this.txt_modificacion.Cursor = System.Windows.Forms.Cursors.WaitCursor;
             this.txt_modificacion.FormattingEnabled = true;
             this.txt_modificacion.Items.AddRange(new object[] {
             "Habilitado",
@@ -143,6 +144,7 @@
             // lbl_modificacion
             // 
             this.lbl_modificacion.AutoSize = true;
+            this.lbl_modificacion.Cursor = System.Windows.Forms.Cursors.WaitCursor;
             this.lbl_modificacion.Location = new System.Drawing.Point(382, 119);
             this.lbl_modificacion.Name = "lbl_modificacion";
             this.lbl_modificacion.Size = new System.Drawing.Size(122, 13);
@@ -152,7 +154,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(507, 227);
+            this.button1.Location = new System.Drawing.Point(507, 237);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 10;
@@ -175,6 +177,7 @@
             // 
             // dateTimePicker1
             // 
+            this.dateTimePicker1.Cursor = System.Windows.Forms.Cursors.WaitCursor;
             this.dateTimePicker1.CustomFormat = "";
             this.dateTimePicker1.Location = new System.Drawing.Point(382, 28);
             this.dateTimePicker1.Name = "dateTimePicker1";
@@ -185,6 +188,7 @@
             // 
             // dateTimePicker2
             // 
+            this.dateTimePicker2.Cursor = System.Windows.Forms.Cursors.WaitCursor;
             this.dateTimePicker2.Location = new System.Drawing.Point(382, 75);
             this.dateTimePicker2.Name = "dateTimePicker2";
             this.dateTimePicker2.Size = new System.Drawing.Size(200, 20);
@@ -206,7 +210,7 @@
             // lbl_etapa
             // 
             this.lbl_etapa.AutoSize = true;
-            this.lbl_etapa.Location = new System.Drawing.Point(42, 58);
+            this.lbl_etapa.Location = new System.Drawing.Point(44, 62);
             this.lbl_etapa.Name = "lbl_etapa";
             this.lbl_etapa.Size = new System.Drawing.Size(35, 13);
             this.lbl_etapa.TabIndex = 15;
@@ -219,8 +223,8 @@
             "Primer trimestre",
             "Segundo trimestre",
             "Tercer trimestre",
-            "Semanas extra"});
-            this.txt_etapa.Location = new System.Drawing.Point(42, 75);
+            "Semana extra"});
+            this.txt_etapa.Location = new System.Drawing.Point(45, 78);
             this.txt_etapa.Name = "txt_etapa";
             this.txt_etapa.Size = new System.Drawing.Size(205, 21);
             this.txt_etapa.TabIndex = 16;
@@ -229,6 +233,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.txt_etapa);
             this.Controls.Add(this.lbl_etapa);

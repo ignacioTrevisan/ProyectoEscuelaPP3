@@ -174,6 +174,11 @@ namespace Negocio
         {
             return AlumnosDatos.getPorcentajeTomado(fecha);
         }
+
+        public static List<Cursos> GetCursosActivos()
+        {
+            return AlumnosDatos.getCursosActivos();
+        }
     }
    
 }

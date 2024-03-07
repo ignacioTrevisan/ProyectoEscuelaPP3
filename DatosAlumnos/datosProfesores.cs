@@ -1,6 +1,7 @@
 ﻿using EntidadAlumno;
 using EntidadNota;
 using EntidadProfesor;
+using iTextSharp.text.pdf.qrcode;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -51,6 +52,73 @@ namespace DatosAlumnos
                 command.Parameters.AddWithValue("@division", division);
                 command.Parameters.AddWithValue("@ciclo", ciclo);
                 command.Parameters.AddWithValue("@materia", materia);
+                command.Parameters.AddWithValue("@desde", desde);
+                command.Parameters.AddWithValue("@hasta", hasta);
+                command.Parameters.AddWithValue("@etapa", etapa);
+                command.Parameters.AddWithValue("@modo", modo);
+                command.Parameters.AddWithValue("@estado", estado);
+                try
+                {
+                    connection.Open();
+                    int idAlumnoCreado = Convert.ToInt32(command.ExecuteScalar());
+                    connection.Close();
+                    error = "Insercion exitosa. ";
+                    return error;
+                }
+                catch (Exception ex)
+                {
+                    error = ex.Message;
+                    throw;
+
+                }
+
+
+            }
+        }
+
+        public static string cambiarPermisosParaRegistrarNotas(string estado, DateTime desde, DateTime hasta, string año, string division, string ciclo, string etapa, int modo)
+        {
+            string error = "";
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(conString))
+            {
+                SqlCommand command = new SqlCommand("cambiarPermisoParaRegistrarNota", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@año", año);
+                command.Parameters.AddWithValue("@division", division);
+                command.Parameters.AddWithValue("@ciclo", ciclo);
+                command.Parameters.AddWithValue("@desde", desde);
+                command.Parameters.AddWithValue("@hasta", hasta);
+                command.Parameters.AddWithValue("@etapa", etapa);
+                command.Parameters.AddWithValue("@modo", modo);
+                command.Parameters.AddWithValue("@estado", estado);
+                try
+                {
+                    connection.Open();
+                    int idAlumnoCreado = Convert.ToInt32(command.ExecuteScalar());
+                    connection.Close();
+                    error = "Insercion exitosa. ";
+                    return error;
+                }
+                catch (Exception ex)
+                {
+                    error = ex.Message;
+                    throw;
+
+                }
+
+
+            }
+        }
+
+        public static string cambiarPermisosParaRegistrarNotas(string estado, DateTime desde, DateTime hasta, string etapa, int modo)
+        {
+            string error = "";
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(conString))
+            {
+                SqlCommand command = new SqlCommand("cambiarPermisoParaRegistrarNota", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@desde", desde);
                 command.Parameters.AddWithValue("@hasta", hasta);
                 command.Parameters.AddWithValue("@etapa", etapa);

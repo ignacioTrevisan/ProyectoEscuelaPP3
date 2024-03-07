@@ -91,5 +91,16 @@ namespace NegocioAlumnos
         {
             return datosProfesores.cambiarPermisosParaRegistrarNotas(modo, etapa, dniProfesor, año, division, ciclo, materia, estado,desde,hasta);
         }
+
+        public static string cambiarPermisosParaRegistrarNotas(string estado, DateTime desde, DateTime hasta, string año, string division, string ciclo, string etapa, int modo)
+        {
+            return datosProfesores.cambiarPermisosParaRegistrarNotas(estado, desde, hasta, año, division, ciclo, etapa, modo);
+
+        }
+
+        public static string cambiarPermisosParaRegistrarNotas(string estado, DateTime desde, DateTime hasta, string etapa, int modo)
+        {
+            return datosProfesores.cambiarPermisosParaRegistrarNotas(estado, desde, hasta, etapa, modo);
+        }
     }
 }

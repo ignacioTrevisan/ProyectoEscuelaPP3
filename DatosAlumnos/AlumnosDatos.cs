@@ -817,6 +817,42 @@ namespace DatosAlumnos
             }
             return lista;
         }
+
+        public static List<Cursos> getCursosActivos()
+        {
+            List<Cursos> listas = new List<Cursos>();
+
+
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["ConexionDB"].ConnectionString;
+            using (SqlConnection Connection = new SqlConnection(conString))
+            {
+                SqlCommand command = new SqlCommand("getCursosActivos", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+
+                try
+                {
+                    Connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Cursos busqueda = new Cursos();
+                        busqueda.año = Convert.ToString(reader["año"]);
+                        busqueda.division = Convert.ToString(reader["division"]);
+                        busqueda.ciclo = Convert.ToString(reader["ciclo"]);
+                        listas.Add(busqueda);
+                    }
+
+                    reader.Close();
+
+
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+            return listas;
+        }
     }
 
 }

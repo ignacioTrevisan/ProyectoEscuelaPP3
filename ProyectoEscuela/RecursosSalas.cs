@@ -67,6 +67,7 @@ namespace ProyectoEscuela
                 dataGridView1.Rows.Clear();
                 fecha = DateTime.Now;
                 lista = NegociosRecursosSalas.GetReservas(fecha);
+                button4.Text = "Ver todas las reservas";
                 refreshgrid();
                 if (res == 1)
                 {
