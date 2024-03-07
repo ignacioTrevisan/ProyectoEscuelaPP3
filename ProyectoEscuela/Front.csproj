@@ -137,6 +137,12 @@
       <DependentUpon>Inscripciones.cs</DependentUpon>
     </Compile>
     <Compile Include="Negocio\RecursosSalas.cs" />
+    <Compile Include="PermisosParaRegistrarNotas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PermisosParaRegistrarNotas.Designer.cs">
+      <DependentUpon>PermisosParaRegistrarNotas.cs</DependentUpon>
+    </Compile>
     <Compile Include="pre_registroProfesor.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -198,6 +204,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Inscripciones.resx">
       <DependentUpon>Inscripciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PermisosParaRegistrarNotas.resx">
+      <DependentUpon>PermisosParaRegistrarNotas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="pre_registroProfesor.resx">
       <DependentUpon>pre_registroProfesor.cs</DependentUpon>

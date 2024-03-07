@@ -36,6 +36,45 @@ namespace DatosAlumnos
             
         }
 
+
+
+        public static string cambiarPermisosParaRegistrarNotas(int modo, string etapa, string dniProfesor, string año, string division, string ciclo, string materia, string estado, DateTime desde, DateTime hasta)
+        {
+            string error="";
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(conString))
+            {
+                SqlCommand command = new SqlCommand("cambiarPermisoParaRegistrarNota", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@dniProfesor", dniProfesor);
+                command.Parameters.AddWithValue("@año", año);
+                command.Parameters.AddWithValue("@division", division);
+                command.Parameters.AddWithValue("@ciclo", ciclo);
+                command.Parameters.AddWithValue("@materia", materia);
+                command.Parameters.AddWithValue("@desde", desde);
+                command.Parameters.AddWithValue("@hasta", hasta);
+                command.Parameters.AddWithValue("@etapa", etapa);
+                command.Parameters.AddWithValue("@modo", modo);
+                command.Parameters.AddWithValue("@estado", estado);
+                try
+                {
+                    connection.Open();
+                    int idAlumnoCreado = Convert.ToInt32(command.ExecuteScalar());
+                    connection.Close();
+                    error = "Insercion exitosa. ";
+                    return error;
+                }
+                catch (Exception ex)
+                {
+                    error = ex.Message;
+                    throw;
+
+                }
+
+
+            }
+        }
+
         public static string ConfigurarCursoProfesor(int idProfesor, string año, string division, string materia, string error)
         {
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
@@ -114,9 +153,32 @@ namespace DatosAlumnos
             }
         }
 
-       
+        public static List<Cursos> GetCursosPorProfesor(string dni)
+        {
+            List<Cursos> lista = new List<Cursos>();
+            string query = "Select distinct c.año, c.division, c.ciclo from Materia_curso mc, directivos d, Cursos c where mc.idProfesor = d.id and d.DNI = '"+dni+"' and mc.IdCurso = c.id";
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand(query, con);
+                SqlDataReader reader = command.ExecuteReader();
 
-        public static List<string> getMaterias()
+                while (reader.Read())
+                {
+                    Cursos c = new Cursos();
+                    c.año = Convert.ToString(reader["año"]);
+                    c.division = Convert.ToString(reader["division"]);
+                    c.ciclo = Convert.ToString(reader["ciclo"]);
+                    lista.Add(c);
+                }
+                reader.Close();
+                con.Close();
+                return lista;
+            }
+        }
+
+                public static List<string> getMaterias()
         {
             List <string> lista = new List<string>();
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
@@ -136,6 +198,28 @@ namespace DatosAlumnos
                 reader.Close();
                 con.Close();
                 return lista;
+            }
+        }
+
+        public static List<string> getMateriasXProfesor(string dni)
+        {
+            List<string> Materias = new List<string>();
+            string query = "Select m.Denominación from Materia_curso mc, directivos d, Cursos c, Materias m where mc.idProfesor = d.id and d.DNI = '" + dni + "' and mc.IdCurso = c.id and m.id = mc.IdMateria";
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand(query, con);
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    string a = Convert.ToString(reader["Denominación"]);
+                    Materias.Add(a);
+                }
+                reader.Close();
+                con.Close();
+                return Materias;
             }
         }
 
@@ -248,6 +332,32 @@ namespace DatosAlumnos
                     p.Id = Convert.ToInt32(reader["id"]);
                     p.Nombre = Convert.ToString(reader["nombre"]);
                     p.Apellido = Convert.ToString(reader["apellido"]);
+                    profesores.Add(p);
+                }
+                reader.Close();
+                connection.Close();
+                return profesores;
+
+            }
+        }
+        public static List<profesor> getProfesoresConCursosActivos()
+        {
+            List<profesor> profesores = new List<profesor>();
+            string query = "SELECT DISTINCT d.* FROM Materia_curso mc, directivos d, Cursos c WHERE d.cargo='profesor' AND d.id = mc.IdProfesor AND mc.IdCurso = c.id AND c.Estado='1'";
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(conString))
+            {
+                connection.Open();
+                SqlCommand cmd = new SqlCommand(query, connection);
+                SqlDataReader reader = cmd.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    profesor p = new profesor();
+                    p.Id = Convert.ToInt32(reader["id"]);
+                    p.Nombre = Convert.ToString(reader["nombre"]);
+                    p.Apellido = Convert.ToString(reader["apellido"]);
+                    p.Dni = Convert.ToString(reader["DNI"]);
                     profesores.Add(p);
                 }
                 reader.Close();

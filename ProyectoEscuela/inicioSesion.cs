@@ -119,5 +119,11 @@ namespace ProyectoEscuela
             profesor_curso formulario = new profesor_curso();
             formulario.ShowDialog();
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            PermisosParaRegistrarNotas p = new PermisosParaRegistrarNotas();
+            p.ShowDialog();
+        }
     }
 }

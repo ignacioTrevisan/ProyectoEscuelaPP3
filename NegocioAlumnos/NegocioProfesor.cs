@@ -27,6 +27,10 @@ namespace NegocioAlumnos
             List<Nota> lista = new List<Nota>();
             return datosProfesores.GetPermisos(id);
         }
+        public static List<profesor> getProfesoresConCursosActivos() 
+        {
+            return datosProfesores.getProfesoresConCursosActivos();
+        }
 
         public static List<Nota> GetPermisosPreceptor(int estado)
         {
@@ -71,6 +75,21 @@ namespace NegocioAlumnos
         public static profesor getProfesor(string dni)
         {
             return datosProfesores.getProfesor(dni);
+        }
+
+        public static List<Cursos> GetCursosPorProfesor(string dni)
+        {
+            return datosProfesores.GetCursosPorProfesor(dni);
+        }
+
+        public static List<string> getMateriasXProfesor(string dni)
+        {
+            return datosProfesores.getMateriasXProfesor(dni);
+        }
+
+        public static string cambiarPermisosParaRegistrarNotas(int modo, string etapa, string dniProfesor, string año, string division, string ciclo, string materia, string estado, DateTime desde, DateTime hasta)
+        {
+            return datosProfesores.cambiarPermisosParaRegistrarNotas(modo, etapa, dniProfesor, año, division, ciclo, materia, estado,desde,hasta);
         }
     }
 }
