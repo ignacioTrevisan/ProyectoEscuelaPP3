@@ -31,7 +31,7 @@ namespace ProyectoEscuela
         private void enviar() 
         {
 
-            if (checkBox1.Checked == false)
+            if (checkBox1.Checked == false && checkBox2.Checked == false)
             {
                 Comunicado c = new Comunicado();
                 c.error = "";
@@ -50,7 +50,7 @@ namespace ProyectoEscuela
                 }
 
             }
-            else
+            else if (checkBox1.Checked == true && checkBox2.Checked == false)
             {
                 Comunicado c = new Comunicado();
                 c.error = "";
@@ -67,13 +67,42 @@ namespace ProyectoEscuela
                 c.ruta = txtRutaArchivo.Text;
                 if (i == 0)
                 {
-                    DialogResult res = MessageBox.Show("¿El correo electronico se enviar a todos los correos registrados por alumno, confirma enviar?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    DialogResult res = MessageBox.Show("¿El correo electronico se enviar a todos los correos registrados por alumnos, confirma enviar?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (res == DialogResult.Yes)
                     {
                         enviarCorreo(mensajeBuilder, c, para, 0);
 
                     }
                 }
+
+            } 
+            else if (checkBox1.Checked == false && checkBox2.Checked == true)
+            {
+                Comunicado c = new Comunicado();
+                c.error = "";
+                StringBuilder mensajeBuilder = new StringBuilder();
+                mensajeBuilder.Append(textBox3.Text);
+                c.de = "nachotizii988@gmail.com";
+                List<string> correos = new List<string>();
+                correos = Negocio.NegocioAlumnos.getaAllgmailDoc("-");
+                string correosConcatenados = string.Join(",", correos.SelectMany(ca => ca.Split(',')));
+                int i = 0;
+                string[] para = correosConcatenados.Split(',');
+                c.asunto = textBox3.Text;
+                c.fecha = DateTime.Now.Date;
+                c.ruta = txtRutaArchivo.Text;
+                if (i == 0)
+                {
+                    DialogResult res = MessageBox.Show("¿El correo electronico se enviar a todos los correos registrados por docentes, confirma enviar?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (res == DialogResult.Yes)
+                    {
+                        enviarCorreo(mensajeBuilder, c, para, 0);
+
+                    }
+
+                }
+
+
 
             }
         }

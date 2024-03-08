@@ -166,6 +166,11 @@ namespace Negocio
         {
             return AlumnosDatos.getAllGmail(v);
         }
+
+        public static List<string> getaAllgmailDoc(string v)
+        {
+            return AlumnosDatos.getAllGmailDoc(v);
+        }
         public static List<Alumno> getPorcentaje()
         {
             return AlumnosDatos.getPorcentaje();

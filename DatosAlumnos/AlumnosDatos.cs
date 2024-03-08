@@ -747,6 +747,28 @@ namespace DatosAlumnos
             return lista;
         }
 
+        public static List<string> getAllGmailDoc(object text)
+        {
+            List<string> lista = new List<string>();
+            string gmail = "";
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["ConexionDB"].ConnectionString;
+            using (SqlConnection Connection = new SqlConnection(conString))
+            {
+                Connection.Open();
+
+                SqlCommand command = new SqlCommand("getGmailDoc", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@dni", text);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    gmail = Convert.ToString(reader["email"]);
+                    lista.Add(gmail);
+                }
+            }
+            return lista;
+        }
+
         public static List<Alumno> getPorcentaje()
         {
             List<Alumno> lista = new List<Alumno>();
