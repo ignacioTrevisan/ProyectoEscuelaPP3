@@ -102,5 +102,7 @@ namespace NegocioAlumnos
         {
             return datosProfesores.cambiarPermisosParaRegistrarNotas(estado, desde, hasta, etapa, modo);
         }
+
+        
     }
 }

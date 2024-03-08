@@ -31,7 +31,7 @@ namespace ProyectoEscuela
             InitializeComponent();
             int i = GlobalVariables.id;
 
-            
+
         }
 
         public static class cursosGlobal
@@ -40,16 +40,16 @@ namespace ProyectoEscuela
             public static string division = "";
             public static int modo = 0;
         }
-       
+
 
         private void btn_nuevoAlumno_Click(object sender, EventArgs e)
         {
-            if ( cargo == "director" || cargo == "preceptor")
+            if (cargo == "director" || cargo == "preceptor")
             {
                 NuevoAlumno formulario = new NuevoAlumno();
                 formulario.ShowDialog();
             }
-            else 
+            else
             {
                 MessageBox.Show("No posee permisos para acceder a este area ");
             }
@@ -57,8 +57,8 @@ namespace ProyectoEscuela
 
         private void btn_asistencias_Click(object sender, EventArgs e)
         {
-                TomarAsistencia formulario = new TomarAsistencia();
-                formulario.ShowDialog();
+            TomarAsistencia formulario = new TomarAsistencia();
+            formulario.ShowDialog();
 
         }
 
@@ -80,8 +80,8 @@ namespace ProyectoEscuela
         {
             if (cargo == "director")
             {
-               button3.Enabled = false;
-                
+                button3.Enabled = false;
+
             }
 
             if (cargo == "profesor")
@@ -116,7 +116,7 @@ namespace ProyectoEscuela
         private void button4_Click(object sender, EventArgs e)
         {
             FileStream fs = new FileStream(@"C:\Users\nacho\Documentos\informes\pdfGenerado.pdf", FileMode.Create);
-            Document doc = new Document(PageSize.LETTER,5,5,7,7);
+            Document doc = new Document(PageSize.LETTER, 5, 5, 7, 7);
             PdfWriter pw = PdfWriter.GetInstance(doc, fs);
 
             doc.Open();

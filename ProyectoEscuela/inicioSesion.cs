@@ -32,6 +32,7 @@ namespace ProyectoEscuela
             public const string password = "jyfi avhd kalc fgqp";
             public static string cargo = "";
             public static string apellido = "";
+            public static string dni = "";
             public static string nombre = "";
             public static string año = "";
             public static string division = "";
@@ -55,6 +56,7 @@ namespace ProyectoEscuela
         {
             Permisos p = new Permisos();
             p.dni = Convert.ToDouble(txt_dni.Text);
+            GlobalVariables.dni = txt_dni.Text;
             p.pass = txt_contraseña.Text;
             buscarcargo(p);
             

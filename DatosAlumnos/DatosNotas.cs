@@ -110,7 +110,7 @@ namespace DatosNotas
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(conString))
             {
-                SqlCommand command = new SqlCommand("GetNotasF", connection);
+                SqlCommand command = new SqlCommand("getNotasXCurso", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@año", curso);
                 command.Parameters.AddWithValue("@division", division);
@@ -128,8 +128,8 @@ namespace DatosNotas
                         
                         n.Nombre = Convert.ToString(reader["nombre"]);
                         n.Apellido = Convert.ToString(reader["apellido"]);
-                        n.Materia = Convert.ToString(reader["materia"]);
-                        n.Dni = Convert.ToString(reader["dni"]);
+                        n.Dni = Convert.ToString(reader["dniAlumno"]);
+                        n.etapa = Convert.ToString(reader["etapa"]);
                         n.comentario = Convert.ToString(reader["comentario"]);
                         n.Calificacion = Convert.ToString(reader["Nota"]);
                         DateTime fecha = (DateTime)reader["fecha"];

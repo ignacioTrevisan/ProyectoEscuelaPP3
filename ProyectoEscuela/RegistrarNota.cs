@@ -17,6 +17,7 @@ using static ProyectoEscuela.Front;
 using NotasAlumnos;
 using static ProyectoEscuela.inicioSesion;
 using NegocioAlumnos;
+using System.Data.SqlClient;
 
 namespace ProyectoEscuela
 {
@@ -29,7 +30,9 @@ namespace ProyectoEscuela
         int i = 0;
         public string materia = "";
         public string curso = "";
+        public int ciclo = 0;
         public string division = "";
+        public string etapa = "";
 
         public RegistrarNota()
         {
@@ -245,6 +248,61 @@ namespace ProyectoEscuela
         private void RegistrarNota_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int i = comboBox1.SelectedIndex;
+            int cantidad = 0;
+            curso = lista[i].Curso;
+            division = lista[i].Division;
+            ciclo = lista[i].ciclo;
+            materia = lista[i].Materia;
+            etapa = comboBox3.Text;
+            DateTime hasta = new DateTime(0 - 0 - 0);
+            string dni = GlobalVariables.dni;
+           
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(conString))
+
+            {
+                connection.Open();
+
+                SqlCommand command = new SqlCommand("verificarPermisoParaRegistrarNota", connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@dniProfesor", dni);
+                command.Parameters.AddWithValue("@año", curso);
+                command.Parameters.AddWithValue("@division", division);
+                command.Parameters.AddWithValue("@ciclo", ciclo);
+                command.Parameters.AddWithValue("@materia", materia);
+                command.Parameters.AddWithValue("@etapa", etapa);
+
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    hasta = Convert.ToDateTime(reader["hasta"]);
+                    cantidad = Convert.ToInt32(reader["cantidad"]);
+                }
+                connection.Close();
+                reader.Close();
+            }
+            if (hasta.ToString("d/M/yyyy") != "1/1/0001" && cantidad == 1)
+            {
+                if (DateTime.Now < hasta)
+                {
+                    MessageBox.Show("Hay permiso");
+                }
+                else
+                {
+                    MessageBox.Show("No posee permisos para registrar notas en esta etapa. Finalizo el " + hasta.ToString("d/M/yyyy"+ " Soliciteselo al director. "));
+                }
+            }
+            else 
+            {
+                MessageBox.Show("No posee permisos para registrar notas en esta etapa. Soliciteselo al director. ");
+            }
+           
+            
         }
     }
 }

@@ -34,7 +34,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnConfirmar = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
+            this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -47,21 +47,23 @@
             this.button2 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.label6 = new System.Windows.Forms.Label();
             this.nombreDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.apellidoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dniDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.calificacionDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.comentarioDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.bindingSource1 = new System.Windows.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).BeginInit();
             this.SuspendLayout();
             // 
             // btnConfirmarMateria
             // 
-            this.btnConfirmarMateria.Location = new System.Drawing.Point(243, 49);
-            this.btnConfirmarMateria.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnConfirmarMateria.Location = new System.Drawing.Point(245, 58);
+            this.btnConfirmarMateria.Margin = new System.Windows.Forms.Padding(2);
             this.btnConfirmarMateria.Name = "btnConfirmarMateria";
             this.btnConfirmarMateria.Size = new System.Drawing.Size(56, 19);
             this.btnConfirmarMateria.TabIndex = 3;
@@ -71,8 +73,8 @@
             // 
             // txtNota
             // 
-            this.txtNota.Location = new System.Drawing.Point(664, 89);
-            this.txtNota.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.txtNota.Location = new System.Drawing.Point(513, 114);
+            this.txtNota.Margin = new System.Windows.Forms.Padding(2);
             this.txtNota.Name = "txtNota";
             this.txtNota.Size = new System.Drawing.Size(61, 20);
             this.txtNota.TabIndex = 10;
@@ -80,7 +82,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(561, 93);
+            this.label5.Location = new System.Drawing.Point(410, 118);
             this.label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(99, 13);
@@ -89,8 +91,8 @@
             // 
             // btnConfirmar
             // 
-            this.btnConfirmar.Location = new System.Drawing.Point(729, 89);
-            this.btnConfirmar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnConfirmar.Location = new System.Drawing.Point(604, 143);
+            this.btnConfirmar.Margin = new System.Windows.Forms.Padding(2);
             this.btnConfirmar.Name = "btnConfirmar";
             this.btnConfirmar.Size = new System.Drawing.Size(56, 19);
             this.btnConfirmar.TabIndex = 8;
@@ -111,7 +113,7 @@
             this.comentarioDataGridViewTextBoxColumn,
             this.fecha});
             this.dataGridView1.DataSource = this.bindingSource1;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 114);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 167);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersWidth = 62;
@@ -119,14 +121,18 @@
             this.dataGridView1.TabIndex = 10;
             this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
             // 
-            // bindingSource1
+            // fecha
             // 
-            this.bindingSource1.DataSource = typeof(EntidadNota.Nota);
+            this.fecha.DataPropertyName = "fecha";
+            this.fecha.HeaderText = "fecha";
+            this.fecha.MinimumWidth = 8;
+            this.fecha.Name = "fecha";
+            this.fecha.ReadOnly = true;
             // 
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Location = new System.Drawing.Point(14, 47);
+            this.comboBox1.Location = new System.Drawing.Point(12, 22);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(215, 21);
             this.comboBox1.TabIndex = 11;
@@ -135,7 +141,7 @@
             // comboBox2
             // 
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(342, 49);
+            this.comboBox2.Location = new System.Drawing.Point(12, 56);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(215, 21);
             this.comboBox2.TabIndex = 12;
@@ -153,7 +159,7 @@
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(566, 23);
+            this.dateTimePicker1.Location = new System.Drawing.Point(403, 25);
             this.dateTimePicker1.Name = "dateTimePicker1";
             this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
             this.dateTimePicker1.TabIndex = 14;
@@ -161,7 +167,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(566, 4);
+            this.label2.Location = new System.Drawing.Point(400, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(76, 13);
             this.label2.TabIndex = 15;
@@ -220,7 +226,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(579, 56);
+            this.label4.Location = new System.Drawing.Point(400, 58);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(60, 13);
             this.label4.TabIndex = 18;
@@ -228,10 +234,33 @@
             // 
             // textBox2
             // 
-            this.textBox2.Location = new System.Drawing.Point(645, 48);
+            this.textBox2.Location = new System.Drawing.Point(484, 57);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(176, 20);
             this.textBox2.TabIndex = 19;
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "Primer trimestre",
+            "Segundo trimestre",
+            "Tercer trimestre",
+            "Semana extra"});
+            this.comboBox3.Location = new System.Drawing.Point(484, 84);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(176, 21);
+            this.comboBox3.TabIndex = 20;
+            this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(400, 87);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(35, 13);
+            this.label6.TabIndex = 21;
+            this.label6.Text = "Etapa";
             // 
             // nombreDataGridViewTextBoxColumn
             // 
@@ -273,13 +302,9 @@
             this.comentarioDataGridViewTextBoxColumn.Name = "comentarioDataGridViewTextBoxColumn";
             this.comentarioDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // fecha
+            // bindingSource1
             // 
-            this.fecha.DataPropertyName = "fecha";
-            this.fecha.HeaderText = "fecha";
-            this.fecha.MinimumWidth = 8;
-            this.fecha.Name = "fecha";
-            this.fecha.ReadOnly = true;
+            this.bindingSource1.DataSource = typeof(EntidadNota.Nota);
             // 
             // RegistrarNota
             // 
@@ -287,6 +312,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(953, 414);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.comboBox3);
             this.Controls.Add(this.textBox2);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.button2);
@@ -300,15 +327,15 @@
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.btnConfirmarMateria);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "RegistrarNota";
             this.Text = "RegistrarNota                                                                    " +
     "    Asociacion Integral Vuriloche";
             this.Load += new System.EventHandler(this.RegistrarNota_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.bindingSource1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -339,5 +366,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn calificacionDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn comentarioDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
+        private System.Windows.Forms.ComboBox comboBox3;
+        private System.Windows.Forms.Label label6;
     }
 }
