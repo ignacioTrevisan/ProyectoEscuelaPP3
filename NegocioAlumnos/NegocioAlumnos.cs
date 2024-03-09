@@ -184,6 +184,11 @@ namespace Negocio
         {
             return AlumnosDatos.getCursosActivos();
         }
+
+        public static float getPromedio(string dni, string materia, string curso, string division, int ciclo, string etapa)
+        {
+            return AlumnosDatos.getPromedio(dni, materia, curso, division, ciclo, etapa);
+        }
     }
    
 }

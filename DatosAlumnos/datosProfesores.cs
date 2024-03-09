@@ -52,8 +52,18 @@ namespace DatosAlumnos
                 command.Parameters.AddWithValue("@division", division);
                 command.Parameters.AddWithValue("@ciclo", ciclo);
                 command.Parameters.AddWithValue("@materia", materia);
-                command.Parameters.AddWithValue("@desde", desde);
-                command.Parameters.AddWithValue("@hasta", hasta);
+                if (desde == new DateTime(0 - 0 - 0))
+                {
+                    //ver explicacion dee esto en RegistrarNota (ComboBox3_SelectedIndexChanged)
+                    command.Parameters.AddWithValue("@desde", null);
+                    command.Parameters.AddWithValue("@hasta", null);
+                }
+                else
+                {
+                    command.Parameters.AddWithValue("@desde", desde);
+                    command.Parameters.AddWithValue("@hasta", hasta);
+                }
+                
                 command.Parameters.AddWithValue("@etapa", etapa);
                 command.Parameters.AddWithValue("@modo", modo);
                 command.Parameters.AddWithValue("@estado", estado);

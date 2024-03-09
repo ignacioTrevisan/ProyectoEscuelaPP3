@@ -180,6 +180,7 @@ namespace DatosNotas
                         n.comentario = Convert.ToString(reader["Comentario"]);
                         DateTime fecha = (DateTime)reader["fecha"];
                         n.fecha = fecha.ToString("dd/MM/yyyy");
+                        n.etapa = Convert.ToString(reader["etapa"]); 
                         alumno.Add(n);
                     }
 
@@ -236,7 +237,7 @@ namespace DatosNotas
             }
         }
 
-        public static int registroNotas(string materia, string alumno, string nota, int profesor, DateTime fecha, string comentario, string curso, string division, int ciclo)
+        public static int registroNotas(string materia, string alumno, string nota, int profesor, DateTime fecha, string comentario, string curso, string division, int ciclo, string etapa)
         {
             int idAlumnoCreado = 0;
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
@@ -246,16 +247,18 @@ namespace DatosNotas
 
                 SqlCommand command = new SqlCommand("IngresarNotas", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
-
-                command.Parameters.AddWithValue("@dni", Convert.ToString(alumno));
+                float dni=Convert.ToInt64(alumno);
+                command.Parameters.AddWithValue("@dni", dni);
                 command.Parameters.AddWithValue("@materia", Convert.ToString(materia));
-                command.Parameters.AddWithValue("@nota", Convert.ToString(nota));
+                command.Parameters.AddWithValue("@nota", Convert.ToInt32(nota));
                 command.Parameters.AddWithValue("@idprofesor", (profesor));
-                command.Parameters.AddWithValue("@fecha", fecha);
+                string fechaConvertida = fecha.ToString("dd/MM/yyyy");
+                command.Parameters.AddWithValue("@fecha", fechaConvertida);
                 command.Parameters.AddWithValue("@Comentario", comentario);
-                command.Parameters.AddWithValue("@año", curso);
-                command.Parameters.AddWithValue("@division", division);
+                command.Parameters.AddWithValue("@año", Convert.ToInt32(curso));
+                command.Parameters.AddWithValue("@division", Convert.ToInt32(division));
                 command.Parameters.AddWithValue("@ciclo", ciclo);
+                command.Parameters.AddWithValue("@etapa", etapa);
 
 
                 try

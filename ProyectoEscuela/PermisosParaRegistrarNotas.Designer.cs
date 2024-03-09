@@ -223,7 +223,8 @@
             "Primer trimestre",
             "Segundo trimestre",
             "Tercer trimestre",
-            "Semana extra"});
+            "Semana extra-diciembre",
+            "Semana extra-febrero"});
             this.txt_etapa.Location = new System.Drawing.Point(45, 78);
             this.txt_etapa.Name = "txt_etapa";
             this.txt_etapa.Size = new System.Drawing.Size(205, 21);

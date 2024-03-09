@@ -875,6 +875,56 @@ namespace DatosAlumnos
             }
             return listas;
         }
+
+        public static float getPromedio(string dni, string materia, string curso, string division, int ciclo, string etapa)
+        {
+            float valor = 0;
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["ConexionDB"].ConnectionString;
+            using (SqlConnection Connection = new SqlConnection(conString))
+            {
+                SqlCommand command = new SqlCommand("promedioTrimestre", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@dni", dni);
+                command.Parameters.AddWithValue("@año", curso);
+                command.Parameters.AddWithValue("@division", division);
+                command.Parameters.AddWithValue("@ciclo", ciclo);
+                command.Parameters.AddWithValue("@materia", materia);
+                command.Parameters.AddWithValue("@etapa", etapa);
+
+
+                try
+                {
+                    Connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        if (Convert.IsDBNull(reader["promedio"]))
+                        {
+                           
+                            valor = 100; 
+                        }
+                        else
+                        {
+                           
+                            valor = Convert.ToInt64(reader["promedio"]);
+
+                        }
+
+
+                    }
+
+                    reader.Close();
+
+
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+            }
+            return valor;
+        }
     }
 
 }
