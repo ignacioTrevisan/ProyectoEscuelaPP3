@@ -769,6 +769,30 @@ namespace DatosAlumnos
             return lista;
         }
 
+        public static List<string> getAllGmailCurso(string curso, string division, int ciclo)
+        {
+            List<string> lista = new List<string>();
+            string gmail = "";
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["ConexionDB"].ConnectionString;
+            using (SqlConnection Connection = new SqlConnection(conString))
+            {
+                Connection.Open();
+
+                SqlCommand command = new SqlCommand("getGmailxCurso", Connection);
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@curso", curso);
+                command.Parameters.AddWithValue("@division", division);
+                command.Parameters.AddWithValue("@ciclo", ciclo);
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    gmail = Convert.ToString(reader["email"]);
+                    lista.Add(gmail);
+                }
+            }
+            return lista;
+        }
+
         public static List<Alumno> getPorcentaje()
         {
             List<Alumno> lista = new List<Alumno>();
