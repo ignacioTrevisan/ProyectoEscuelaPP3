@@ -135,8 +135,6 @@ namespace ProyectoEscuela
         {
             if (comboBox2.Text != "")
             {
-
-
                 int id = comboBox2.SelectedIndex;
                 int ciclo = GlobalVariables.ciclo;
                 alumno = NotasNegocio.GetNotasXAlumno(alumnos[id].Dni, materia, GlobalVariables.id, alumnos[id].Curso, alumnos[id].division, ciclo);

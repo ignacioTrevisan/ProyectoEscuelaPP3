@@ -127,5 +127,24 @@ namespace ProyectoEscuela
             PermisosParaRegistrarNotas p = new PermisosParaRegistrarNotas();
             p.ShowDialog();
         }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            Permisos p = new Permisos();
+            p.dni = 43908657;
+            GlobalVariables.dni = txt_dni.Text;
+            p.pass ="123";
+            buscarcargo(p);
+
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            Permisos p = new Permisos();
+            p.dni = 29107606;
+            GlobalVariables.dni = txt_dni.Text;
+            p.pass = "123";
+            buscarcargo(p);
+        }
     }
 }

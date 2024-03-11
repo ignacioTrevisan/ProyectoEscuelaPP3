@@ -195,6 +195,13 @@ namespace Negocio
         {
             return AlumnosDatos.getPromedio(dni, materia, curso, division, ciclo, etapa);
         }
+
+       
+
+        public static List<string> getEtapas(string dni, string materia, int id, string año, string division, int ciclo)
+        {
+            return AlumnosDatos.getEtapas(dni, materia, id, año, division, ciclo);
+        }
     }
    
 }

@@ -49,9 +49,9 @@ namespace NegocioAlumnos
             datosProfesores.eliminarRelacionProfMat(idProfesor, materia, curso, division);
         }
 
-        public static List<string> getMaterias()
+        public static List<string> getMaterias(string año, string division, int ciclo)
         {
-            return datosProfesores.getMaterias();
+            return datosProfesores.getMaterias(año, division, ciclo);
         }
 
        
@@ -103,6 +103,9 @@ namespace NegocioAlumnos
             return datosProfesores.cambiarPermisosParaRegistrarNotas(estado, desde, hasta, etapa, modo);
         }
 
-        
+        public static List<string> getEtapas(string dni, string materia, int id, string año, string division, int ciclo)
+        {
+            return datosProfesores.getEtapas(dni, materia, id, año, division, ciclo);
+        }
     }
 }

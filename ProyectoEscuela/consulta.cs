@@ -131,6 +131,10 @@ namespace ProyectoEscuela
 
         private void button1_Click(object sender, EventArgs e)
         {
+            buscar();
+        }
+        private void buscar() 
+        {
             ListaAlumnos.Clear();
             string query = "";
             if (string.IsNullOrEmpty(txt_apellido.Text) && string.IsNullOrEmpty(txt_Nombre.Text))
@@ -188,7 +192,11 @@ namespace ProyectoEscuela
                 reader.Close();
             }
             dataGridView1.DataSource = null;
-            dataGridView1.DataSource = ListaAlumnos;
+            if (ListaAlumnos.Count > 0)
+            {
+                dataGridView1.DataSource = ListaAlumnos;
+
+            }
         }
 
 
@@ -240,6 +248,82 @@ namespace ProyectoEscuela
                 }
             ;
             }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txt_Nombre_Enter(object sender, EventArgs e)
+        {
+            ListaAlumnos.Clear();
+            string query = "";
+            if (string.IsNullOrEmpty(txt_apellido.Text) && string.IsNullOrEmpty(txt_Nombre.Text))
+            {
+                query = "select * from alumnos order by nombre, apellido asc";
+            }
+            else
+            {
+                if (!string.IsNullOrEmpty(txt_apellido.Text) && !string.IsNullOrEmpty(txt_Nombre.Text))
+                {
+                    query = "select * from alumnos where nombre = '" + txt_Nombre.Text + "' and apellido = '" + txt_apellido.Text + "' order by nombre, apellido asc";
+                }
+                else
+                {
+                    if (string.IsNullOrEmpty(txt_apellido.Text))
+                    {
+                        query = "select * from alumnos where nombre = '" + txt_Nombre.Text + "' order by nombre, apellido asc";
+                    }
+                    else
+                    {
+                        query = "select * from alumnos where apellido = '" + txt_apellido.Text + "' order by apellido, nombre asc";
+                    }
+                }
+
+            }
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(conString))
+
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(query, connection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Alumno b = new Alumno();
+                    b.Nombre = Convert.ToString(reader["nombre"]);
+                    b.Dni = Convert.ToString(reader["dni"]);
+                    b.Apellido = Convert.ToString(reader["apellido"]);
+                    b.FechaNacimiento = Convert.ToDateTime(reader["fechaNacimiento"]);
+                    b.Email = Convert.ToString(reader["email"]);
+                    b.barrio = Convert.ToString(reader["barrio"]);
+                    b.calle = Convert.ToString(reader["calle"]);
+                    b.altura = Convert.ToString(reader["altura"]);
+                    b.edificio = Convert.ToString(reader["edificio"]);
+                    b.piso = Convert.ToString(reader["piso"]);
+                    b.numero_dpto = Convert.ToString(reader["numero_dpto"]);
+                    b.indicacion = Convert.ToString(reader["indicacion"]);
+                    b.estado = Convert.ToString(reader["estado"]);
+                    b.Telefono = Convert.ToString(reader["telefono"]);
+                    b.Id = Convert.ToInt32(reader["id"]);
+                    ListaAlumnos.Add(b);
+                }
+                connection.Close();
+                reader.Close();
+            }
+            dataGridView1.DataSource = null;
+            if (ListaAlumnos.Count > 0)
+            {
+                dataGridView1.DataSource = ListaAlumnos;
+
+            }
+        }
+
+        private void txt_Nombre_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

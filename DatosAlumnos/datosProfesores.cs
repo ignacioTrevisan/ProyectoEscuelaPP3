@@ -256,15 +256,45 @@ namespace DatosAlumnos
             }
         }
 
-                public static List<string> getMaterias()
+        public static List<string> getEtapas(string dni, string materia, int id, string año, string division, int ciclo)
+        {
+            List<string> lista = new List<string>();
+            string query = "Select etapa fro";
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand("GetMateriasxCurso", con);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@año", año);
+                command.Parameters.AddWithValue("@division", division);
+                command.Parameters.AddWithValue("@ciclo", ciclo);
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+
+                    string Materia = Convert.ToString(reader["Denominación"]);
+                    lista.Add(Materia);
+                }
+                reader.Close();
+                con.Close();
+                return lista;
+            }
+        }
+
+        public static List<string> getMaterias(string año, string division, int ciclo)
         {
             List <string> lista = new List<string>();
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
             using (SqlConnection con = new SqlConnection(conString))
             {
                 con.Open();
-                SqlCommand command = new SqlCommand("GetMaterias", con);
+                SqlCommand command = new SqlCommand("GetMateriasxCurso", con);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@año", año);
+                command.Parameters.AddWithValue("@division", division);
+                command.Parameters.AddWithValue("@ciclo", ciclo);
                 SqlDataReader reader = command.ExecuteReader();
 
                 while (reader.Read())

@@ -949,6 +949,48 @@ namespace DatosAlumnos
             }
             return valor;
         }
-    }
 
+        
+            
+
+        public static List<string> getEtapas(string dni, string materia, int id, string año, string division, int ciclo)
+        {
+                List<string> listas = new List<string>();
+
+
+                string conString = System.Configuration.ConfigurationManager.ConnectionStrings["ConexionDB"].ConnectionString;
+                using (SqlConnection Connection = new SqlConnection(conString))
+                {
+                    SqlCommand command = new SqlCommand("getEtapas", Connection);
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@dni", dni);
+                    command.Parameters.AddWithValue("@año", año);
+                    command.Parameters.AddWithValue("@division", division);
+                    command.Parameters.AddWithValue("@idProfesor", id);
+                    command.Parameters.AddWithValue("@ciclo", ciclo);
+                    command.Parameters.AddWithValue("@materia", materia);
+                try
+                {
+                        Connection.Open();
+                        SqlDataReader reader = command.ExecuteReader();
+                        while (reader.Read())
+                        {
+                            string e = "";
+                            e = Convert.ToString(reader["etapa"]);
+                            listas.Add(e);
+                        }
+
+                        reader.Close();
+
+
+                    }
+                    catch (Exception)
+                    {
+                        throw;
+                    }
+                }
+                return listas;
+            }
+        }
+    
 }

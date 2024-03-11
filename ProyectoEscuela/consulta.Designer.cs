@@ -61,7 +61,6 @@
             this.lblResultados = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.notaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.idDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cursoDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.divisionDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -69,8 +68,7 @@
             this.apellidoDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dniDataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cicloDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.button2 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.notaBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.button3 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -130,6 +128,9 @@
             this.txt_Nombre.Name = "txt_Nombre";
             this.txt_Nombre.Size = new System.Drawing.Size(76, 20);
             this.txt_Nombre.TabIndex = 5;
+            this.txt_Nombre.Text = "luis alberto";
+            this.txt_Nombre.TextChanged += new System.EventHandler(this.txt_Nombre_TextChanged);
+            this.txt_Nombre.Enter += new System.EventHandler(this.txt_Nombre_Enter);
             // 
             // label3
             // 
@@ -373,10 +374,6 @@
             this.dataGridView2.TabIndex = 0;
             this.dataGridView2.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellContentClick);
             // 
-            // notaBindingSource
-            // 
-            this.notaBindingSource.DataSource = typeof(EntidadNota.Nota);
-            // 
             // idDataGridViewTextBoxColumn1
             // 
             this.idDataGridViewTextBoxColumn1.DataPropertyName = "id";
@@ -419,21 +416,9 @@
             this.cicloDataGridViewTextBoxColumn.HeaderText = "ciclo";
             this.cicloDataGridViewTextBoxColumn.Name = "cicloDataGridViewTextBoxColumn";
             // 
-            // button2
+            // notaBindingSource
             // 
-            this.button2.Location = new System.Drawing.Point(702, 385);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(124, 23);
-            this.button2.TabIndex = 2;
-            this.button2.Text = "Generar informe";
-            this.button2.UseVisualStyleBackColor = true;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(575, 387);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(111, 20);
-            this.textBox1.TabIndex = 3;
+            this.notaBindingSource.DataSource = typeof(EntidadNota.Nota);
             // 
             // button3
             // 
@@ -456,8 +441,6 @@
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.lblResultados);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.textBox1);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.groupBox1);
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -518,8 +501,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dniDataGridViewTextBoxColumn1;
         private System.Windows.Forms.DataGridViewTextBoxColumn cicloDataGridViewTextBoxColumn;
         private System.Windows.Forms.BindingSource notaBindingSource;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button3;
     }
 }
