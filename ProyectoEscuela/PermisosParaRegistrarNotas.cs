@@ -37,8 +37,8 @@ namespace ProyectoEscuela
                 txt_curso.Visible = false;
                 txt_profesor.Visible = true;
                 txt_profesor.Items.Clear();
-                lbl_curso.Location = new Point(44, 173);
-                txt_curso.Location = new Point(45, 189);
+                lbl_curso.Location = new Point(340, 19); 
+                txt_curso.Location = new Point(341, 35);
                 for (int i = 0; i < listaProfesores.Count; i++) 
                 {
                     txt_profesor.Items.Add(listaProfesores[i].Nombre+" "+listaProfesores[i].Apellido+" ("+listaProfesores[i].Dni+")");

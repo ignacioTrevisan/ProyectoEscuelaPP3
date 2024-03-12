@@ -32,7 +32,7 @@ namespace ProyectoEscuela
 
             if (bol == 1)
             {
-                CrearProfesor formulario = new CrearProfesor();
+                AreaDirector formulario = new AreaDirector();
                 formulario.ShowDialog();
             }
             else

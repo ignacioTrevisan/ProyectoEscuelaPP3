@@ -100,6 +100,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AreaDirector.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AreaDirector.Designer.cs">
+      <DependentUpon>AreaDirector.cs</DependentUpon>
+    </Compile>
     <Compile Include="comunicado.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -187,6 +193,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AreaDirector.resx">
+      <DependentUpon>AreaDirector.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="comunicado.resx">
       <DependentUpon>comunicado.cs</DependentUpon>
     </EmbeddedResource>

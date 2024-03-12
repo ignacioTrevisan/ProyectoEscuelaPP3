@@ -112,9 +112,7 @@ namespace ProyectoEscuela
 
         private void button2_Click_1(object sender, EventArgs e)
         {
-            MessageBox.Show("Antes de ingresar un nuevo profesor, por favor, ingresa con la cuenta de el director de el instituto. ");
-            pre_registroProfesor formulario = new pre_registroProfesor();
-            formulario.ShowDialog();
+            
 
         }
 
@@ -147,6 +145,14 @@ namespace ProyectoEscuela
             GlobalVariables.dni = txt_dni.Text;
             p.pass = "123";
             buscarcargo(p);
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("Antes de ingresar un nuevo profesor, por favor, ingresa con la cuenta de el director de el instituto. ");
+            pre_registroProfesor formulario = new pre_registroProfesor();
+            formulario.ShowDialog();
+
         }
     }
 }
