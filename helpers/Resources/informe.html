@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    
+    <title>Título de la página</title>
+</head>
+<body>
+
+    <h1>Informe</h1>
+            <table border="1" style="width: 100%">
+                <tr>
+                    <td style="width: 5%" opacity="0"></td>
+                    <td>
+                        <table>
+                            <tr><td> DNI ESTUDIANTE: @dni </td></tr>
+                            <tr><td> Nombre : @nombre </td></tr>
+                            <tr><td> Apellido : @Apellido </td></tr>
+                            <tr><td> Curso: @curso division: @division ciclo: @ciclo</td></tr>
+                        </table>
+                    </td>
+                    <td style="width: 5%" opacity="0"></td>
+                </tr>
+            </table>
+        
+        <br />
+        <br />
+        <h2>Faltas: </h2>
+        <table border="1" style="width: 100%; border-collapse: collapse;">
+            <tr style='border: 1px solid black; background-color: rgb(169, 169, 169); height: 50px'>
+                <td style="width: 50%; border: 1px solid black;">Estado</td>
+                <td style="width: 50%; border: 1px solid black;">Fecha</td>
+            </tr>
+            @filas
+        </table>
+
+        <br />
+        @materia
+
+
+</body>
+</html>

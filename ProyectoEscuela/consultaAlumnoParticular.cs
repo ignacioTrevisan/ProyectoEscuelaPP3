@@ -170,5 +170,11 @@ namespace ProyectoEscuela
             }
             dataGridView2.DataSource = lista;
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            
+            string mensaje = helpers.creacionInforme.generarPdf(GlobalVariables.cargo, faltas, nombre, apellido, dni, año, division, ciclo, GlobalVariables.id, materias);
+        }
     }
 }

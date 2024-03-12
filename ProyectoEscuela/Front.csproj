@@ -265,6 +265,10 @@
       <Project>{2e8d6f52-31b8-44d1-b309-644c325c644c}</Project>
       <Name>Entidades</Name>
     </ProjectReference>
+    <ProjectReference Include="..\helpers\helpers.csproj">
+      <Project>{0c3a563e-2836-4059-a128-4369a7850c3d}</Project>
+      <Name>helpers</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NegocioAlumnos\Negocio.csproj">
       <Project>{da49201a-0d7f-4594-9300-dd40a03eb567}</Project>
       <Name>Negocio</Name>

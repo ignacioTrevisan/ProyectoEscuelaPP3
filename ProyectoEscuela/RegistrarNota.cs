@@ -51,6 +51,8 @@ namespace ProyectoEscuela
             }
         }
 
+       
+
         private void btnConfirmarMateria_Click(object sender, EventArgs e)
         {
             
@@ -103,7 +105,7 @@ namespace ProyectoEscuela
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
-           
+            
             int ciclo = GlobalVariables.ciclo;
             string nota = txtNota.Text;
             string comentario = "";
@@ -117,7 +119,7 @@ namespace ProyectoEscuela
             {
                 MessageBox.Show("Para registrar notas primero debe ingresar el curso, materia, alumno y su nota ");
             }
-           
+            cBox3();
         }
 
         public void registrar(string nota, string comentario)
@@ -128,100 +130,25 @@ namespace ProyectoEscuela
             int id = comboBox2.SelectedIndex;
             DateTime fecha = dateTimePicker1.Value.Date;
             NotasNegocio.registrarNotas(materia, alumnos[id].Dni, nota, GlobalVariables.id, fecha, comentario, curso, division, GlobalVariables.ciclo, comboBox3.Text);
-            actualizarPorAlumno();
+          
         }
 
         public void actualizarPorAlumno() 
         {
+            int id = comboBox2.SelectedIndex;
+            int ciclo = GlobalVariables.ciclo;
+            alumno = NotasNegocio.GetNotasXAlumno(alumnos[id].Dni, materia, GlobalVariables.id, alumnos[id].Curso, alumnos[id].division, ciclo);
+            
             if (comboBox2.Text != "")
             {
-                int id = comboBox2.SelectedIndex;
-                int ciclo = GlobalVariables.ciclo;
-                alumno = NotasNegocio.GetNotasXAlumno(alumnos[id].Dni, materia, GlobalVariables.id, alumnos[id].Curso, alumnos[id].division, ciclo);
                 bindingSource1.DataSource = null;
                 bindingSource1.DataSource = alumno;
                 dataGridView1.DataSource = bindingSource1;
                 int cantidadDeNotas = alumno.Count();
                 int r = 0;
                 float nota = 0;
-                float promedio = 0;
-                int cantidad = 0;
-                for (int i = 0; i < alumno.Count; i++)
-                {
-
-                    if (alumno[i].comentario == "Nota final-trimestre")
-                    {
-                        cantidad++;
-                        promedio = Convert.ToInt64(alumno[i].Calificacion) + promedio;
-                    }
-                    if (cantidad == 3)
-                    {
-                        promedio = promedio / 3;
-                        if (promedio > 5)
-                        {
-                            txt_condicion.Visible = true;
-                            txt_condicion.Text = "Condicion: Aprobado por promedio";
-                            estado = "aprobado por promedio";
-                            break;
-                        }
-                        else
-                        {
-                            for (int ir = 0; ir < alumno.Count; ir++)
-                            {
-                                if (alumno[ir].comentario == "Nota final-diciembre")
-                                {
-                                    if (Convert.ToInt32(alumno[ir].Calificacion) > 5)
-                                    {
-                                        txt_condicion.Visible = true;
-                                        txt_condicion.Text = "Condicion: Aprobado por diciembre";
-                                        estado = "aprobado en diciembre";
-                                        break;
-                                    }
-
-                                }
-                                if (alumno[ir].comentario == "Nota final-febrero")
-                                {
-                                    if (Convert.ToInt32(alumno[ir].Calificacion) > 5)
-                                    {
-                                        txt_condicion.Visible = true;
-                                        txt_condicion.Text = "Condicion: Aprobado por febrero";
-                                        estado = "aprobado en febrero";
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        txt_condicion.Visible = true;
-                                        txt_condicion.Text = "Condicion: Desaprobado";
-                                        estado = "desaprobado";
-                                    }
-                                }
-
-                            }
-                        }
-
-                    }
-                }
-                if (comboBox3.Text != "")
-                {
-                    if (alumno.Count > 0) 
-                    {
-                        nota = Negocio.NegocioAlumnos.getPromedio(alumno[id].Dni, materia, curso, division, ciclo, etapa);
-                        label7.Visible = true;
-                        Promedio_trimestre.Visible = true;
-                        if (nota == 100)
-                        {
-                            Promedio_trimestre.Text = "N/A";
-                        }
-                        else
-                        {
-                            Promedio_trimestre.Text = nota.ToString();
-
-                        }
-                    }
-                   
-
-
-                }
+                txt_condicion.Text=evaluarCondicion(alumno);
+                
 
             }
             else 
@@ -229,6 +156,7 @@ namespace ProyectoEscuela
                 MessageBox.Show("Seleccione un alumno");
                 comboBox3.Text = "";
             }
+            VerEstado();
 
         }
 
@@ -239,6 +167,7 @@ namespace ProyectoEscuela
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            txt_condicion.Text = "";
             comboBox2.Items.Clear();
             comboBox2.Text = "";
             i = 0;
@@ -273,7 +202,37 @@ namespace ProyectoEscuela
 
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
+            
             actualizarPorAlumno();
+            int id = comboBox2.SelectedIndex;
+            int ciclo = GlobalVariables.ciclo;
+            alumno = NotasNegocio.GetNotasXAlumno(alumnos[id].Dni, materia, GlobalVariables.id, alumnos[id].Curso, alumnos[id].division, ciclo);
+            etapasDisponibles(alumno);
+        }
+
+        private void VerEstado()
+        {
+            btnConfirmar.Enabled = true;
+            button2.Enabled = true;
+            if (comboBox3.SelectedIndex == 3 && estado == "aprobado por promedio")
+            {
+                btnConfirmar.Enabled = false;
+                button2.Enabled = false;
+                MessageBox.Show("El alumno no necesita notas en diciembre ni en febrero por que ya esta aprobado por promedio. ");
+            }
+            if (comboBox3.SelectedIndex == 4 && estado == "aprobado por promedio")
+            {
+                btnConfirmar.Enabled = false;
+                button2.Enabled = false;
+                MessageBox.Show("El alumno no necesita notas en febrero por que ya esta aprobado por promedio. ");
+            }
+            if (comboBox3.SelectedIndex == 4 && estado == "aprobado en diciembre")
+            {
+                btnConfirmar.Enabled = false;
+                button2.Enabled = false;
+                MessageBox.Show("El alumno no necesita notas en febrero por que ya esta aprobado en diciembre. ");
+            }
+            
         }
 
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -327,7 +286,7 @@ namespace ProyectoEscuela
             {
                 comentario = "Nota final-febrero";
             }
-            if (!string.IsNullOrEmpty(comboBox1.Text) && (!string.IsNullOrEmpty(comboBox2.Text)) && (!string.IsNullOrEmpty(txtNota.Text)))
+            if (!string.IsNullOrEmpty(comboBox1.Text) && (!string.IsNullOrEmpty(comboBox2.Text)))
             {
                 registrar(nota, comentario);
             }
@@ -337,7 +296,74 @@ namespace ProyectoEscuela
             }
             panel1.Visible = false;
             button2.Visible = true;
+            button2.Enabled = false;
+            btnConfirmar.Enabled = false;
             comboBox3.Text = "";
+            int id = comboBox2.SelectedIndex;
+            int ciclo = GlobalVariables.ciclo;
+            alumno = NotasNegocio.GetNotasXAlumno(alumnos[id].Dni, materia, GlobalVariables.id, alumnos[id].Curso, alumnos[id].division, ciclo);
+            etapasDisponibles(alumno);
+
+        }
+
+        private string evaluarCondicion(List<Nota> alumno)
+        {
+            float promedio = sacarPromedioTrimestres(alumno);
+            if (promedio < 6 && promedio != 0)
+            {
+                for (int i = 0; i < alumno.Count; i++)
+                {
+                    if (alumno[i].etapa == "Semana extra-febrero")
+                    {
+                        if (Convert.ToInt32(alumno[i].Calificacion) > 5)
+                        {
+                            return "Condicion: Aprobado por febrero";
+                        }
+                        else
+                        {
+                            return "Condicion: Desaprobado";
+                        }
+                    }
+                    else
+                    {
+                        if (alumno[i].etapa == "Semana extra-diciembre")
+                        {
+                            if (Convert.ToInt32(alumno[i].Calificacion) > 5)
+                            {
+                                estado = "aprobado en diciembre";
+                                return "Condicion: Aprobado por diciembre";
+                            }
+                        }
+                    }
+                }
+            }
+            if (promedio > 5 && promedio != 0)
+            {
+                estado = "aprobado por promedio";
+                return "Condicion: aprobado por promedio";
+               
+            }
+            return "Cursando";
+        }
+
+        private float sacarPromedioTrimestres(List<Nota> alumno)
+        {
+            float promedio = 0;
+            int cantidad = 0;
+            for (int i = 0; i < alumno.Count; i++)
+            {
+                if (alumno[i].comentario == "Nota final-trimestre")
+                {
+                    promedio = promedio + Convert.ToInt32(alumno[i].Calificacion);
+                    cantidad++;
+                }
+            }
+            if (cantidad == 3)
+            {
+                promedio = promedio / 3;
+                return promedio;
+            }
+            return 0;
         }
 
         private void RegistrarNota_Load(object sender, EventArgs e)
@@ -349,30 +375,27 @@ namespace ProyectoEscuela
         {
             btnConfirmar.Enabled = true;
             button2.Enabled = true;
-            if (comboBox3.SelectedIndex == 3 && estado == "aprobado por promedio") 
-            {
-                btnConfirmar.Enabled = false;
-                button2.Enabled = false;
-                MessageBox.Show("El alumno no necesita notas en diciembre ni en febrero por que ya esta aprobado por promedio. ");
-            }
-            if (comboBox3.SelectedIndex == 4 && estado == "aprobado por promedio")
-            {
-                btnConfirmar.Enabled = false;
-                button2.Enabled = false;
-                MessageBox.Show("El alumno no necesita notas en febrero por que ya esta aprobado por promedio. ");
-            }
-            if (comboBox3.SelectedIndex == 4 && estado == "aprobado en diciembre")
-            {
-                btnConfirmar.Enabled = false;
-                button2.Enabled = false;
-                MessageBox.Show("El alumno no necesita notas en febrero por que ya esta aprobado en diciembre. ");
-            }
-            bool hayFecha = false;
+            verificarPermiso();
+        }
+
+        private void cBox3()
+        {
+            
+            
+            
+            verificarPermiso();
+
+            label7.Text = "Promedio: " + SacarPromedioSinNotaFinal(alumno, comboBox3.Text) + " (Exceptuando notas finales)";
+        }
+
+        private void verificarPermiso()
+        {
+            int cantidad = 0;
             int i = comboBox1.SelectedIndex;
-            DateTime nulla = new DateTime(0-0-0);
+            DateTime nulla = new DateTime(0 - 0 - 0);
+            int idProfesor = GlobalVariables.id;
             //esta variable "nulla" es para poder mandar al sp cambiarPermisoParaRegistrarNota cuando se descubre que finalizo la el tiempo para registrar notas en una etapa
             //por que si le ponemos 0-0-0 manda valor null (ver en datos.Profesores)
-            int cantidad = 0;
             curso = lista[i].Curso;
             division = lista[i].Division;
             ciclo = lista[i].ciclo;
@@ -381,7 +404,7 @@ namespace ProyectoEscuela
             DateTime hasta = DateTime.MaxValue;
             string dni = GlobalVariables.dni;
             actualizarPorAlumno();
-           
+
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(conString))
 
@@ -390,7 +413,7 @@ namespace ProyectoEscuela
 
                 SqlCommand command = new SqlCommand("verificarPermisoParaRegistrarNota", connection);
                 command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@dniProfesor", dni);
+                command.Parameters.AddWithValue("@idProfesor", idProfesor);
                 command.Parameters.AddWithValue("@año", curso);
                 command.Parameters.AddWithValue("@division", division);
                 command.Parameters.AddWithValue("@ciclo", ciclo);
@@ -398,29 +421,20 @@ namespace ProyectoEscuela
                 command.Parameters.AddWithValue("@etapa", etapa);
 
                 SqlDataReader reader = command.ExecuteReader();
-               
+
+
                 while (reader.Read())
                 {
-                    if (Convert.IsDBNull(reader["hasta"]))
-                    {
-                         hayFecha = false;
-                    }
-                    else 
-                    {
-                        hasta = Convert.ToDateTime(reader["hasta"]);
-                        
-                        hayFecha = true;
-                    }
                     cantidad = Convert.ToInt32(reader["cantidad"]);
                 }
                 connection.Close();
                 reader.Close();
             }
-            if ( cantidad == 1)
+            if (cantidad == 1)
             {
-                if ( DateTime.Now < hasta)
+                if (DateTime.Now < hasta)
                 {
-                    
+
                     for (int ia = 0; ia < alumno.Count; ia++)
                     {
                         if (alumno[ia].etapa == etapa)
@@ -448,7 +462,7 @@ namespace ProyectoEscuela
                             }
                         }
                     }
-                    
+
                 }
                 else
                 {
@@ -462,10 +476,68 @@ namespace ProyectoEscuela
             {
 
                 btnConfirmar.Enabled = false;
-                button2.Enabled = false; 
-                MessageBox.Show("No posee permisos para registrar notas en esta etapa. Soliciteselo al director. ");
+                button2.Enabled = false;
+                MessageBox.Show("No posee permisos para registrar notas en esta etapa. Soliciteselo al director. " + cantidad);
             }
-           
+        }
+
+        private float SacarPromedioSinNotaFinal(List<Nota> alumno, string etapa)
+        {
+            int cant = 0;
+            float promedio = 0;
+            for (int i = 0; i < alumno.Count; i++) 
+            {
+                if (alumno[i].comentario != "Nota final-trimestre" && alumno[i].comentario != "Nota final-febrero" && alumno[i].comentario != "Nota final-diciembre" && alumno[i].etapa == etapa) 
+                {
+                    cant++;
+                    promedio = promedio + Convert.ToInt64(alumno[i].Calificacion);
+                }
+
+            }
+            if (cant > 0)
+            {
+                label7.Visible = true;
+
+            }
+            else 
+            {
+                label7.Visible = false;
+            }
+            return promedio / cant;
+            
+        }
+
+        private void etapasDisponibles(List<Nota> alumno)
+        {
+            comboBox3.Items.Clear();
+            comboBox3.Text = "";
+            int cantidad = 0;
+            string[] todasLasEtapas = new string[5]; 
+
+            todasLasEtapas[0] = "Primer trimestre"; 
+            todasLasEtapas[1] = "Segundo trimestre"; 
+            todasLasEtapas[2] = "Tercer trimestre"; 
+            todasLasEtapas[3] = "Semana extra-diciembre"; 
+            todasLasEtapas[4] = "Semana extra-febrero";
+            for (int i = 0; i < alumno.Count; i++)
+            {
+                if (alumno[i].comentario == "Nota final-trimestre" || alumno[i].comentario == "Nota final-diciembre" || alumno[i].comentario == "Nota final-febrero")
+                {
+                    cantidad++;
+                }
+            }
+            
+            
+            int o = 0;
+            while (o <= cantidad) 
+            {
+                if (o == 5) 
+                {
+                    break;
+                }
+                comboBox3.Items.Add(todasLasEtapas[o]);
+                o++;
+            }
             
         }
 

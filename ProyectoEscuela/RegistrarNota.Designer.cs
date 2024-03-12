@@ -49,7 +49,6 @@
             this.comboBox3 = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.Promedio_trimestre = new System.Windows.Forms.Label();
             this.txt_condicion = new System.Windows.Forms.Label();
             this.nombreDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.apellidoDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -234,12 +233,6 @@
             // comboBox3
             // 
             this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
-            "Primer trimestre",
-            "Segundo trimestre",
-            "Tercer trimestre",
-            "Semana extra-diciembre",
-            "Semana extra-febrero"});
             this.comboBox3.Location = new System.Drawing.Point(394, 84);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(176, 21);
@@ -258,22 +251,12 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(581, 9);
+            this.label7.Location = new System.Drawing.Point(588, 92);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(56, 13);
             this.label7.TabIndex = 22;
             this.label7.Text = "Promedios";
             this.label7.Visible = false;
-            // 
-            // Promedio_trimestre
-            // 
-            this.Promedio_trimestre.AutoSize = true;
-            this.Promedio_trimestre.Location = new System.Drawing.Point(651, 9);
-            this.Promedio_trimestre.Name = "Promedio_trimestre";
-            this.Promedio_trimestre.Size = new System.Drawing.Size(35, 13);
-            this.Promedio_trimestre.TabIndex = 23;
-            this.Promedio_trimestre.Text = "label8";
-            this.Promedio_trimestre.Visible = false;
             // 
             // txt_condicion
             // 
@@ -436,7 +419,6 @@
             this.ClientSize = new System.Drawing.Size(953, 414);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.txt_condicion);
-            this.Controls.Add(this.Promedio_trimestre);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.comboBox3);
@@ -487,7 +469,6 @@
         private System.Windows.Forms.ComboBox comboBox3;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label Promedio_trimestre;
         private System.Windows.Forms.Label txt_condicion;
         private System.Windows.Forms.DataGridViewTextBoxColumn nombreDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn apellidoDataGridViewTextBoxColumn;
