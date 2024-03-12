@@ -128,7 +128,6 @@
             this.txt_Nombre.Name = "txt_Nombre";
             this.txt_Nombre.Size = new System.Drawing.Size(76, 20);
             this.txt_Nombre.TabIndex = 5;
-            this.txt_Nombre.Text = "luis alberto";
             this.txt_Nombre.TextChanged += new System.EventHandler(this.txt_Nombre_TextChanged);
             this.txt_Nombre.Enter += new System.EventHandler(this.txt_Nombre_Enter);
             // 
