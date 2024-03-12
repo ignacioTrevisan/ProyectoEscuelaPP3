@@ -26,42 +26,7 @@ namespace ProyectoEscuela
             InitializeComponent();
             privadas();
             label6.Visible = false;
-            comprobarAccionesAutomaticas();
         }
-
-        private void comprobarAccionesAutomaticas()
-        {
-            Boolean b = false;
-            while (b == false) 
-            {
-                int a = 0;
-                string query = "SELECT COUNT(*) AS a FROM CambioDeEtapaAutomatica WHERE fecha < '"+DateTime.Now+"'";
-
-                string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
-                using (SqlConnection connection = new SqlConnection(conString))
-
-                {
-                    connection.Open();
-                    SqlCommand command = new SqlCommand(query, connection);
-                    SqlDataReader reader = command.ExecuteReader();
-                    while (reader.Read())
-                    {                      
-                        a = Convert.ToInt32(reader["a"]);                      
-                    }
-                    connection.Close();
-                    reader.Close();
-                }
-                if (a > 0)
-                {
-                    NegocioProfesor.ejecutarCambioAutomaticoPermiso();
-                }
-                else 
-                {
-                    b = true;
-                }
-            }
-        }
-
         public static class GlobalVariables
         {
             public static int ciclo = 2024;
