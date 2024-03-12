@@ -8,7 +8,6 @@ using System.Xml.Linq;
 using iTextSharp.text;
 using iTextSharp.text.pdf;
 using System.Diagnostics;
-using System.IO;
 using EntidadAlumno;
 using iTextSharp.tool.xml;
 using iTextSharp.tool.xml.html.head;
@@ -21,7 +20,7 @@ namespace helpers
     public class creacionInforme
     {
 
-        public static string generarPdf(string cargo, List<Faltas> faltas, string nombre, string apellido, string dni, string año, string division, int ciclo, int idProfesor, List<string> materias)
+        public static string generarPdf(string cargo, List<Faltas> faltas, string nombre, string apellido, string dni, string año, string division, int ciclo, int idProfesor, List<string> materias, float cantidadDeFaltasTotales)
         {
             string paginaHtml = Properties.Resources.informe.ToString();
             string materiaString = "<table border-top='1' border-left='1' border-right='1' style='width: 100%; border-collapse: collapse;'><tr style='border: 1px solid black; background-color: rgb(169, 169, 169); height:50px'><td style='width: 33.33%; border: 1px solid black;'>Comentario</td><td style='width: 33.33%; border: 1px solid black;'>Nota</td><td style='width: 33.33%; border: 1px solid black;'>Fecha</td><td style='width: 33.33%; border: 1px solid black;'>Etapa</td></tr></table>";
@@ -35,10 +34,11 @@ namespace helpers
             string filasFaltas = "";
             foreach (Faltas falta in faltas)
             {
-                filasFaltas += "<tr><td>" + falta.estado + "</td><td>" + falta.fecha + "</td></tr>";
+                filasFaltas += "<tr><td>" + falta.estado + "</td><td>" + falta.fecha + "</td><td>" + falta.comentarios + "</td></tr>";
             }
 
             paginaHtml = paginaHtml.Replace("@filas", filasFaltas);
+            paginaHtml = paginaHtml.Replace("@cantidadFaltas", Convert.ToString(cantidadDeFaltasTotales));
             string txto = "";
             for (int i = 0; i < materias.Count; i++) 
             {

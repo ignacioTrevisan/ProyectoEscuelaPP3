@@ -14,6 +14,7 @@ namespace EntidadAlumno
         public string apellido { get; set; }
         public string fecha { get; set; }
         public string estado { get; set; }
+        public string comentarios { get; set; }
         
     }
 }

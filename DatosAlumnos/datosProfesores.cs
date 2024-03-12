@@ -4,6 +4,7 @@ using EntidadProfesor;
 using iTextSharp.text.pdf.qrcode;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
@@ -39,7 +40,7 @@ namespace DatosAlumnos
 
 
 
-        public static string cambiarPermisosParaRegistrarNotas(int modo, string etapa, string dniProfesor, string año, string division, string ciclo, string materia, string estado, DateTime desde, DateTime hasta)
+        public static string cambiarPermisosParaRegistrarNotas(int modo, string etapa, string dniProfesor, string año, string division, string ciclo, string materia, string estado)
         {
             string error="";
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
@@ -52,17 +53,10 @@ namespace DatosAlumnos
                 command.Parameters.AddWithValue("@division", division);
                 command.Parameters.AddWithValue("@ciclo", ciclo);
                 command.Parameters.AddWithValue("@materia", materia);
-                if (desde == new DateTime(0 - 0 - 0))
-                {
-                    //ver explicacion dee esto en RegistrarNota (ComboBox3_SelectedIndexChanged)
+               
                     command.Parameters.AddWithValue("@desde", null);
                     command.Parameters.AddWithValue("@hasta", null);
-                }
-                else
-                {
-                    command.Parameters.AddWithValue("@desde", desde);
-                    command.Parameters.AddWithValue("@hasta", hasta);
-                }
+                
                 
                 command.Parameters.AddWithValue("@etapa", etapa);
                 command.Parameters.AddWithValue("@modo", modo);
@@ -86,7 +80,7 @@ namespace DatosAlumnos
             }
         }
 
-        public static string cambiarPermisosParaRegistrarNotas(string estado, DateTime desde, DateTime hasta, string año, string division, string ciclo, string etapa, int modo)
+        public static string cambiarPermisosParaRegistrarNotas(string estado, string año, string division, string ciclo, string etapa, int modo)
         {
             string error = "";
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
@@ -97,8 +91,7 @@ namespace DatosAlumnos
                 command.Parameters.AddWithValue("@año", año);
                 command.Parameters.AddWithValue("@division", division);
                 command.Parameters.AddWithValue("@ciclo", ciclo);
-                command.Parameters.AddWithValue("@desde", desde);
-                command.Parameters.AddWithValue("@hasta", hasta);
+               
                 command.Parameters.AddWithValue("@etapa", etapa);
                 command.Parameters.AddWithValue("@modo", modo);
                 command.Parameters.AddWithValue("@estado", estado);
@@ -121,7 +114,7 @@ namespace DatosAlumnos
             }
         }
 
-        public static string cambiarPermisosParaRegistrarNotas(string estado, DateTime desde, DateTime hasta, string etapa, int modo)
+        public static string cambiarPermisosParaRegistrarNotas(string estado, string etapa, int modo)
         {
             string error = "";
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
@@ -129,8 +122,7 @@ namespace DatosAlumnos
             {
                 SqlCommand command = new SqlCommand("cambiarPermisoParaRegistrarNota", connection);
                 command.CommandType = System.Data.CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@desde", desde);
-                command.Parameters.AddWithValue("@hasta", hasta);
+               
                 command.Parameters.AddWithValue("@etapa", etapa);
                 command.Parameters.AddWithValue("@modo", modo);
                 command.Parameters.AddWithValue("@estado", estado);
@@ -181,6 +173,36 @@ namespace DatosAlumnos
 
             }
         }
+
+        public static void ejecutarCambioAutomaticoPermis()
+        {
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(conString))
+            {
+                SqlCommand command = new SqlCommand("cambioDeEtapaAutomatico", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@fecha", DateTime.Now);
+                try
+                {
+                    connection.Open();
+                    int idAlumnoCreado = Convert.ToInt32(command.ExecuteScalar());
+                }
+                catch (Exception ex)
+                {
+                    // Manejar la excepción de alguna manera (por ejemplo, registrándola)
+                    // Aquí solo se relanza la excepción, considera manejarla de manera adecuada según tus necesidades
+                    throw;
+                }
+                finally
+                {
+                    if (connection.State != ConnectionState.Closed)
+                    {
+                        connection.Close();
+                    }
+                }
+            }
+        }
+
 
         public static void eliminar(string text)
         {
@@ -259,7 +281,6 @@ namespace DatosAlumnos
         public static List<string> getEtapas(string dni, string materia, int id, string año, string division, int ciclo)
         {
             List<string> lista = new List<string>();
-            string query = "Select etapa fro";
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
             using (SqlConnection con = new SqlConnection(conString))
             {

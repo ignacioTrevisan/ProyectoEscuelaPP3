@@ -87,25 +87,30 @@ namespace NegocioAlumnos
             return datosProfesores.getMateriasXProfesor(dni);
         }
 
-        public static string cambiarPermisosParaRegistrarNotas(int modo, string etapa, string dniProfesor, string año, string division, string ciclo, string materia, string estado, DateTime desde, DateTime hasta)
+        public static string cambiarPermisosParaRegistrarNotas(int modo, string etapa, string dniProfesor, string año, string division, string ciclo, string materia, string estado)
         {
-            return datosProfesores.cambiarPermisosParaRegistrarNotas(modo, etapa, dniProfesor, año, division, ciclo, materia, estado,desde,hasta);
+            return datosProfesores.cambiarPermisosParaRegistrarNotas(modo, etapa, dniProfesor, año, division, ciclo, materia, estado);
         }
 
-        public static string cambiarPermisosParaRegistrarNotas(string estado, DateTime desde, DateTime hasta, string año, string division, string ciclo, string etapa, int modo)
+        public static string cambiarPermisosParaRegistrarNotas(string estado,  string año, string division, string ciclo, string etapa, int modo)
         {
-            return datosProfesores.cambiarPermisosParaRegistrarNotas(estado, desde, hasta, año, division, ciclo, etapa, modo);
+            return datosProfesores.cambiarPermisosParaRegistrarNotas(estado, año, division, ciclo, etapa, modo);
 
         }
 
-        public static string cambiarPermisosParaRegistrarNotas(string estado, DateTime desde, DateTime hasta, string etapa, int modo)
+        public static string cambiarPermisosParaRegistrarNotas(string estado, string etapa, int modo)
         {
-            return datosProfesores.cambiarPermisosParaRegistrarNotas(estado, desde, hasta, etapa, modo);
+            return datosProfesores.cambiarPermisosParaRegistrarNotas(estado, etapa, modo);
         }
 
         public static List<string> getEtapas(string dni, string materia, int id, string año, string division, int ciclo)
         {
             return datosProfesores.getEtapas(dni, materia, id, año, division, ciclo);
+        }
+
+        public static void ejecutarCambioAutomaticoPermiso()
+        {
+            datosProfesores.ejecutarCambioAutomaticoPermis();
         }
     }
 }

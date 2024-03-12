@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -26,11 +27,7 @@ namespace ProyectoEscuela
 
         private void txt_opcion_SelectedIndexChanged(object sender, EventArgs e)
         {
-            label2.Visible = true;
-            label3.Visible = true;
             txt_curso.Text = "";
-            dateTimePicker1.Visible = true;
-            dateTimePicker2.Visible = true;
             button1.Visible = true;
             int modo = txt_opcion.SelectedIndex+1;
             if (modo == 1)
@@ -125,8 +122,6 @@ namespace ProyectoEscuela
             string etapa = txt_etapa.Text;
             
             string estado = txt_modificacion.Text;
-            DateTime desde = Convert.ToDateTime(dateTimePicker1.Text);
-            DateTime hasta = Convert.ToDateTime(dateTimePicker2.Text);
             if (modo == 1)
             {
                 string año = cursos[txt_curso.SelectedIndex].año;
@@ -134,23 +129,64 @@ namespace ProyectoEscuela
                 string ciclo = cursos[txt_curso.SelectedIndex].ciclo;
                 string materia = materias[txt_materia.SelectedIndex];
                 string dniProfesor = listaProfesores[txt_profesor.SelectedIndex].Dni;
-                MessageBox.Show(NegocioProfesor.cambiarPermisosParaRegistrarNotas(modo, etapa, dniProfesor, año, division, ciclo, materia, estado, desde, hasta));
+                MessageBox.Show(NegocioProfesor.cambiarPermisosParaRegistrarNotas(modo, etapa, dniProfesor, año, division, ciclo, materia, estado));
             }
             else if (modo == 2)
             {
                 string año = cursos[txt_curso.SelectedIndex].año;
                 string division = cursos[txt_curso.SelectedIndex].division;
                 string ciclo = cursos[txt_curso.SelectedIndex].ciclo;
-                MessageBox.Show(NegocioProfesor.cambiarPermisosParaRegistrarNotas(estado, desde, hasta, año, division, ciclo, etapa, modo));
+                MessageBox.Show(NegocioProfesor.cambiarPermisosParaRegistrarNotas(estado, año, division, ciclo, etapa, modo));
             }
             else if (modo == 3) 
             {
-                MessageBox.Show(estado+ desde + hasta + etapa + modo);
-                MessageBox.Show(NegocioProfesor.cambiarPermisosParaRegistrarNotas(estado, desde, hasta, etapa, modo));
+                MessageBox.Show(estado+  etapa + modo);
+                MessageBox.Show(NegocioProfesor.cambiarPermisosParaRegistrarNotas(estado, etapa, modo));
 
             }
 
 
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string estado = comboBox1.Text;
+            if (estado == "Habilitar")
+            {
+                estado = "Habilitado";
+            }
+            else 
+            {
+                estado = "Deshabilitado";
+            }
+            string etapa = comboBox2.Text;
+            DateTime date = new DateTime();
+            date = dateTimePicker1.Value;
+            cambiarEstado(estado, etapa, date);
+        }
+        private void cambiarEstado(string estado, string etapa, DateTime fecha) 
+        {
+           
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(conString))
+            {
+                SqlCommand command = new SqlCommand("setcambioDeEtapaAutomatico", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@fecha", fecha);
+                command.Parameters.AddWithValue("@estado", estado);
+                command.Parameters.AddWithValue("@etapa", etapa);
+                try
+                {
+                    connection.Open();
+                    Convert.ToInt32(command.ExecuteScalar());
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+
+
+            }
         }
     }
 }
