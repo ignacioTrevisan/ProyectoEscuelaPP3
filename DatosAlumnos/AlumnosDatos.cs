@@ -164,7 +164,7 @@ namespace DatosAlumnos
             return lista;
 
         }
-        public static int registrarEstado(string estado, DateTime fecha, int dni, string curso, string division, int ciclo)
+        public static int registrarEstado(string estado, DateTime fecha, int dni, string curso, string division, int ciclo, string comentario)
         {
             int idAlumnoCreado = 0;
 
@@ -180,6 +180,7 @@ namespace DatosAlumnos
                 command.Parameters.AddWithValue("@fecha", fecha);
                 command.Parameters.AddWithValue("@año", curso);
                 command.Parameters.AddWithValue("@division", division);
+                command.Parameters.AddWithValue("@comentario", comentario);
                 command.Parameters.AddWithValue("@ciclo", ciclo);
                 try
                 {
@@ -245,58 +246,7 @@ namespace DatosAlumnos
             }
         }
 
-        public static List<Alumno> Get(string dni, string nombre, int ciclo)
-        {
-            List<Alumno> list = new List<Alumno>();
-
-            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["ConexionDB"].ConnectionString;
-            using (SqlConnection Connection = new SqlConnection(conString))
-            {
-                SqlCommand command = new SqlCommand("alumnosGet", Connection);
-                command.CommandType = CommandType.StoredProcedure;
-                command.Parameters.AddWithValue("@nombre", nombre);
-                command.Parameters.AddWithValue("@dni", dni);
-                command.Parameters.AddWithValue("@ciclo", ciclo);
-
-
-                try
-                {
-                    Connection.Open();
-                    SqlDataReader reader = command.ExecuteReader();
-
-
-                    while (reader.Read())
-                    {
-                        Alumno busqueda = new Alumno();
-                        busqueda.Nombre = Convert.ToString(reader["nombre"]);
-                        busqueda.Apellido = Convert.ToString(reader["apellido"]);
-                        busqueda.FechaNacimiento = Convert.ToDateTime(reader["fechaNacimiento"]);
-                        busqueda.Email = Convert.ToString(reader["email"]);
-                        busqueda.Dni = Convert.ToString(reader["dni"]);
-                        busqueda.barrio = Convert.ToString(reader["barrio"]);
-                        busqueda.calle = Convert.ToString(reader["calle"]);
-                        busqueda.altura = Convert.ToString(reader["altura"]);
-                        busqueda.edificio = Convert.ToString(reader["edificio"]);
-                        busqueda.numero_dpto = Convert.ToString(reader["numero_dpto"]);
-                        busqueda.piso = Convert.ToString(reader["piso"]);
-                        busqueda.Telefono = Convert.ToString(reader["telefono"]);
-                        busqueda.Curso = Convert.ToString(reader["año"]);
-                        busqueda.division = Convert.ToString(reader["division"]);
-                        busqueda.ciclo = Convert.ToInt32(reader["ciclo"]);
-                        busqueda.cantidadFaltas = Convert.ToInt32(reader["CantidadAusencias"]);
-                        busqueda.Id = Convert.ToInt32(reader["id"]);
-                        list.Add(busqueda);
-                    }
-
-                    reader.Close();
-                }
-                catch (Exception)
-                {
-                    throw;
-                }
-            }
-            return list;
-        }
+        
         public static List<Alumno> Get(string nombre, string curso, string division, int ciclo)
         {
             List<Alumno> list = new List<Alumno>();
@@ -334,8 +284,8 @@ namespace DatosAlumnos
                         busqueda.numero_dpto = Convert.ToString(reader["numero_dpto"]);
 
                         busqueda.Telefono = Convert.ToString(reader["telefono"]);
-                        busqueda.Curso = Convert.ToString(reader["año"]);
-                        busqueda.division = Convert.ToString(reader["division"]);
+                        busqueda.Curso = curso;
+                        busqueda.division = division;
                         busqueda.Id = Convert.ToInt32(reader["id"]);
                         busqueda.cantidadFaltas = Convert.ToInt32(reader["CantidadAusencias"]);
 
@@ -441,7 +391,11 @@ namespace DatosAlumnos
                         busqueda.nombre = Convert.ToString(reader["nombre"]);
                         busqueda.apellido = Convert.ToString(reader["apellido"]);
                         busqueda.fecha = Convert.ToString(reader["fecha"]);
+                        DateTime fechac = new DateTime();
+                        fechac = Convert.ToDateTime(busqueda.fecha);
+                        busqueda.fecha = fechac.ToString("dd/MM/yyyy");
                         busqueda.estado = Convert.ToString(reader["estado"]);
+                        busqueda.comentarios = Convert.ToString(reader["comentario"]);
                         list.Add(busqueda);
 
                     }
@@ -602,6 +556,7 @@ namespace DatosAlumnos
                         busqueda.Apellido = Convert.ToString(reader["apellido"]);
                         busqueda.estado = Convert.ToString(reader["estado"]);
                         busqueda.Dni = Convert.ToString(reader["dni"]);
+                        busqueda.Email = Convert.ToString(reader["comentario"]);
                         listas.Add(busqueda);
                     }
 

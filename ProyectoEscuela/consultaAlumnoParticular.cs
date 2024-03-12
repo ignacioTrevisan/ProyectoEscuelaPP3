@@ -34,7 +34,7 @@ namespace ProyectoEscuela
         string año = VaribalesParaConsultaParticular.año;
         string division = VaribalesParaConsultaParticular.division;
         int ciclo = VaribalesParaConsultaParticular.ciclo;
-       
+        float cantidadDeFaltasTotales = 0;
         public consultaAlumnoParticular()
         {
             InitializeComponent();
@@ -43,7 +43,10 @@ namespace ProyectoEscuela
 
         private void inicializar()
         {
+            
             faltas = Negocio.NegocioAlumnos.BuscarFaltas(dni, ciclo, año, division);
+            cantidadDeFaltasTotales = helpers.ConvertirFaltas.conversion(faltas);
+            label3.Text = "Faltas : "+Convert.ToString(cantidadDeFaltasTotales);
             label1.Text = nombre + " " + apellido + " (" + dni + ")";
             label2.Text = "año: " + año + " division: " + division + " (" + ciclo + ")";
             materias = NegocioProfesor.getMaterias(año, division, ciclo);
@@ -159,6 +162,9 @@ namespace ProyectoEscuela
                         Nota n = new Nota();
                         n.Calificacion = Convert.ToString(reader["Nota"]);
                         n.fecha = Convert.ToString(reader["fecha"]);
+                        DateTime fechac = new DateTime();
+                        fechac = Convert.ToDateTime(n.fecha);
+                        n.fecha = fechac.ToString("dd/MM/yyyy");
                         n.etapa = Convert.ToString(reader["etapa"]);
                         n.comentario = Convert.ToString(reader["Comentario"]);
 
@@ -170,11 +176,11 @@ namespace ProyectoEscuela
             }
             dataGridView2.DataSource = lista;
         }
-
+        
         private void button1_Click(object sender, EventArgs e)
         {
             
-            string mensaje = helpers.creacionInforme.generarPdf(GlobalVariables.cargo, faltas, nombre, apellido, dni, año, division, ciclo, GlobalVariables.id, materias);
+            string mensaje = helpers.creacionInforme.generarPdf(GlobalVariables.cargo, faltas, nombre, apellido, dni, año, division, ciclo, GlobalVariables.id, materias, cantidadDeFaltasTotales);
         }
     }
 }

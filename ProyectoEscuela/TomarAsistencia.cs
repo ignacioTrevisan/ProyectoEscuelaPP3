@@ -21,6 +21,7 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.Button;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using System.Net.Mail;
 using System.IO;
+using System.Net;
 
 namespace ProyectoEscuela
 {
@@ -33,6 +34,7 @@ namespace ProyectoEscuela
         public List<Alumno> alumnos = new List<Alumno>();
         public List<Alumno> asistencias = new List<Alumno>();
         public List<int> Ciclos = new List<int>();
+        public List<Faltas> faltas = new List<Faltas>();
         public TomarAsistencia()
         {
             InitializeComponent();
@@ -42,18 +44,11 @@ namespace ProyectoEscuela
                 dateTimePicker1.Enabled = false;
             }
 
-           
-
             lista = GetCursos(GlobalVariables.id);
-
-
 
             int i = 0;
             int o = 1;
             
-
-           
-
             i = 0;
             o = 1;
             if (GlobalVariables.cargo == "profesor") 
@@ -111,40 +106,35 @@ namespace ProyectoEscuela
 
         private void btn_buscarAlumno_Click(object sender, EventArgs e)
         {
-           
+            buscar();
+        }
+        public void buscar()
+        {
+
             if (textBox1.Text != "")
             {
-
-            
-            string nombre = textBox1.Text;
-            int a = comboBox1.SelectedIndex;
-            string curso = lista[a].Curso;
-            string division = lista[a].Division;
-            
-                buscar(nombre, curso, division);
-            }
-            else
-            {
-                int a = 0;
-                a = comboBox1.SelectedIndex;
+                string nombre = textBox1.Text;
+                int a = comboBox1.SelectedIndex;
                 string curso = lista[a].Curso;
                 string division = lista[a].Division;
-                alumnos = Negocio.NegocioAlumnos.Get("0", curso, division, GlobalVariables.ciclo);
-                refreshgrid();
-            }
-        }
-        public void buscar(string nombre, string curso, string division)
-        {
-            
-           
-            alumnos = Negocio.NegocioAlumnos.Get(nombre, curso, division, GlobalVariables.ciclo);
-            if (alumnos.Count > 0)
-            {
-                refreshgrid();
+
+                alumnos = Negocio.NegocioAlumnos.Get(nombre, curso, division, GlobalVariables.ciclo);
+                if (alumnos.Count > 0)
+                {
+                    refreshgrid();
+                }
+                else
+                {
+                    MessageBox.Show("No se encuentra este alumno, ten en cuenta de seleccionar bien el curso ");
+                }
             }
             else
             {
-                MessageBox.Show("No se encuentra este alumno, ten en cuenta de seleccionar bien el curso ");
+                if (comboBox1.Text != "")
+                {
+                    buscarCurso();
+                }
+                
             }
 
         }
@@ -152,7 +142,9 @@ namespace ProyectoEscuela
         private void btn_prese_Click(object sender, EventArgs e)
         {
             string estado = "presente";
+            string comentario = textBox2.Text;
             DateTime fecha = dateTimePicker1.Value.Date;
+            string fechaConvertida = fecha.ToString("dd/MM/yyyy");
             int a = comboBox1.SelectedIndex;
             int dni = Convert.ToInt32(label1.Text);
             string curso = lista[a].Curso;
@@ -183,7 +175,7 @@ namespace ProyectoEscuela
                         return;
                     }
                 }
-                registrarestado(estado, fecha, dni, curso, division, GlobalVariables.ciclo);
+                registrarestado(estado, Convert.ToDateTime(fechaConvertida), dni, curso, division, GlobalVariables.ciclo, comentario);
 
 
                 asistencias = Negocio.NegocioAlumnos.TraerAsistenciasDeHoy(curso, division, dateTimePicker1.Value, GlobalVariables.ciclo);
@@ -192,15 +184,16 @@ namespace ProyectoEscuela
             }
         }
 
-        private void registrarestado(string estado, DateTime fecha, int dni, string curso, string division, int ciclo)
+        private void registrarestado(string estado, DateTime fecha, int dni, string curso, string division, int ciclo, string comentario)
         {
-            Negocio.NegocioAlumnos.registrarEstado(estado, fecha, dni, curso, division, ciclo);
+            Negocio.NegocioAlumnos.registrarEstado(estado, fecha, dni, curso, division, ciclo, comentario);
 
         }
 
         private void btn_ausente_Click(object sender, EventArgs e)
         {
             string estado = "ausente";
+            string comentario = textBox2.Text;
             int dni = Convert.ToInt32(label1.Text);
             DateTime fecha = dateTimePicker1.Value.Date;
             int  a = comboBox1.SelectedIndex;
@@ -232,7 +225,7 @@ namespace ProyectoEscuela
                         return;
                     }
                 }
-               registrarestado(estado, fecha, dni, curso, division, GlobalVariables.ciclo);
+               registrarestado(estado, fecha, dni, curso, division, GlobalVariables.ciclo, comentario);
                 
                 
                 asistencias = Negocio.NegocioAlumnos.TraerAsistenciasDeHoy(curso, division, dateTimePicker1.Value, GlobalVariables.ciclo);
@@ -313,17 +306,22 @@ namespace ProyectoEscuela
 
         public void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
+            buscarCurso();
+        }
+
+        private void buscarCurso()
+        {
             int a = comboBox1.SelectedIndex;
             string curso = lista[a].Curso;
             string division = lista[a].Division;
-            if (cursosGlobal.modo == 1) 
+            if (cursosGlobal.modo == 1)
             {
                 curso = cursosGlobal.curso;
                 division = cursosGlobal.division;
             }
             seleccionarCurso(curso, division);
         }
-       
+
         public void seleccionarCurso(string curso, string division)
         {
 
@@ -352,13 +350,15 @@ namespace ProyectoEscuela
 
             alumnos = Negocio.NegocioAlumnos.GetXCurso("", curso, division, GlobalVariables.ciclo);
             int i = 0;
+            float contador = 0;
             while (i < alumnos.Count)
             {
-                if (alumnos[i].cantidadFaltas > 24)
+               
+                faltas = Negocio.NegocioAlumnos.BuscarFaltas(alumnos[i].Dni, lista[comboBox1.SelectedIndex].ciclo, lista[comboBox1.SelectedIndex].Curso, division);
+                contador = helpers.ConvertirFaltas.conversion(faltas);
+                if (contador > 24)
                 {
                     MessageBox.Show("ATENCIÓN, el alumno: " + alumnos[i].Nombre + " llego las 25 faltas");
-
-
                 }
                 i++;
             }
@@ -488,6 +488,7 @@ namespace ProyectoEscuela
         private void btn_media_Click(object sender, EventArgs e)
         {
             string estado = "media falta";
+            string comentario = textBox2.Text;
             int dni = Convert.ToInt32(label1.Text);
             DateTime fecha = dateTimePicker1.Value.Date;
             int a = comboBox1.SelectedIndex;
@@ -519,11 +520,30 @@ namespace ProyectoEscuela
                         return;
                     }
                 }
-                registrarestado(estado, fecha, dni, curso, division, GlobalVariables.ciclo);
+                registrarestado(estado, fecha, dni, curso, division, GlobalVariables.ciclo, comentario);
 
 
                 asistencias = Negocio.NegocioAlumnos.TraerAsistenciasDeHoy(curso, division, dateTimePicker1.Value, GlobalVariables.ciclo);
                 refreshgrid();
+            }
+        }
+
+        private void textBox1_Enter(object sender, EventArgs e)
+        {
+           
+            
+        }   
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+            {
+                buscar();
             }
         }
     }

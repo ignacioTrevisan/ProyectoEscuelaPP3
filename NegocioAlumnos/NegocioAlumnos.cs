@@ -89,12 +89,12 @@ namespace Negocio
                 throw;
             }
         }
-        public static int registrarEstado(string estado, DateTime fecha, int dni, string curso, string division, int ciclo)
+        public static int registrarEstado(string estado, DateTime fecha, int dni, string curso, string division, int ciclo, string comentario)
             {
             
             try
             {
-                return AlumnosDatos.registrarEstado(estado, fecha , dni, curso, division, ciclo  );
+                return AlumnosDatos.registrarEstado(estado, fecha , dni, curso, division, ciclo, comentario  );
             }
             catch (Exception)
             {
@@ -107,10 +107,7 @@ namespace Negocio
             return AlumnosDatos.buscarinasistencias();
         }
 
-        public static List<Alumno> Get( string dni, string nombre ,int ciclo)
-        {
-            return AlumnosDatos.Get(dni, nombre, ciclo);
-        }
+        
 
         public static List<Alumno> Get(string nombre, string curso, string division, int ciclo)
         {

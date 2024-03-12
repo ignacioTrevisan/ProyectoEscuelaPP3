@@ -105,21 +105,28 @@ namespace ProyectoEscuela
 
         private void btnConfirmar_Click(object sender, EventArgs e)
         {
-            
-            int ciclo = GlobalVariables.ciclo;
-            string nota = txtNota.Text;
-            string comentario = "";
-            comentario = textBox2.Text;
-            if (!string.IsNullOrEmpty(comboBox1.Text) && (!string.IsNullOrEmpty(comboBox2.Text)) && (!string.IsNullOrEmpty(txtNota.Text)))
+            if (textBox2.Text == "Nota final-trimestre" || textBox2.Text == "Nota final-diciembre" || textBox2.Text == "Nota final-febrero")
             {
-                registrar(nota, comentario);
-                actualizarPorAlumno();
+                MessageBox.Show("Este comentario es un comentario reservado para la carga de notas finales por etapa, por favor, cambielo. ");
             }
             else 
             {
-                MessageBox.Show("Para registrar notas primero debe ingresar el curso, materia, alumno y su nota ");
+                int ciclo = GlobalVariables.ciclo;
+                string nota = txtNota.Text;
+                string comentario = "";
+                comentario = textBox2.Text;
+                if (!string.IsNullOrEmpty(comboBox1.Text) && (!string.IsNullOrEmpty(comboBox2.Text)) && (!string.IsNullOrEmpty(txtNota.Text)))
+                {
+                    registrar(nota, comentario);
+                    actualizarPorAlumno();
+                }
+                else
+                {
+                    MessageBox.Show("Para registrar notas primero debe ingresar el curso, materia, alumno y su nota ");
+                }
+                cBox3();
             }
-            cBox3();
+            
         }
 
         public void registrar(string nota, string comentario)
@@ -145,8 +152,6 @@ namespace ProyectoEscuela
                 bindingSource1.DataSource = alumno;
                 dataGridView1.DataSource = bindingSource1;
                 int cantidadDeNotas = alumno.Count();
-                int r = 0;
-                float nota = 0;
                 txt_condicion.Text=evaluarCondicion(alumno);
                 
 
@@ -303,7 +308,7 @@ namespace ProyectoEscuela
             int ciclo = GlobalVariables.ciclo;
             alumno = NotasNegocio.GetNotasXAlumno(alumnos[id].Dni, materia, GlobalVariables.id, alumnos[id].Curso, alumnos[id].division, ciclo);
             etapasDisponibles(alumno);
-
+            actualizarPorAlumno();
         }
 
         private string evaluarCondicion(List<Nota> alumno)
@@ -394,8 +399,6 @@ namespace ProyectoEscuela
             int i = comboBox1.SelectedIndex;
             DateTime nulla = new DateTime(0 - 0 - 0);
             int idProfesor = GlobalVariables.id;
-            //esta variable "nulla" es para poder mandar al sp cambiarPermisoParaRegistrarNota cuando se descubre que finalizo la el tiempo para registrar notas en una etapa
-            //por que si le ponemos 0-0-0 manda valor null (ver en datos.Profesores)
             curso = lista[i].Curso;
             division = lista[i].Division;
             ciclo = lista[i].ciclo;
@@ -467,7 +470,7 @@ namespace ProyectoEscuela
                 else
                 {
                     MessageBox.Show("No posee permisos para registrar notas en esta etapa. Finalizo el " + hasta.ToString("d/M/yyyy") + " Soliciteselo al director. ");
-                    string a = NegocioProfesor.cambiarPermisosParaRegistrarNotas(1, etapa, dni, curso, division, ciclo.ToString(), materia, "Deshabilitado", nulla, nulla);
+                    string a = NegocioProfesor.cambiarPermisosParaRegistrarNotas(1, etapa, dni, curso, division, ciclo.ToString(), materia, "Deshabilitado");
                     btnConfirmar.Enabled = false;
                     button2.Enabled = false;
                 }
