@@ -581,7 +581,8 @@ namespace DatosAlumnos
             using (SqlConnection Connection = new SqlConnection(conString))
             {
                 SqlCommand command = new SqlCommand("GetCursos", Connection);
-                
+                command.CommandType = CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@estado", 10);
 
                 try
                 {
@@ -599,6 +600,7 @@ namespace DatosAlumnos
                         busqueda.Division = Convert.ToString(reader["division"]);
                         
                         busqueda.ciclo = Convert.ToInt16(reader["ciclo"]);
+                        busqueda.estado = Convert.ToInt16(reader["estado"]);
                         listas.Add(busqueda);
                     }
 

@@ -24,7 +24,6 @@ namespace ProyectoEscuela
         public profesor_curso()
         {
             InitializeComponent();
-            traerMaterias();
             traerProfesores();
             traerCursos();
         }
@@ -39,30 +38,7 @@ namespace ProyectoEscuela
             }
         }
 
-        public void traerMaterias() 
-        {
-            string query = "select Denominación from Materias";
-            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
-            using (SqlConnection connection = new SqlConnection(conString))
-            {
-                connection.Open();
-                SqlCommand cmd = new SqlCommand(query, connection);
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    string materia = "";
-                    materia = Convert.ToString(reader["Denominación"]);
-
-                    Listamaterias.Add(materia);
-                }
-                connection.Close();
-                reader.Close();
-                foreach (var lista in Listamaterias)
-                {
-                    comboBox2.Items.Add(lista);
-                }
-            }
-        }
+        
         public void traerProfesores()
         {
             string query = "select * from directivos where cargo = 'profesor'";
@@ -98,8 +74,9 @@ namespace ProyectoEscuela
             int o = comboBox3.SelectedIndex;
             string añoCurso = ListaCursos[o].Curso;
             string divisionCurso = ListaCursos[o].Division;
+            int ciclo = ListaCursos[o].ciclo;
             string materia = comboBox2.Text;
-            MessageBox.Show (NegocioProfesor.ConfigurarCursoProfesor(idProfesor, añoCurso, divisionCurso, materia, ""));
+            MessageBox.Show (NegocioProfesor.ConfigurarCursoProfesor(idProfesor, añoCurso, divisionCurso, ciclo, materia, ""));
             actualizarGrila();
             cambiarVisibilidad(false);
         }
@@ -141,6 +118,21 @@ namespace ProyectoEscuela
         private void button3_Click(object sender, EventArgs e)
         {
             cambiarVisibilidad(false) ;
+        }
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            List<string> materias = new List<string>();
+            comboBox2.Items.Clear();
+            int o = comboBox3.SelectedIndex;
+            string añoCurso = ListaCursos[o].Curso;
+            string divisionCurso = ListaCursos[o].Division;
+            int ciclo = ListaCursos[o].ciclo;
+            materias = NegocioProfesor.getMaterias(añoCurso, divisionCurso, ciclo);
+            for (int i = 0; i < materias.Count; i++) 
+            {
+                comboBox2.Items.Add(materias[i]);
+            }
         }
     }
 }

@@ -522,22 +522,10 @@ namespace ProyectoEscuela
             todasLasEtapas[2] = "Tercer trimestre"; 
             todasLasEtapas[3] = "Semana extra-diciembre"; 
             todasLasEtapas[4] = "Semana extra-febrero";
-            for (int i = 0; i < alumno.Count; i++)
-            {
-                if (alumno[i].comentario == "Nota final-trimestre" || alumno[i].comentario == "Nota final-diciembre" || alumno[i].comentario == "Nota final-febrero")
-                {
-                    cantidad++;
-                }
-            }
-            
-            
+                   
             int o = 0;
-            while (o <= cantidad) 
+            while (o <= 4) 
             {
-                if (o == 5) 
-                {
-                    break;
-                }
                 comboBox3.Items.Add(todasLasEtapas[o]);
                 o++;
             }

@@ -1,6 +1,7 @@
 ﻿using EntidadAlumno;
 using EntidadNota;
 using EntidadProfesor;
+using iTextSharp.text.pdf.codec.wmf;
 using iTextSharp.text.pdf.qrcode;
 using System;
 using System.Collections.Generic;
@@ -15,8 +16,69 @@ namespace DatosAlumnos
 {
     public class datosProfesores
     {
+        public static string agregarNuevaMateriaACurso(string materia, string año, string division, string ciclo)
+        {
+            string error = "";
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
 
-        public static int buscarDirectivo(string dni, string pass)
+            using (SqlConnection connection = new SqlConnection(conString))
+            {
+                SqlCommand command = new SqlCommand("ConfigurarCursoMateria", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@año", año);
+                command.Parameters.AddWithValue("@division", division);
+                command.Parameters.AddWithValue("@ciclo", ciclo);
+                command.Parameters.AddWithValue("@materia", materia);
+
+                SqlParameter outputParameter = new SqlParameter();
+                outputParameter.ParameterName = "@Mensaje";
+                outputParameter.SqlDbType = SqlDbType.VarChar;
+                outputParameter.Size = 100;
+                outputParameter.Direction = ParameterDirection.Output;
+                command.Parameters.Add(outputParameter);
+                try
+                {
+                    connection.Open();
+                    command.ExecuteNonQuery(); 
+                    return outputParameter.Value.ToString();
+                }
+                catch (Exception ex)
+                {
+                    error = ex.Message;
+                    throw;
+                }
+                finally
+                {
+                    connection.Close(); 
+                }
+            }
+        }
+        public static string AgregarNuevoCurso(string año, string division, string ciclo)
+        {
+            string query = "insert into cursos (año, division, ciclo, estado) values (@año, @division, @ciclo, '1')";
+            string consString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(consString))
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@año", año);
+                command.Parameters.AddWithValue("@division", division);
+                command.Parameters.AddWithValue("@ciclo", ciclo);
+                try
+                {
+                    connection.Open();
+                    command.ExecuteScalar();
+                    connection.Close();
+                    return "Se agrego exitosamente el nuevo curso";
+                }
+                catch (Exception ex)
+                {
+                    return (ex.ToString());
+                }
+
+            }
+        }
+
+            public static int buscarDirectivo(string dni, string pass)
         {
             string query = "SELECT COUNT(*) FROM directivos WHERE cargo = 'director' AND DNI = @dni AND contraseña=@pass";
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
@@ -38,7 +100,38 @@ namespace DatosAlumnos
             
         }
 
+        public static string cambiarEstadoCurso(string año, string division, string ciclo, string estado)
+        {
+            if (estado == "1")
+            {
+                estado = "0";
+            }
+            else 
+            {
+                estado = "1";
+            }
+            string query = "update cursos set año = @año, division =@division, ciclo= @ciclo, estado = @estado where año = @año and division =@division and ciclo= @ciclo";
+            string consString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(consString)) 
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@año", año);
+                command.Parameters.AddWithValue("@division", division);
+                command.Parameters.AddWithValue("@ciclo", ciclo);
+                command.Parameters.AddWithValue("@estado", estado);
+                try
+                {
+                    connection.Open();
+                    command.ExecuteScalar();
+                    connection.Close();
+                    return "Cambio exitoso!";
+                } catch (Exception ex) 
+                {
+                    return (ex.ToString());
+                }
 
+            }
+        }
 
         public static string cambiarPermisosParaRegistrarNotas(int modo, string etapa, string dniProfesor, string año, string division, string ciclo, string materia, string estado)
         {
@@ -145,7 +238,7 @@ namespace DatosAlumnos
             }
         }
 
-        public static string ConfigurarCursoProfesor(int idProfesor, string año, string division, string materia, string error)
+        public static string ConfigurarCursoProfesor(int idProfesor, string año, string division, int ciclo, string materia, string error)
         {
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(conString))
@@ -154,15 +247,24 @@ namespace DatosAlumnos
                 command.CommandType = System.Data.CommandType.StoredProcedure;
                 command.Parameters.AddWithValue("@IdProfesor", idProfesor);
                 command.Parameters.AddWithValue("@año", año);
+                command.Parameters.AddWithValue("@ciclo", ciclo);
                 command.Parameters.AddWithValue("@division", division);
                 command.Parameters.AddWithValue("@materia", materia);
+                SqlParameter outputParameter = new SqlParameter();
+                outputParameter.ParameterName = "@Mensaje";
+                outputParameter.SqlDbType = SqlDbType.VarChar;
+                outputParameter.Size = 100;
+                outputParameter.Direction = ParameterDirection.Output;
+                command.Parameters.Add(outputParameter);
                 try
                 {
                     connection.Open();
                     int idAlumnoCreado = Convert.ToInt32(command.ExecuteScalar());
-                    connection.Close(); 
+                    connection.Close();
+                    return outputParameter.Value.ToString();
+                    
+
                     error = "Insercion exitosa. ";
-                    return error;
                 }
                 catch (Exception ex)
                 {
@@ -228,6 +330,33 @@ namespace DatosAlumnos
             }
         }
 
+        public static string eliminarMateriaDeCurso(string año, string division, string ciclo, string materia)
+        {
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(conString))
+            {
+                SqlCommand command = new SqlCommand("eliminarMateriaDeCurso", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@materia", materia);
+                command.Parameters.AddWithValue("@division", division);
+                command.Parameters.AddWithValue("@año", año);
+                command.Parameters.AddWithValue("@ciclo", ciclo);
+                try
+                {
+                    connection.Open();
+                    int idAlumnoCreado = Convert.ToInt32(command.ExecuteScalar());
+                    
+                    connection.Close();
+                    return "eliminacion exitosa";
+                }
+                catch (Exception ex)
+                {
+                    return (ex.ToString());
+                }
+
+            }
+        }
+
         public static void eliminarRelacionProfMat(int idProfesor, string materia, string curso, string division)
         {
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
@@ -250,6 +379,27 @@ namespace DatosAlumnos
                     throw;
                 }
                 
+            }
+        }
+
+        public static List<string> getAllMaterias()
+        {
+            List<string> lista = new List<string>();
+            string query = "Select Denominación from materias";
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection con = new SqlConnection(conString))
+            {
+                con.Open();
+                SqlCommand command = new SqlCommand(query, con);
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                { 
+                    lista.Add(Convert.ToString(reader["Denominación"]));
+                }
+                reader.Close();
+                con.Close();
+                return lista;
             }
         }
 
@@ -329,6 +479,7 @@ namespace DatosAlumnos
                 return lista;
             }
         }
+
 
         public static List<string> getMateriasXProfesor(string dni)
         {

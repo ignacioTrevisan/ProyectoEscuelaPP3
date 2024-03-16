@@ -29,9 +29,7 @@
         private void InitializeComponent()
         {
             this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.button6 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.button7 = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -40,16 +38,15 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.button7 = new System.Windows.Forms.Button();
+            this.button2 = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
-            this.panel2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.panel1.Controls.Add(this.button2);
             this.panel1.Controls.Add(this.button7);
-            this.panel1.Controls.Add(this.panel2);
             this.panel1.Controls.Add(this.label6);
             this.panel1.Controls.Add(this.label5);
             this.panel1.Controls.Add(this.button1);
@@ -64,35 +61,15 @@
             this.panel1.Size = new System.Drawing.Size(850, 482);
             this.panel1.TabIndex = 0;
             // 
-            // panel2
+            // button7
             // 
-            this.panel2.BackColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.panel2.Controls.Add(this.button6);
-            this.panel2.Controls.Add(this.button5);
-            this.panel2.Location = new System.Drawing.Point(598, 99);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(200, 98);
-            this.panel2.TabIndex = 10;
-            // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(42, 53);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(113, 23);
-            this.button6.TabIndex = 1;
-            this.button6.Text = "Como profesor";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.button6_Click);
-            // 
-            // button5
-            // 
-            this.button5.Location = new System.Drawing.Point(42, 16);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(113, 23);
-            this.button5.TabIndex = 0;
-            this.button5.Text = "Como director";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.button7.Location = new System.Drawing.Point(13, 449);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(172, 23);
+            this.button7.TabIndex = 11;
+            this.button7.Text = "Area director";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.button7_Click);
             // 
             // label6
             // 
@@ -177,15 +154,15 @@
             this.label1.TabIndex = 0;
             this.label1.Text = "Inicio de sesión";
             // 
-            // button7
+            // button2
             // 
-            this.button7.Location = new System.Drawing.Point(13, 449);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(172, 23);
-            this.button7.TabIndex = 11;
-            this.button7.Text = "Area director";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.button7_Click);
+            this.button2.Location = new System.Drawing.Point(68, 279);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.TabIndex = 12;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
             // inicioSesion
             // 
@@ -198,7 +175,6 @@
             this.Text = "inicioSesion                                       Asociacion Integral Vuriloche";
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
-            this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -214,9 +190,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Button button6;
-        private System.Windows.Forms.Button button5;
         private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.Button button2;
     }
 }

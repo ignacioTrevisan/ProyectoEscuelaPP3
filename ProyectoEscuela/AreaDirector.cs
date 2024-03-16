@@ -34,5 +34,11 @@ namespace ProyectoEscuela
             PermisosParaRegistrarNotas p = new PermisosParaRegistrarNotas();
             p.ShowDialog();
         }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            configuracionCursos cc = new configuracionCursos();
+            cc.ShowDialog();
+        }
     }
 }

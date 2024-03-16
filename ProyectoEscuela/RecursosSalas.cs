@@ -163,5 +163,50 @@ namespace ProyectoEscuela
             }
            
         }
+
+        private void dateTimePicker1_ValueChanged(object sender, EventArgs e)
+        {
+            DateTime fechaHoy = DateTime.Now;
+            if (dateTimePicker1.Value.Date < fechaHoy.Date)
+            {
+                MessageBox.Show("No se puede elegir una fecha inferior a hoy.");
+                dateTimePicker1.Value = fechaHoy;
+            }
+
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            panel1.Visible = true;
+            panel2.Visible = false;
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            panel2.Visible = true;
+            panel1.Visible = false;
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (GlobalVariables.cargo == "preceptor")
+            {
+                panel2.Visible = false;
+                panel1.Visible = true;
+                comboBox2.Items.Clear();
+                comboBox2.Text = "";
+                getdos();
+            }
+            else 
+            {
+                MessageBox.Show("Solo el preceptor puede agregar nuevos recursos");
+            }
+            
+        }
     }
 }

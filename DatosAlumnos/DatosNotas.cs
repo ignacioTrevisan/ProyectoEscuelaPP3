@@ -252,7 +252,7 @@ namespace DatosNotas
                 command.Parameters.AddWithValue("@materia", Convert.ToString(materia));
                 command.Parameters.AddWithValue("@nota", Convert.ToInt32(nota));
                 command.Parameters.AddWithValue("@idprofesor", (profesor));
-                string fechaConvertida = fecha.ToString("dd/MM/yyyy");
+                string fechaConvertida = fecha.ToString("yyyy/MM/dd");
                 command.Parameters.AddWithValue("@fecha", fechaConvertida);
                 command.Parameters.AddWithValue("@Comentario", comentario);
                 command.Parameters.AddWithValue("@año", Convert.ToInt32(curso));

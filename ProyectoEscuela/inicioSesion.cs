@@ -154,5 +154,11 @@ namespace ProyectoEscuela
             formulario.ShowDialog();
 
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            configuracionCursos cs = new configuracionCursos();
+            cs.ShowDialog();
+        }
     }
 }

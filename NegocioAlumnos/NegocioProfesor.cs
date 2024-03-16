@@ -13,6 +13,7 @@ namespace NegocioAlumnos
 {
     public class NegocioProfesor
     {
+
         public static int insertar(profesor p, string cargo)
         {
             return datosProfesores.insertar(p, cargo);
@@ -56,9 +57,9 @@ namespace NegocioAlumnos
 
        
 
-        public static string ConfigurarCursoProfesor(int idProfesor, string año, string division, string materia, string error)
+        public static string ConfigurarCursoProfesor(int idProfesor, string año, string division, int ciclo,string materia, string error)
         {
-            return datosProfesores.ConfigurarCursoProfesor(idProfesor, año, division, materia, error);
+            return datosProfesores.ConfigurarCursoProfesor(idProfesor, año, division, ciclo, materia, error);
         }
 
         public static int modificar(profesor p)
@@ -112,5 +113,32 @@ namespace NegocioAlumnos
         {
             datosProfesores.ejecutarCambioAutomaticoPermis();
         }
+
+        public static string cambiarEstadoCurso(string año, string division, string ciclo, string estado)
+        {
+            return datosProfesores.cambiarEstadoCurso(año, division, ciclo, estado);
+        }
+
+        public static string agregarNuevoCurso(string año, string division, string ciclo)
+        {
+            return datosProfesores.AgregarNuevoCurso(año, division, ciclo);
+        }
+
+        public static List<string> getAllMaterias()
+        {
+            return datosProfesores.getAllMaterias();
+        }
+
+        public static string agregarNuevaMateriaACurso(string materia, string año, string division,  string ciclo)
+        {
+            return datosProfesores.agregarNuevaMateriaACurso(materia, año, division, ciclo);
+        }
+
+        public static string eliminarMateriaDeCurso(string año, string division, string ciclo, string materia)
+        {
+            return datosProfesores.eliminarMateriaDeCurso(año, division, ciclo, materia);
+        }
+
+       
     }
 }

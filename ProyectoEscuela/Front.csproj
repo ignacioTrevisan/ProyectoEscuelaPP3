@@ -112,6 +112,12 @@
     <Compile Include="comunicado.Designer.cs">
       <DependentUpon>comunicado.cs</DependentUpon>
     </Compile>
+    <Compile Include="configuracionCursos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="configuracionCursos.Designer.cs">
+      <DependentUpon>configuracionCursos.cs</DependentUpon>
+    </Compile>
     <Compile Include="consulta.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -198,6 +204,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="comunicado.resx">
       <DependentUpon>comunicado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="configuracionCursos.resx">
+      <DependentUpon>configuracionCursos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="consulta.resx">
       <DependentUpon>consulta.cs</DependentUpon>

@@ -31,5 +31,10 @@ namespace NegocioAlumnos
             int a = DatosRecursosSalas.Eliminar(id, idProf, cargo);
             return a;
         }
+
+        public static string agregarRecurso(string descripcion)
+        {
+            return DatosRecursosSalas.agregarRecurso(descripcion);
+        }
     }
 }

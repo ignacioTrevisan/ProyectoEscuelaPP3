@@ -1,5 +1,6 @@
 ﻿using EntidadProfesor;
 using EntidadRecursosSalas;
+using Org.BouncyCastle.Utilities.Collections;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.XPath;
 
 namespace datosRecursos
 {
@@ -150,5 +152,27 @@ namespace datosRecursos
             return resultado;
         }
 
+        public static string agregarRecurso(string descripcion)
+        {
+            string resultado = "";
+            string query = "insert into RecursosSalas(descripcion) values(@valor)";
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+
+            using (SqlConnection connection = new SqlConnection(conString))
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@valor", descripcion);
+                try
+                {
+                   command.ExecuteNonQuery();
+                    return resultado = "Agregado correctamente! ";
+                }
+                catch (Exception ex)
+                {
+                    return resultado = ex.ToString();
+                }
+            }
+        }
     }
 }

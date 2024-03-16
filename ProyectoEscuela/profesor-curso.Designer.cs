@@ -133,7 +133,7 @@
             // 
             this.comboBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
             this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Location = new System.Drawing.Point(19, 39);
+            this.comboBox2.Location = new System.Drawing.Point(19, 104);
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(161, 32);
             this.comboBox2.TabIndex = 4;
@@ -142,7 +142,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.label2.Location = new System.Drawing.Point(15, 9);
+            this.label2.Location = new System.Drawing.Point(15, 74);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(71, 24);
             this.label2.TabIndex = 5;
@@ -152,7 +152,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.label3.Location = new System.Drawing.Point(18, 74);
+            this.label3.Location = new System.Drawing.Point(18, 11);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(60, 24);
             this.label3.TabIndex = 6;
@@ -162,10 +162,11 @@
             // 
             this.comboBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
             this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Location = new System.Drawing.Point(19, 102);
+            this.comboBox3.Location = new System.Drawing.Point(19, 39);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(161, 32);
             this.comboBox3.TabIndex = 7;
+            this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
             // 
             // button2
             // 
@@ -198,7 +199,7 @@
             this.panel1.Controls.Add(this.comboBox3);
             this.panel1.Location = new System.Drawing.Point(222, 103);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(206, 177);
+            this.panel1.Size = new System.Drawing.Size(211, 177);
             this.panel1.TabIndex = 10;
             this.panel1.Visible = false;
             // 
