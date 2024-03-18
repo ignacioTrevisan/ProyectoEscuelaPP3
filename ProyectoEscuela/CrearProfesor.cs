@@ -55,6 +55,7 @@ namespace ProyectoEscuela
                     p.Telefono = txt_telefono.Text;
                     p.Email = txt_email.Text;
                     p.contraseña = txt_contraseña.Text;
+                    p.estado = txt_estado.Text;
                     if (caja.Checked == true)
                     {
                         cargo = "preceptor";
@@ -63,6 +64,7 @@ namespace ProyectoEscuela
                     {
                         cargo = "profesor";
                     }
+
                     DialogResult res = MessageBox.Show("¿Confirma guardar?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (res == DialogResult.No) { return; }
                     int idEmp = NegocioProfesor.insertar(p, cargo);
@@ -193,6 +195,7 @@ namespace ProyectoEscuela
             p.Telefono = txt_telefono.Text;
             p.Email = txt_email.Text;
             p.contraseña = txt_contraseña.Text;
+            p.estado = txt_estado.Text;
             DialogResult res = MessageBox.Show("¿Confirma modificar?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (res == DialogResult.No) { return; }
             int idEmp = NegocioProfesor.modificar(p);

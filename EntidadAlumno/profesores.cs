@@ -25,6 +25,7 @@ namespace EntidadProfesor
         public string Curso { get; set; }
         public string division { get; set; }
         public string contraseña { get; set; }
+        public string estado { get; set; }
 
     }
 }

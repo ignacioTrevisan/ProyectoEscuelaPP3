@@ -29,21 +29,23 @@ namespace ProyectoEscuela
 
         private void button1_Click(object sender, EventArgs e)
         {
-           
             List<Alumno> lis= new List<Alumno>();
             lis = Negocio.NegocioAlumnos.buscar("-","-",textBox1.Text);
-            if (lis[0].estado == "Activo")
-            {
-                int i = comboBox2.SelectedIndex;
-                Inscribir(textBox1.Text, cursos[i].Curso, cursos[i].Division, cursos[i].ciclo);
-                MessageBox.Show("Inscripcion hecha correctamente. ");
-                buscarCurso(0, cursos[i].Curso, cursos[i].Division, cursos[i].ciclo);
-            }
-            else 
-            {
-                MessageBox.Show("No se puede inscribir a un alumno en estado 'Inactivo', por favor modifique su estado en la seccion 'alumnos'");
-            }
-
+            
+                if (lis.Count > 0)
+                {
+                    if (lis[0].estado == "Activo")
+                    {
+                        int i = comboBox2.SelectedIndex;
+                        Inscribir(textBox1.Text, cursos[i].Curso, cursos[i].Division, cursos[i].ciclo);
+                        MessageBox.Show("Inscripcion hecha correctamente. ");
+                        buscarCurso(0, cursos[i].Curso, cursos[i].Division, cursos[i].ciclo);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se puede inscribir a un alumno en estado 'Inactivo', por favor modifique su estado en la seccion 'alumnos'");
+                    }
+                }
         }
         private void getCursos() 
         {
@@ -58,7 +60,23 @@ namespace ProyectoEscuela
 
         private void Inscribir(string dni, string curso, string division, int ciclo)
         {
-            Negocio.NegocioAlumnos.inscribir(dni, curso, division, ciclo);
+            float floatValue;
+            if (float.TryParse(dni, out floatValue))
+            {
+                if (dni.Length == 8 || dni.Length == 7)
+                {
+                    Negocio.NegocioAlumnos.inscribir(dni, curso, division, ciclo);
+                }
+                else 
+                {
+                    MessageBox.Show("En el dni ingrese un valor numerico de 8 o 7 digitos");
+                }
+            }
+            else
+            {
+                MessageBox.Show("En el dni ingrese un valor numerico");
+            }
+            
         }
 
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
@@ -71,34 +89,28 @@ namespace ProyectoEscuela
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txt_nombre.Text) || (string.IsNullOrEmpty(txt_apellido.Text)))
+            if (string.IsNullOrEmpty(txt_nombre.Text) && (string.IsNullOrEmpty(txt_apellido.Text)))
             {
-                MessageBox.Show("Ingrese nombre y apellido del alumno a buscar ");
+                MessageBox.Show("Ingrese nombre y/o apellido del alumno a buscar ");
 
             }
             else
             {
 
-                if (verificarExistencia() == true)
-                {
+                
                     Alumno a = new Alumno();
                     string nombre = Convert.ToString(txt_nombre.Text);
                     string apellido = txt_apellido.Text;
-                    string dni = "0";
-                    buscar(nombre, apellido, dni);
-                }
-                else
+                    alumnos = helpers.busqueda.buscar(nombre, apellido);
+                if (alumnos.Count > 0)
                 {
-                    MessageBox.Show("No existe el alumno " + txt_nombre.Text + " " + txt_apellido.Text);
+                    dataGridView1.DataSource = alumnos;
                 }
+
             }
         }
 
-        private void buscar(string nombre, string apellido, string dni)
-        {
-            alumnos = Negocio.NegocioAlumnos.buscar(nombre, apellido, dni);
-            dataGridView1.DataSource=alumnos;
-        }
+        
 
         public Boolean verificarExistencia()
         {

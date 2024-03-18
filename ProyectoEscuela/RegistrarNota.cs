@@ -108,6 +108,7 @@ namespace ProyectoEscuela
             if (textBox2.Text == "Nota final-trimestre" || textBox2.Text == "Nota final-diciembre" || textBox2.Text == "Nota final-febrero")
             {
                 MessageBox.Show("Este comentario es un comentario reservado para la carga de notas finales por etapa, por favor, cambielo. ");
+               
             }
             else 
             {
@@ -175,6 +176,8 @@ namespace ProyectoEscuela
             txt_condicion.Text = "";
             comboBox2.Items.Clear();
             comboBox2.Text = "";
+            comboBox3.Items.Clear();
+            comboBox3.Text = "";
             i = 0;
             getnotas();
             GetAlumnos();
@@ -183,7 +186,7 @@ namespace ProyectoEscuela
             {
                 if (alumnos.Count < 1)
                 {
-                    MessageBox.Show("No se encontraron datos, probablemente no tenga permisos para acceder a datos de esta materia y curso " + GlobalVariables.id);
+                    MessageBox.Show("No se encontraron alumnos registrados en este curso");
                 }
                 else
                 {

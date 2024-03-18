@@ -948,6 +948,43 @@ namespace DatosAlumnos
                 }
                 return listas;
             }
+
+        public static List<Alumno> buscarPorNombreOApellido(string nombre, string apellido, string query)
+        {
+            List<Alumno> ListaAlumnos = new List<Alumno>();
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(conString))
+
+            {
+                connection.Open();
+                SqlCommand command = new SqlCommand(query, connection);
+                SqlDataReader reader = command.ExecuteReader();
+
+                while (reader.Read())
+                {
+                    Alumno b = new Alumno();
+                    b.Nombre = Convert.ToString(reader["nombre"]);
+                    b.Dni = Convert.ToString(reader["dni"]);
+                    b.Apellido = Convert.ToString(reader["apellido"]);
+                    b.FechaNacimiento = Convert.ToDateTime(reader["fechaNacimiento"]);
+                    b.Email = Convert.ToString(reader["email"]);
+                    b.barrio = Convert.ToString(reader["barrio"]);
+                    b.calle = Convert.ToString(reader["calle"]);
+                    b.altura = Convert.ToString(reader["altura"]);
+                    b.edificio = Convert.ToString(reader["edificio"]);
+                    b.piso = Convert.ToString(reader["piso"]);
+                    b.numero_dpto = Convert.ToString(reader["numero_dpto"]);
+                    b.indicacion = Convert.ToString(reader["indicacion"]);
+                    b.estado = Convert.ToString(reader["estado"]);
+                    b.Telefono = Convert.ToString(reader["telefono"]);
+                    b.Id = Convert.ToInt32(reader["id"]);
+                    ListaAlumnos.Add(b);
+                }
+                connection.Close();
+                reader.Close();
+            }
+            return ListaAlumnos;
         }
+    }
     
 }

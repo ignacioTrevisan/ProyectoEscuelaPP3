@@ -258,67 +258,55 @@ namespace ProyectoEscuela
 
         private void btn_buscarAlumno_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty(txt_nombre.Text) || (string.IsNullOrEmpty(txt_apellido.Text)))
+            if (string.IsNullOrEmpty(txt_nombre.Text) && (string.IsNullOrEmpty(txt_apellido.Text)))
             {
-                MessageBox.Show("Ingrese nombre y apellido del alumno a buscar ");
+                MessageBox.Show("Ingrese nombre o apellido para buscar");
             }
             else 
             {
+                alumnos = helpers.busqueda.buscar(txt_nombre.Text, txt_apellido.Text);
+                if (alumnos.Count >0) 
+                {
+                    if (alumnos.Count < 2)
+                    {
+                        cargar(alumnos[0]);
+                        
+                        dataGridView2.DataSource = cursos;
 
-                if (verificarExistencia() == true)
-                {
-                    Alumno a = new Alumno();
-                    string nombre = Convert.ToString(txt_nombre.Text);
-                    string apellido = txt_apellido.Text;
-                    string dni = "0";
-                    buscar(nombre, apellido, dni);
-                }
-                else 
-                {
-                    MessageBox.Show("No existe el alumno " + txt_nombre.Text + " " + txt_apellido.Text);
+                        alumnos.Clear();
+                    }
+                    else
+                    {
+
+                        MessageBox.Show("Hubo mas de una coincidencia, por favor selecciona el alumno a buscar ");
+                        dataGridView1.Visible = true;
+                        dataGridView1.DataSource = alumnos;
+
+                    }
                 }
             }
+                
         }
-        public void buscar(string nombre, string apellido, string dni)
-        {
-            
-               
-                alumnos = Negocio.NegocioAlumnos.buscar(nombre, apellido, dni);
-               
-                if (alumnos.Count < 2)
-                {
-                    
-                    txt_nombre.Text = alumnos[0].Nombre;
-                    txt_apellido.Text = alumnos[0].Apellido;
-                    DateTime fecha = alumnos[0].FechaNacimiento;
-                    txt_fechaNacimiento.Value = alumnos[0].FechaNacimiento;
-                    txt_barrio.Text = alumnos[0].barrio;
-                    txt_calle.Text = alumnos[0].calle;
-                    txt_altura.Text = alumnos[0].altura;
-                    txt_edificio.Text = alumnos[0].edificio;
-                    txt_piso.Text = alumnos[0].piso;
-                    txt_numero_dpto.Text = alumnos[0].numero_dpto;
-                    txt_estado.Text = alumnos[0].estado;
-                    txt_telefono.Text = alumnos[0].Telefono;
-                    txt_email.Text = alumnos[0].Email;
-                    txt_dni.Text = alumnos[0].Dni;
-                    txt_indicacion.Text = alumnos[0].indicacion;
-                    cursos = Negocio.NegocioAlumnos.GetCursos(Convert.ToInt32(alumnos[0].Dni));
-                    dataGridView2.DataSource = cursos;
-                   
-                    alumnos.Clear();
-                }
-                else
-                {
-                    
-                    MessageBox.Show("Hubo mas de una coincidencia, por favor selecciona el alumno a buscar ");
-                    dataGridView1.Visible = true;
-                    dataGridView1.DataSource = alumnos;
-                   
-                }
 
-            }
-        
+        private void cargar(Alumno alumno)
+        {
+            txt_nombre.Text = alumno.Nombre;
+            txt_apellido.Text = alumno.Apellido;
+            DateTime fecha = alumno.FechaNacimiento;
+            txt_fechaNacimiento.Value = alumno.FechaNacimiento;
+            txt_barrio.Text = alumno.barrio;
+            txt_calle.Text = alumno.calle;
+            txt_altura.Text = alumno.altura;
+            txt_edificio.Text = alumno.edificio;
+            txt_piso.Text = alumno.piso;
+            txt_numero_dpto.Text = alumno.numero_dpto;
+            txt_estado.Text = alumno.estado;
+            txt_telefono.Text = alumno.Telefono;
+            txt_email.Text = alumno.Email;
+            txt_dni.Text = alumno.Dni;
+            txt_indicacion.Text = alumno.indicacion;
+            cursos = Negocio.NegocioAlumnos.GetCursos(Convert.ToInt32(alumno.Dni));
+        }
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -350,7 +338,9 @@ namespace ProyectoEscuela
                     string Apellido = alumnos[j].Apellido;
                     string Dni = alumnos[j].Dni;
                     
-                    buscar(Nombre, Apellido, Dni);
+                    List<Alumno> lista = Negocio.NegocioAlumnos.buscar(Nombre, Apellido, Dni);
+                    
+                    cargar(lista[0]);
                     dataGridView1.Visible = false;
                    
 
@@ -383,7 +373,8 @@ namespace ProyectoEscuela
                 
                 else if (verificarExistenciaDni() == true)
                     {
-                        buscar("-", "-", txt_dni.Text);
+                        List<Alumno> a = Negocio.NegocioAlumnos.buscar("-", "-", txt_dni.Text);
+                cargar(a[0]);
                     }
                     else
                     {

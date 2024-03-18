@@ -109,6 +109,7 @@ namespace ProyectoEscuela
 
         private void button2_Click(object sender, EventArgs e)
         {
+            panel3.Location = new Point(120, 84);
             panel1.Visible = false;
             panel2.Visible = false;
             panel3.Visible = true;
@@ -116,9 +117,11 @@ namespace ProyectoEscuela
 
         private void button5_Click(object sender, EventArgs e)
         {
+
             panel1.Visible = true;
             panel2.Visible = true;
             panel3.Visible = false;
+            panel3.Location = new Point(150, 257);
             string año = textBox1.Text;
             string division = textBox2.Text;
             Ciclo = textBox3.Text;
@@ -131,6 +134,8 @@ namespace ProyectoEscuela
             panel1.Visible = true;
             panel2.Visible = true;
             panel3.Visible = false;
+            panel3.Location = new Point(150, 257);
+
         }
 
         private void button3_Click(object sender, EventArgs e)

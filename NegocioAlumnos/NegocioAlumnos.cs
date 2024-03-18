@@ -79,15 +79,21 @@ namespace Negocio
         }
         public static List<Alumno> buscar(string nombre, string apellido, string dni)
         {
-            
-            try
+
+            float floatValue;
+            if (float.TryParse(dni, out floatValue))
             {
-                return AlumnosDatos.buscar(nombre, apellido, dni);
+                if (dni.Length == 8 || dni.Length == 7)
+                {
+                    return AlumnosDatos.buscar(nombre, apellido, dni);
+                }
+                else 
+                {
+                Console.WriteLine("por aca");
+                }
+                
             }
-            catch (Exception)
-            {
-                throw;
-            }
+            return AlumnosDatos.buscar(nombre, apellido, "0");
         }
         public static int registrarEstado(string estado, DateTime fecha, int dni, string curso, string division, int ciclo, string comentario)
             {
@@ -198,6 +204,11 @@ namespace Negocio
         public static List<string> getEtapas(string dni, string materia, int id, string año, string division, int ciclo)
         {
             return AlumnosDatos.getEtapas(dni, materia, id, año, division, ciclo);
+        }
+
+        public static List<Alumno> buscarPorNombreOApellido(string nombre, string apellido, string query)
+        {
+            return AlumnosDatos.buscarPorNombreOApellido(nombre, apellido, query);
         }
     }
    

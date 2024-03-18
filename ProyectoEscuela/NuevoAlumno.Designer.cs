@@ -272,7 +272,7 @@
             this.apellidoDataGridViewTextBoxColumn,
             this.dniDataGridViewTextBoxColumn});
             this.dataGridView1.DataSource = this.alumnoBindingSource;
-            this.dataGridView1.Location = new System.Drawing.Point(346, 188);
+            this.dataGridView1.Location = new System.Drawing.Point(355, 209);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.Size = new System.Drawing.Size(343, 146);
             this.dataGridView1.TabIndex = 25;

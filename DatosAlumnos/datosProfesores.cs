@@ -357,7 +357,7 @@ namespace DatosAlumnos
             }
         }
 
-        public static void eliminarRelacionProfMat(int idProfesor, string materia, string curso, string division)
+        public static void eliminarRelacionProfMat(int idProfesor, string materia, string curso, string division, string ciclo)
         {
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
             using (SqlConnection connection = new SqlConnection(conString))
@@ -368,6 +368,7 @@ namespace DatosAlumnos
                 command.Parameters.AddWithValue("@materia", materia);
                 command.Parameters.AddWithValue("@division", division);
                 command.Parameters.AddWithValue("@año", curso);
+                command.Parameters.AddWithValue("@ciclo", ciclo);
                 try
                 {
                     connection.Open();
@@ -670,6 +671,7 @@ namespace DatosAlumnos
                 command.Parameters.AddWithValue("@Telefono", p.Telefono);
                 command.Parameters.AddWithValue("@contraseña", p.contraseña);
                 command.Parameters.AddWithValue("@cargo", cargo);
+                command.Parameters.AddWithValue("@estado", p.estado);
                 try
                 {
                     con.Open();
@@ -709,6 +711,7 @@ namespace DatosAlumnos
                 command.Parameters.AddWithValue("@Telefono", p.Telefono);
                 command.Parameters.AddWithValue("@contraseña", p.contraseña);
                 command.Parameters.AddWithValue("@cargo", "Profesor");
+                command.Parameters.AddWithValue("@estado", p.estado);
                 try
                 {
                     con.Open();

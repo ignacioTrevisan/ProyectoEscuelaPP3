@@ -63,6 +63,8 @@
             this.label16 = new System.Windows.Forms.Label();
             this.txt_calle = new System.Windows.Forms.TextBox();
             this.button3 = new System.Windows.Forms.Button();
+            this.lbl_estado = new System.Windows.Forms.Label();
+            this.txt_estado = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -189,7 +191,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.label8.Location = new System.Drawing.Point(619, 38);
+            this.label8.Location = new System.Drawing.Point(620, 18);
             this.label8.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(188, 24);
@@ -199,7 +201,7 @@
             // txt_fechaNacimiento
             // 
             this.txt_fechaNacimiento.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.txt_fechaNacimiento.Location = new System.Drawing.Point(623, 65);
+            this.txt_fechaNacimiento.Location = new System.Drawing.Point(624, 45);
             this.txt_fechaNacimiento.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.txt_fechaNacimiento.Name = "txt_fechaNacimiento";
             this.txt_fechaNacimiento.Size = new System.Drawing.Size(185, 29);
@@ -208,7 +210,7 @@
             // txt_telefono
             // 
             this.txt_telefono.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.txt_telefono.Location = new System.Drawing.Point(623, 126);
+            this.txt_telefono.Location = new System.Drawing.Point(624, 106);
             this.txt_telefono.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.txt_telefono.Name = "txt_telefono";
             this.txt_telefono.Size = new System.Drawing.Size(171, 29);
@@ -218,7 +220,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.label9.Location = new System.Drawing.Point(619, 102);
+            this.label9.Location = new System.Drawing.Point(620, 82);
             this.label9.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(85, 24);
@@ -241,7 +243,7 @@
             // 
             this.caja.AutoSize = true;
             this.caja.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.caja.Location = new System.Drawing.Point(623, 168);
+            this.caja.Location = new System.Drawing.Point(642, 248);
             this.caja.Name = "caja";
             this.caja.Size = new System.Drawing.Size(137, 28);
             this.caja.TabIndex = 23;
@@ -408,12 +410,36 @@
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // lbl_estado
+            // 
+            this.lbl_estado.AutoSize = true;
+            this.lbl_estado.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
+            this.lbl_estado.Location = new System.Drawing.Point(620, 142);
+            this.lbl_estado.Name = "lbl_estado";
+            this.lbl_estado.Size = new System.Drawing.Size(68, 24);
+            this.lbl_estado.TabIndex = 55;
+            this.lbl_estado.Text = "Estado";
+            // 
+            // txt_estado
+            // 
+            this.txt_estado.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
+            this.txt_estado.FormattingEnabled = true;
+            this.txt_estado.Items.AddRange(new object[] {
+            "Habilitado",
+            "Deshabilitado"});
+            this.txt_estado.Location = new System.Drawing.Point(624, 166);
+            this.txt_estado.Name = "txt_estado";
+            this.txt_estado.Size = new System.Drawing.Size(184, 32);
+            this.txt_estado.TabIndex = 56;
+            // 
             // CrearProfesor
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(973, 442);
+            this.Controls.Add(this.txt_estado);
+            this.Controls.Add(this.lbl_estado);
             this.Controls.Add(this.txt_indicacion);
             this.Controls.Add(this.txt_numero_dpto);
             this.Controls.Add(this.txt_piso);
@@ -494,5 +520,7 @@
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox txt_calle;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Label lbl_estado;
+        private System.Windows.Forms.ComboBox txt_estado;
     }
 }
