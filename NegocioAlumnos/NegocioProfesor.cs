@@ -62,10 +62,10 @@ namespace NegocioAlumnos
             return datosProfesores.ConfigurarCursoProfesor(idProfesor, año, division, ciclo, materia, error);
         }
 
-        public static int modificar(profesor p)
+        public static int modificar(profesor p, string cargo)
         {
 
-            return datosProfesores.modificar(p);
+            return datosProfesores.modificar(p, cargo);
         }
 
         public static void eliminar(string text)

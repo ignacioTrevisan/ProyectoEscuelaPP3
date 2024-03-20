@@ -985,6 +985,65 @@ namespace DatosAlumnos
             }
             return ListaAlumnos;
         }
+
+        public static void quitar(string dni)
+        {
+            int idAlumnoCreado = 0;
+
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(conString))
+            {
+
+                SqlCommand command = new SqlCommand("quitarAlumno", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+                command.Parameters.AddWithValue("@dni", dni);
+                try
+                {
+
+                    connection.Open();
+                    idAlumnoCreado = Convert.ToInt32(command.ExecuteScalar());
+
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+
+            }
+        }
+
+        public static bool verificarQueNoEsteInscripto(string dni, string curso, string division, int ciclo)
+        {
+            string query = "select count(*) from inscripciones i, Cursos c where i.dniAlumno = @dni and i.idCurso = c.id and c.Estado='1'";
+            int a = 0;
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(conString))
+
+            {
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@dni", dni);
+                try
+                {
+                    connection.Open();
+                    a = Convert.ToInt32(command.ExecuteScalar());
+                    connection.Close();
+                }
+                catch (Exception ex)
+                {
+                        Console.WriteLine("Ocurrió un error al verificar la inscripción del alumno: " + ex.Message);
+
+                }
+
+            }
+            if (a > 0)
+            {
+                return true;
+            }
+            else 
+            {
+                return false;
+            }
+        }
     }
     
 }

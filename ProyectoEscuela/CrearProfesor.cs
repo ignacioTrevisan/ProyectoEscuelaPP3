@@ -56,14 +56,8 @@ namespace ProyectoEscuela
                     p.Email = txt_email.Text;
                     p.contraseña = txt_contraseña.Text;
                     p.estado = txt_estado.Text;
-                    if (caja.Checked == true)
-                    {
-                        cargo = "preceptor";
-                    }
-                    else
-                    {
-                        cargo = "profesor";
-                    }
+                    cargo = comboBox1.Text;
+                    
 
                     DialogResult res = MessageBox.Show("¿Confirma guardar?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                     if (res == DialogResult.No) { return; }
@@ -196,9 +190,10 @@ namespace ProyectoEscuela
             p.Email = txt_email.Text;
             p.contraseña = txt_contraseña.Text;
             p.estado = txt_estado.Text;
+            string cargo = comboBox1.Text;
             DialogResult res = MessageBox.Show("¿Confirma modificar?", "Confirmar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (res == DialogResult.No) { return; }
-            int idEmp = NegocioProfesor.modificar(p);
+            int idEmp = NegocioProfesor.modificar(p, cargo);
             MessageBox.Show("Se generó el modifico con el dni:" + p.Dni);
             limpiarControles();
         }

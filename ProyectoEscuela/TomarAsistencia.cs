@@ -126,6 +126,7 @@ namespace ProyectoEscuela
                 else
                 {
                     MessageBox.Show("No se encuentra este alumno, ten en cuenta de seleccionar bien el curso ");
+                    buscarCurso();
                 }
             }
             else
@@ -194,7 +195,16 @@ namespace ProyectoEscuela
         {
             string estado = "ausente";
             string comentario = textBox2.Text;
-            int dni = Convert.ToInt32(label1.Text);
+            int dni = 0;
+            try
+            {
+                dni = Convert.ToInt32(label1.Text);
+            }
+            catch (Exception ex) 
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            
             DateTime fecha = dateTimePicker1.Value.Date;
             int  a = comboBox1.SelectedIndex;
             string curso = lista[a].Curso;

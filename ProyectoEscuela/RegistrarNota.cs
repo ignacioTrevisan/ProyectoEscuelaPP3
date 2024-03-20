@@ -92,14 +92,14 @@ namespace ProyectoEscuela
             return notas = NotasNegocio.GetNotas(curso, division, materia, ciclo);
         }
 
-        private List <Alumno>GetAlumnos() 
+        private void GetAlumnos() 
         {
             int i = comboBox1.SelectedIndex;
             materia = lista[i].Materia;
             curso = lista[i].Curso;
             division = lista[i].Division;
             string dni = "0";
-            return alumnos = Negocio.NegocioAlumnos.GetXCurso(dni, curso, division, GlobalVariables.ciclo);
+            alumnos = Negocio.NegocioAlumnos.GetXCurso(dni, curso, division, GlobalVariables.ciclo);
         }
 
 
@@ -145,8 +145,12 @@ namespace ProyectoEscuela
         {
             int id = comboBox2.SelectedIndex;
             int ciclo = GlobalVariables.ciclo;
-            alumno = NotasNegocio.GetNotasXAlumno(alumnos[id].Dni, materia, GlobalVariables.id, alumnos[id].Curso, alumnos[id].division, ciclo);
-            
+            if (id > -1) 
+            {
+                alumno = NotasNegocio.GetNotasXAlumno(alumnos[id].Dni, materia, GlobalVariables.id, alumnos[id].Curso, alumnos[id].division, ciclo);
+
+            }
+
             if (comboBox2.Text != "")
             {
                 bindingSource1.DataSource = null;
@@ -160,7 +164,7 @@ namespace ProyectoEscuela
             else 
             {
                 MessageBox.Show("Seleccione un alumno");
-                comboBox3.Text = "";
+                comboBox3.Text = "-";
             }
             VerEstado();
 
@@ -176,8 +180,7 @@ namespace ProyectoEscuela
             txt_condicion.Text = "";
             comboBox2.Items.Clear();
             comboBox2.Text = "";
-            comboBox3.Items.Clear();
-            comboBox3.Text = "";
+            comboBox3.Text = "-";
             i = 0;
             getnotas();
             GetAlumnos();
@@ -211,10 +214,15 @@ namespace ProyectoEscuela
         private void comboBox2_SelectedIndexChanged(object sender, EventArgs e)
         {
             
+            
+        }
+        private void BusquedaDeAlumno() 
+        {
             actualizarPorAlumno();
             int id = comboBox2.SelectedIndex;
             int ciclo = GlobalVariables.ciclo;
             alumno = NotasNegocio.GetNotasXAlumno(alumnos[id].Dni, materia, GlobalVariables.id, alumnos[id].Curso, alumnos[id].division, ciclo);
+            dataGridView1.DataSource = alumno;
             etapasDisponibles(alumno);
         }
 
@@ -306,7 +314,7 @@ namespace ProyectoEscuela
             button2.Visible = true;
             button2.Enabled = false;
             btnConfirmar.Enabled = false;
-            comboBox3.Text = "";
+            comboBox3.Text = "-";
             int id = comboBox2.SelectedIndex;
             int ciclo = GlobalVariables.ciclo;
             alumno = NotasNegocio.GetNotasXAlumno(alumnos[id].Dni, materia, GlobalVariables.id, alumnos[id].Curso, alumnos[id].division, ciclo);
@@ -383,7 +391,29 @@ namespace ProyectoEscuela
         {
             btnConfirmar.Enabled = true;
             button2.Enabled = true;
-            verificarPermiso();
+
+            if (comboBox3.Text != "-")
+            {
+                verificarPermiso();
+                getNotasXEtapas();
+            }
+            else 
+            {
+                BusquedaDeAlumno();
+            }
+        }
+
+        private void getNotasXEtapas()
+        {
+            string dni = alumnos[comboBox2.SelectedIndex].Dni;
+            int i = comboBox2.SelectedIndex;
+            curso = lista[i].Curso;
+            division = lista[i].Division;
+            ciclo = lista[i].ciclo;
+            materia = lista[i].Materia;
+            etapa = comboBox3.Text;
+            notas = NotasNegocio.getNotasXEtapa(dni, curso, division, ciclo, etapa, materia);
+            dataGridView1.DataSource = notas;
         }
 
         private void cBox3()
@@ -472,10 +502,14 @@ namespace ProyectoEscuela
                 }
                 else
                 {
-                    MessageBox.Show("No posee permisos para registrar notas en esta etapa. Finalizo el " + hasta.ToString("d/M/yyyy") + " Soliciteselo al director. ");
-                    string a = NegocioProfesor.cambiarPermisosParaRegistrarNotas(1, etapa, dni, curso, division, ciclo.ToString(), materia, "Deshabilitado");
-                    btnConfirmar.Enabled = false;
-                    button2.Enabled = false;
+                    if (comboBox3.Text != "-") 
+                    {
+                        MessageBox.Show("No posee permisos para registrar notas en esta etapa. Finalizo el " + hasta.ToString("d/M/yyyy") + " Soliciteselo al director. ");
+                        string a = NegocioProfesor.cambiarPermisosParaRegistrarNotas(1, etapa, dni, curso, division, ciclo.ToString(), materia, "Deshabilitado");
+                        btnConfirmar.Enabled = false;
+                        button2.Enabled = false;
+                    }
+                   
                 }
             }
             else
@@ -515,8 +549,7 @@ namespace ProyectoEscuela
 
         private void etapasDisponibles(List<Nota> alumno)
         {
-            comboBox3.Items.Clear();
-            comboBox3.Text = "";
+            comboBox3.Text = "-";
             int cantidad = 0;
             string[] todasLasEtapas = new string[5]; 
 
@@ -527,11 +560,7 @@ namespace ProyectoEscuela
             todasLasEtapas[4] = "Semana extra-febrero";
                    
             int o = 0;
-            while (o <= 4) 
-            {
-                comboBox3.Items.Add(todasLasEtapas[o]);
-                o++;
-            }
+           
             
         }
 

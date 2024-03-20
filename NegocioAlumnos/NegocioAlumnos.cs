@@ -210,6 +210,17 @@ namespace Negocio
         {
             return AlumnosDatos.buscarPorNombreOApellido(nombre, apellido, query);
         }
+
+        public static void quitar(string dni)
+        {
+            AlumnosDatos.quitar(dni);
+
+        }
+
+        public static bool verificarQueNoEsteInscripto(string dni, string curso, string division, int ciclo)
+        {
+            return AlumnosDatos.verificarQueNoEsteInscripto(dni, curso, division, ciclo);
+        }
     }
    
 }

@@ -45,7 +45,6 @@
             this.txt_telefono = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
-            this.caja = new System.Windows.Forms.CheckBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.txt_indicacion = new System.Windows.Forms.TextBox();
@@ -65,6 +64,8 @@
             this.button3 = new System.Windows.Forms.Button();
             this.lbl_estado = new System.Windows.Forms.Label();
             this.txt_estado = new System.Windows.Forms.ComboBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -239,17 +240,6 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // caja
-            // 
-            this.caja.AutoSize = true;
-            this.caja.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.caja.Location = new System.Drawing.Point(642, 248);
-            this.caja.Name = "caja";
-            this.caja.Size = new System.Drawing.Size(137, 28);
-            this.caja.TabIndex = 23;
-            this.caja.Text = "Es preceptor";
-            this.caja.UseVisualStyleBackColor = true;
-            // 
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
@@ -414,7 +404,7 @@
             // 
             this.lbl_estado.AutoSize = true;
             this.lbl_estado.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
-            this.lbl_estado.Location = new System.Drawing.Point(620, 142);
+            this.lbl_estado.Location = new System.Drawing.Point(620, 198);
             this.lbl_estado.Name = "lbl_estado";
             this.lbl_estado.Size = new System.Drawing.Size(68, 24);
             this.lbl_estado.TabIndex = 55;
@@ -427,10 +417,32 @@
             this.txt_estado.Items.AddRange(new object[] {
             "Habilitado",
             "Deshabilitado"});
-            this.txt_estado.Location = new System.Drawing.Point(624, 166);
+            this.txt_estado.Location = new System.Drawing.Point(624, 222);
             this.txt_estado.Name = "txt_estado";
             this.txt_estado.Size = new System.Drawing.Size(184, 32);
             this.txt_estado.TabIndex = 56;
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
+            this.label7.Location = new System.Drawing.Point(627, 138);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(61, 24);
+            this.label7.TabIndex = 57;
+            this.label7.Text = "Cargo";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F);
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Profesor",
+            "Preceptor"});
+            this.comboBox1.Location = new System.Drawing.Point(624, 165);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(184, 32);
+            this.comboBox1.TabIndex = 58;
             // 
             // CrearProfesor
             // 
@@ -438,6 +450,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.ClientSize = new System.Drawing.Size(973, 442);
+            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.label7);
             this.Controls.Add(this.txt_estado);
             this.Controls.Add(this.lbl_estado);
             this.Controls.Add(this.txt_indicacion);
@@ -457,7 +471,6 @@
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
-            this.Controls.Add(this.caja);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.txt_telefono);
             this.Controls.Add(this.label9);
@@ -502,7 +515,6 @@
         private System.Windows.Forms.TextBox txt_telefono;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.CheckBox caja;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.TextBox txt_indicacion;
@@ -522,5 +534,7 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label lbl_estado;
         private System.Windows.Forms.ComboBox txt_estado;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.ComboBox comboBox1;
     }
 }

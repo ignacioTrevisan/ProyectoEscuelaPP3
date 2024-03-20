@@ -237,6 +237,52 @@ namespace DatosNotas
             }
         }
 
+        public static List<Nota> getNotasXEtapa(string dni, string curso, string division, int ciclo, string etapa, string materia)
+        {
+            List<Nota> notas = new List<Nota>();
+            string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
+            using (SqlConnection connection = new SqlConnection(conString))
+            {
+                SqlCommand command = new SqlCommand("getNotasXEtapas", connection);
+                command.CommandType = System.Data.CommandType.StoredProcedure;
+
+                command.Parameters.AddWithValue("@dni", dni);
+                command.Parameters.AddWithValue("@año", curso);
+                command.Parameters.AddWithValue("@division", division);
+                command.Parameters.AddWithValue("@ciclo", ciclo);
+                command.Parameters.AddWithValue("@etapa", etapa);
+                command.Parameters.AddWithValue("@materia", materia);
+
+                try
+                {
+                    connection.Open();
+                    SqlDataReader reader = command.ExecuteReader();
+
+
+                    while (reader.Read())
+                    {
+                        Nota n = new Nota();
+                        n.id = Convert.ToInt16(reader["ID"]);
+                        n.Dni = Convert.ToString(reader["DniAlumno"]);
+                        n.Nombre = Convert.ToString(reader["nombre"]);
+                        n.Apellido = Convert.ToString(reader["apellido"]);
+                        n.Calificacion = Convert.ToString(reader["nota"]);
+                        n.comentario = Convert.ToString(reader["Comentario"]);
+                        n.etapa = Convert.ToString(reader["etapa"]);
+                        n.fecha = Convert.ToString(reader["fecha"]);
+                        notas.Add(n);
+                    }
+
+                    reader.Close();
+                }
+                catch (Exception)
+                {
+                    throw;
+                }
+                return notas;
+            }
+        }
+
         public static int registroNotas(string materia, string alumno, string nota, int profesor, DateTime fecha, string comentario, string curso, string division, int ciclo, string etapa)
         {
             int idAlumnoCreado = 0;

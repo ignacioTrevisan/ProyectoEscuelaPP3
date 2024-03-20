@@ -48,5 +48,10 @@ namespace NotasAlumnos
         {
             return NotasDatos.GetMateriasxCurso(curso, division, ciclo, dnii);
         }
+
+        public static List<Nota> getNotasXEtapa(string dni, string curso, string division, int ciclo, string etapa, string materia)
+        {
+            return NotasDatos.getNotasXEtapa(dni, curso, division, ciclo, etapa, materia);
+        }
     }
 }

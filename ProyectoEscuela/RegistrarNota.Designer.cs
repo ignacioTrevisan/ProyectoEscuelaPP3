@@ -232,11 +232,26 @@
             // 
             // comboBox3
             // 
+            this.comboBox3.AutoCompleteCustomSource.AddRange(new string[] {
+            "-",
+            "Primer Trimestre",
+            "Segundo Trimestre",
+            "Tercer Trimestre",
+            "Semana extra-diciembre",
+            "Semana extra-febrero"});
             this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "-",
+            "Primer trimestre",
+            "Segundo trimestre",
+            "Tercer trimestre",
+            "Semana extra-diciembre",
+            "Semana extra-febrero"});
             this.comboBox3.Location = new System.Drawing.Point(394, 84);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(176, 21);
             this.comboBox3.TabIndex = 20;
+            this.comboBox3.Text = "-";
             this.comboBox3.SelectedIndexChanged += new System.EventHandler(this.comboBox3_SelectedIndexChanged);
             // 
             // label6

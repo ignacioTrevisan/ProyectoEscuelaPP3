@@ -140,7 +140,6 @@ namespace ProyectoEscuela
             }
             else if (modo == 3) 
             {
-                MessageBox.Show(estado+  etapa + modo);
                 MessageBox.Show(NegocioProfesor.cambiarPermisosParaRegistrarNotas(estado, etapa, modo));
 
             }

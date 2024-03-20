@@ -224,7 +224,7 @@ namespace DatosAlumnos
                     connection.Open();
                     int idAlumnoCreado = Convert.ToInt32(command.ExecuteScalar());
                     connection.Close();
-                    error = "Insercion exitosa. ";
+                    error = "Modificacion exitosa. ";
                     return error;
                 }
                 catch (Exception ex)
@@ -687,7 +687,7 @@ namespace DatosAlumnos
 
         }
 
-        public static int modificar(profesor p)
+        public static int modificar(profesor p, string cargo)
         {
             int idAlumnoCreado = 0;
             string conString = System.Configuration.ConfigurationManager.ConnectionStrings["conexionDB"].ConnectionString;
@@ -710,7 +710,7 @@ namespace DatosAlumnos
                 command.Parameters.AddWithValue("@indicacion", p.indicacion);
                 command.Parameters.AddWithValue("@Telefono", p.Telefono);
                 command.Parameters.AddWithValue("@contraseña", p.contraseña);
-                command.Parameters.AddWithValue("@cargo", "Profesor");
+                command.Parameters.AddWithValue("@cargo", cargo);
                 command.Parameters.AddWithValue("@estado", p.estado);
                 try
                 {

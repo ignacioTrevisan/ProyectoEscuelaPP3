@@ -50,6 +50,8 @@
             this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -64,7 +66,7 @@
             "Cambiar permiso para todos los cursos"});
             this.txt_opcion.Location = new System.Drawing.Point(22, 38);
             this.txt_opcion.Name = "txt_opcion";
-            this.txt_opcion.Size = new System.Drawing.Size(211, 21);
+            this.txt_opcion.Size = new System.Drawing.Size(269, 21);
             this.txt_opcion.TabIndex = 0;
             this.txt_opcion.SelectedIndexChanged += new System.EventHandler(this.txt_opcion_SelectedIndexChanged);
             // 
@@ -84,9 +86,9 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(21, 19);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(95, 13);
+            this.label1.Size = new System.Drawing.Size(232, 13);
             this.label1.TabIndex = 2;
-            this.label1.Text = "Seleccione opcion";
+            this.label1.Text = "Seleccione periodo a habilitar para cargar notas";
             // 
             // lbl_curso
             // 
@@ -305,12 +307,32 @@
             this.label2.TabIndex = 0;
             this.label2.Text = "accion";
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(56, 219);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(42, 13);
+            this.label5.TabIndex = 20;
+            this.label5.Text = "Manual";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(56, 9);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(60, 13);
+            this.label6.TabIndex = 21;
+            this.label6.Text = "Automatico";
+            // 
             // PermisosParaRegistrarNotas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.ClientSize = new System.Drawing.Size(800, 528);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Name = "PermisosParaRegistrarNotas";
@@ -320,6 +342,7 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -347,5 +370,7 @@
         private System.Windows.Forms.ComboBox comboBox2;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label label6;
     }
 }
